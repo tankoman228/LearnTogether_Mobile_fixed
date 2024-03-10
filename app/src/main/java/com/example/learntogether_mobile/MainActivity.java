@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Debug;
 import android.util.Log;
 
+import com.example.learntogether_mobile.API.Requests.Comments;
 import com.example.learntogether_mobile.API.Requests.LoginRequests;
 import com.example.learntogether_mobile.API.Responses.LoginResponses;
 import com.example.learntogether_mobile.API.RetrofitRequest;
@@ -21,26 +22,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        LoginRequests.Login request = new LoginRequests.Login() {{
-            username = "tank228";
-            password = "123";
+        Comments.GetCommentsRequest request = new Comments.GetCommentsRequest() {{
+            sessionToken="1";
+            objectId=5;
         }};
 
         RetrofitRequest r = new RetrofitRequest();
-        Call<LoginResponses.Login> call = r.apiService.login(request);
-        call.enqueue(new Callback<LoginResponses.Login>() {
+        Call<com.example.learntogether_mobile.API.Responses.Comments.GetCommentsResponse> call = r.apiService.get_comments(request);
+        call.enqueue(new Callback<com.example.learntogether_mobile.API.Responses.Comments.GetCommentsResponse>() {
             @Override
-            public void onResponse(Call<LoginResponses.Login> call, Response<LoginResponses.Login> response) {
-                Log.d("API", response.body().result);
-                try {
-                    Log.d("API", response.body().token);
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
+            public void onResponse(Call<com.example.learntogether_mobile.API.Responses.Comments.GetCommentsResponse> call, Response<com.example.learntogether_mobile.API.Responses.Comments.GetCommentsResponse> response) {
+
+                java.util.List<com.example.learntogether_mobile.API.Responses.Comments.Comment> comments = response.body().comments;
+                for (int i = 0; i < comments.size(); i++) {
+                    Log.d("API", comments.get(i).author);
+                    Log.d("API", comments.get(i).dateTime);
+                    Log.d("API", comments.get(i).text);
                 }
             }
+
             @Override
-            public void onFailure(Call<LoginResponses.Login> call, Throwable t) {
+            public void onFailure(Call<com.example.learntogether_mobile.API.Responses.Comments.GetCommentsResponse> call, Throwable t) {
                 Log.d("API", t.getMessage());
             }
         });
