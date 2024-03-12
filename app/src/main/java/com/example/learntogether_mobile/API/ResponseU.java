@@ -17,6 +17,9 @@ public class ResponseU {
     @SerializedName("Success")
     public boolean Success;
 
+    @SerializedName("Comments")
+    public List<ListU> Comments;
+
     @SerializedName("Asks")
     public List<ListU> Asks;
 

@@ -9,6 +9,9 @@ import com.google.gson.annotations.SerializedName;
  * Ещё раз, класс СГЕНЕРИРОВАН СКРИПТАМИ, не человеком, разбираться в этом болоте не нужно!
  */
 public class RequestU {
+    @SerializedName("session_token")
+    public String session_token;
+
     @SerializedName("id_object")
     public int id_object;
 
