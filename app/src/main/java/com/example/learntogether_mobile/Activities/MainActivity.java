@@ -1,4 +1,4 @@
-package com.example.learntogether_mobile;
+package com.example.learntogether_mobile.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,10 +6,8 @@ import android.os.Bundle;
 import android.os.Debug;
 import android.util.Log;
 
-import com.example.learntogether_mobile.API.Requests.Comments;
-import com.example.learntogether_mobile.API.Requests.LoginRequests;
-import com.example.learntogether_mobile.API.Responses.LoginResponses;
 import com.example.learntogether_mobile.API.RetrofitRequest;
+import com.example.learntogether_mobile.R;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+/*
         Comments.GetCommentsRequest request = new Comments.GetCommentsRequest() {{
             sessionToken="1";
             objectId=5;
@@ -45,6 +43,6 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(Call<com.example.learntogether_mobile.API.Responses.Comments.GetCommentsResponse> call, Throwable t) {
                 Log.d("API", t.getMessage());
             }
-        });
+        });*/
     }
 }
