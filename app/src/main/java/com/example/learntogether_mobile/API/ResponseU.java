@@ -47,6 +47,9 @@ public class ResponseU {
     @SerializedName("Token")
     public String Token;
 
+    @SerializedName("List")
+    public List<String> stringList;
+
     @SerializedName("NotificationPort")
     public int NotificationPort;
 }

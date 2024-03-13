@@ -17,6 +17,9 @@ public interface ApiServiceInterface {
     @POST("/comments/get_comments")
     Call<ResponseU> get_comments(@Body RequestU request);
 
+    @POST("/notifications/check_notifications")
+    Call<ResponseU> check_notifications(@Body RequestU request);
+
     @POST("/comments/add_comment")
     Call<ResponseU> add_comment(@Body RequestU request);
 
