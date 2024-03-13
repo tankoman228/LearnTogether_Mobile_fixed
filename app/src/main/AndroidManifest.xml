@@ -19,10 +19,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".Register"
+            android:name=".Activities.Register"
             android:exported="false" />
         <activity
-            android:name=".Login"
+            android:name=".Activities.Login"
             android:exported="false" />
         <activity
             android:name=".Activities.MainActivity"

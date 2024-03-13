@@ -15,6 +15,15 @@ public class RequestU {
     @SerializedName("id_object")
     public int id_object;
 
+    @SerializedName("username")
+    public String username;
+
+    @SerializedName("token")
+    public String token;
+
+    @SerializedName("password")
+    public String password;
+
     @SerializedName("text")
     public String text;
 
@@ -89,4 +98,7 @@ public class RequestU {
 
     @SerializedName("recovery_contact")
     public String recovery_contact;
+
+    @SerializedName("contact")
+    public String contact;
 }
