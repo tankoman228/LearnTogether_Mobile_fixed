@@ -4,26 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray3"
+    android:background="@color/blue"
     tools:context=".MainActivity">
-
-    <EditText
-        android:id="@+id/etServerAddress"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:fontFamily="sans-serif-medium"
-        android:hint="Address of server"
-        android:inputType="text"
-        android:text="192.168.3.73:8000"
-        android:textAlignment="center"
-        android:textColor="@color/red_logo"
-        android:textColorHint="@color/red"
-        android:textSize="34sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -37,7 +19,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.24000001" />
+        app:layout_constraintVertical_bias="0.24000001"
+        app:srcCompat="@drawable/logo" />
 
     <android.widget.Button
         android:id="@+id/btnRegister"
@@ -46,7 +29,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
-        android:background="@drawable/button_bg_red"
+        android:background="@drawable/button_bg_menu"
         android:fontFamily="sans-serif-black"
         android:text="Register"
         android:textColor="@color/white"
@@ -62,7 +45,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="125dp"
-        android:background="@drawable/button_bg_red"
+        android:background="@drawable/button_bg_menu"
         android:fontFamily="sans-serif-black"
         android:text="Login"
         android:textColor="@color/white"
@@ -82,7 +65,7 @@
         android:fontFamily="sans-serif-black"
         android:text="Learn Together"
         android:textAlignment="center"
-        android:textColor="@color/red_logo"
+        android:textColor="@color/black2"
         android:textSize="48sp"
         app:layout_constraintEnd_toEndOf="@+id/imageView2"
         app:layout_constraintStart_toStartOf="@+id/imageView2"
@@ -90,10 +73,12 @@
 
     <ImageButton
         android:id="@+id/imageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80sp"
+        android:layout_height="80sp"
+        android:backgroundTint="@color/blue"
+        android:scaleType="fitCenter"
         android:src="@android:drawable/ic_menu_info_details"
-        tools:layout_editor_absoluteX="25dp"
-        tools:layout_editor_absoluteY="107dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
