@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/black2">
+
+    <TextView
+        android:id="@+id/tvUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="8dp"
+        android:text="USERNAME"
+        android:textColor="@color/gray"
+        android:textSize="30sp"
+        app:layout_constraintStart_toEndOf="@+id/imageButton2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvWhen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="17.03.2024"
+        android:textColor="@color/gray"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/tvUsername"
+        app:layout_constraintTop_toBottomOf="@+id/tvUsername" />
+
+    <ImageButton
+        android:id="@+id/imageView"
+        android:layout_width="60sp"
+        android:layout_height="60sp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/black2"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/tvWhen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_delete" />
+
+    <ImageView
+        android:id="@+id/ivImage"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="80dp"
+        android:scaleType="fitStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Header (title)"
+        android:textColor="@color/white"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvWhen" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="60sp"
+        android:layout_height="60sp"
+        android:layout_marginStart="4dp"
+        android:backgroundTint="@color/black2"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@+id/tvWhen"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvUsername"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="2/3"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivImage"
+        app:layout_constraintTop_toBottomOf="@+id/ibPrevious" />
+
+    <ImageButton
+        android:id="@+id/ibPrevious"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/black2"
+        android:rotation="180"
+        app:layout_constraintEnd_toEndOf="@+id/ibNext"
+        app:layout_constraintStart_toStartOf="@+id/ibNext"
+        app:layout_constraintTop_toBottomOf="@+id/ibNext"
+        app:srcCompat="@android:drawable/ic_media_play" />
+
+    <ImageButton
+        android:id="@+id/ibNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/black2"
+        app:layout_constraintEnd_toEndOf="@+id/tvNum"
+        app:layout_constraintStart_toStartOf="@+id/tvNum"
+        app:layout_constraintTop_toTopOf="@+id/ivImage"
+        app:srcCompat="@android:drawable/ic_media_play" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="TextView гшргш уке лукшщге щшкуг ещшукге щшгку егкущшг укщшгеку щшгкущш егкущше гщшкуге щшукг еукге щшукгещшукге 34890ег8934 г8934ег ку890ег о9к04угошщу ог9к403уг ощшакву ощшкуог щшап 9к0уго 0шао щшкуог 9щш4ку5 ощшкуап о89щшк4 огщшко щш4 ог9щ0ш54у го89щ0ш ог щ45ш"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/ibPrevious"
+        app:layout_constraintStart_toStartOf="@+id/ivImage"
+        app:layout_constraintTop_toBottomOf="@+id/ivImage" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="0dp"
+        android:layout_height="14dp"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="@color/blue"
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="@+id/textView8"
+        app:layout_constraintStart_toStartOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
