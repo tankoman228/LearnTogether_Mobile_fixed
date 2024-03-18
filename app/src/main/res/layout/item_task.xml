@@ -41,19 +41,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_delete" />
 
-    <ImageView
-        android:id="@+id/ivImage"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="80dp"
-        android:scaleType="fitStart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
@@ -79,50 +66,18 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/tvNum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text="2/3"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/ivImage"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivImage"
-        app:layout_constraintTop_toBottomOf="@+id/ibPrevious" />
-
-    <ImageButton
-        android:id="@+id/ibPrevious"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="@color/black2"
-        android:rotation="180"
-        app:layout_constraintEnd_toEndOf="@+id/ibNext"
-        app:layout_constraintStart_toStartOf="@+id/ibNext"
-        app:layout_constraintTop_toBottomOf="@+id/ibNext"
-        app:srcCompat="@android:drawable/ic_media_play" />
-
-    <ImageButton
-        android:id="@+id/ibNext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/black2"
-        app:layout_constraintEnd_toEndOf="@+id/tvNum"
-        app:layout_constraintStart_toStartOf="@+id/tvNum"
-        app:layout_constraintTop_toTopOf="@+id/ivImage"
-        app:srcCompat="@android:drawable/ic_media_play" />
-
-    <TextView
         android:id="@+id/textView8"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:text="Text about this new. Something like: &quot;Now every student can be destudentificated after skipping homework and lessons. Info from OlegOvnovsiy (not govnovskiy, ovnovskiy), learn, LEARN, JUST F***ING LEARN!!!&quot;"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/ibPrevious"
-        app:layout_constraintStart_toStartOf="@+id/ivImage"
-        app:layout_constraintTop_toBottomOf="@+id/ivImage" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDeadline" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -145,14 +100,14 @@
     <LinearLayout
         android:id="@+id/layoutRate"
         android:layout_width="0dp"
-        android:layout_height="40sp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8">
+        app:layout_constraintTop_toBottomOf="@+id/btnWatchJoined">
 
         <Button
             android:id="@+id/btn1"
@@ -252,5 +207,40 @@
         app:layout_constraintEnd_toStartOf="@+id/tvCommentsNum"
         app:layout_constraintStart_toStartOf="@+id/progressBar"
         app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+
+    <android.widget.Button
+        android:id="@+id/btnMyStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="40sp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/outlined_blue_button"
+        android:text="My status"
+        android:textColor="@color/blue"
+        app:icon="@drawable/note_2"
+        app:layout_constraintStart_toStartOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+    <android.widget.Button
+        android:id="@+id/btnWatchJoined"
+        android:layout_width="wrap_content"
+        android:layout_height="40sp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/outlined_blue_button"
+        android:text="Watch Joined"
+        android:textColor="@color/blue"
+        app:icon="@drawable/profile_2user"
+        app:layout_constraintStart_toEndOf="@+id/btnMyStatus"
+        app:layout_constraintTop_toTopOf="@+id/btnMyStatus" />
+
+    <TextView
+        android:id="@+id/tvDeadline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Deadline: 18.03.2024"
+        android:textColor="@color/red"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="@+id/tvTitle"
+        app:layout_constraintStart_toStartOf="@+id/tvTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
