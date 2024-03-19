@@ -114,7 +114,7 @@
         app:srcCompat="@android:drawable/ic_media_play" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/tvTextDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -152,7 +152,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8">
+        app:layout_constraintTop_toBottomOf="@+id/tvTextDescription">
 
         <Button
             android:id="@+id/btn1"

@@ -1,6 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="@color/black2">
+
+    <TextView
+        android:id="@+id/tvUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="8dp"
+        android:text="USERNAME"
+        android:textColor="@color/gray"
+        android:textSize="30sp"
+        app:layout_constraintStart_toEndOf="@+id/ibAvatar"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvWhen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="17.03.2024"
+        android:textColor="@color/gray"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/tvUsername"
+        app:layout_constraintTop_toBottomOf="@+id/tvUsername" />
+
+    <ImageButton
+        android:id="@+id/imageView"
+        android:layout_width="60sp"
+        android:layout_height="60sp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/black2"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/tvWhen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_delete" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Header (title)"
+        android:textColor="@color/white"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvWhen" />
+
+    <ImageButton
+        android:id="@+id/ibAvatar"
+        android:layout_width="60sp"
+        android:layout_height="60sp"
+        android:layout_marginStart="4dp"
+        android:backgroundTint="@color/black2"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@+id/tvWhen"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvUsername"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvTextDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="Text about this new. Something like: &quot;Now every student can be destudentificated after skipping homework and lessons. Info from OlegOvnovsiy (not govnovskiy, ovnovskiy), learn, LEARN, JUST F***ING LEARN!!!&quot;"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+    <ImageButton
+        android:id="@+id/ibComments"
+        android:layout_width="40sp"
+        android:layout_height="40sp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/black2"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:srcCompat="@drawable/messages_2"
+        tools:layout_editor_absoluteX="355dp" />
+
+    <TextView
+        android:id="@+id/tvCommentsNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:text="30"
+        android:textColor="@color/blue"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ibComments"
+        app:layout_constraintEnd_toStartOf="@+id/ibComments"
+        app:layout_constraintTop_toTopOf="@+id/ibComments" />
+
+    <Button
+        android:id="@+id/btnMarkModerated"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="44dp"
+        android:backgroundTint="@color/red"
+        android:text="Mark as moderated"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvCommentsNum"
+        app:layout_constraintStart_toStartOf="@+id/recyclerView"
+        app:layout_constraintTop_toBottomOf="@+id/btnVote" />
+
+    <android.widget.Button
+        android:id="@+id/btnVote"
+        android:layout_width="wrap_content"
+        android:layout_height="40sp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/outlined_blue_button"
+        android:text="Vote / revote"
+        android:textColor="@color/blue"
+        app:icon="@drawable/profile_2user"
+        app:layout_constraintBottom_toTopOf="@+id/btnMarkModerated"
+        app:layout_constraintStart_toStartOf="@+id/recyclerView"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+
+    <android.widget.Button
+        android:id="@+id/btnShowResults"
+        android:layout_width="0dp"
+        android:layout_height="40sp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/outlined_blue_button"
+        android:text="Show results"
+        android:textColor="@color/blue"
+        app:icon="@drawable/profile_2user"
+        app:layout_constraintBottom_toTopOf="@+id/btnMarkModerated"
+        app:layout_constraintEnd_toEndOf="@+id/recyclerView"
+        app:layout_constraintStart_toEndOf="@+id/btnVote"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="194dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/tvTextDescription"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tvTextDescription"
+        app:layout_constraintTop_toBottomOf="@+id/tvTextDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
