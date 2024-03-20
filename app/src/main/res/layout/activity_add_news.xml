@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.AddNews"
+    android:background="@color/black2">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="55dp"
+        tools:layout_editor_absoluteY="104dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/ibNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black2"
+                app:layout_constraintEnd_toEndOf="@+id/tvNum"
+                app:layout_constraintStart_toStartOf="@+id/tvNum"
+                app:layout_constraintTop_toTopOf="@+id/ivImage"
+                app:srcCompat="@android:drawable/ic_media_play" />
+
+            <ImageButton
+                android:id="@+id/ibPrevious"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="@color/black2"
+                android:rotation="180"
+                app:layout_constraintEnd_toEndOf="@+id/ibNext"
+                app:layout_constraintStart_toStartOf="@+id/ibNext"
+                app:layout_constraintTop_toBottomOf="@+id/ibNext"
+                app:srcCompat="@android:drawable/ic_media_play" />
+
+            <TextView
+                android:id="@+id/tvNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="0/0"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@+id/ivImage"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivImage"
+                app:layout_constraintTop_toBottomOf="@+id/ibPrevious" />
+
+            <ImageView
+                android:id="@+id/ivImage"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="80dp"
+                android:scaleType="fitStart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editTextDate"
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+            <Spinner
+                android:id="@+id/spType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/button_bg_menu"
+                android:hint="News type"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvSelectType" />
+
+            <android.widget.Button
+                android:id="@+id/btnSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/outlined_blue_button"
+                android:text="Save and exit"
+                android:textColor="@color/blue"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvWarningNotModerator" />
+
+            <TextView
+                android:id="@+id/tvWarningNotModerator"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="News will become visible if moderator checks it. After clicking you offer publication to admins of your group"
+                android:textColor="@color/red"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cbMultiAnswer" />
+
+            <TextView
+                android:id="@+id/tvSelectType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Select type of publication"
+                android:textColor="@color/gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/etHeader"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:ems="10"
+                android:hint="Title (header)"
+                android:inputType="text"
+                android:textColor="@color/white"
+                android:textColorHint="@color/red"
+                app:layout_constraintEnd_toEndOf="@+id/spType"
+                app:layout_constraintStart_toStartOf="@+id/spType"
+                app:layout_constraintTop_toBottomOf="@+id/spType" />
+
+            <EditText
+                android:id="@+id/etDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="Description (main text)"
+                android:inputType="text|textMultiLine"
+                android:textColor="@color/white"
+                android:textColorHint="@color/red"
+                app:layout_constraintEnd_toEndOf="@+id/spType"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/spType"
+                app:layout_constraintTop_toBottomOf="@+id/etHeader" />
+
+            <EditText
+                android:id="@+id/editTextDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="Deadline for this task"
+                android:inputType="datetime"
+                android:textColor="@color/gray"
+                android:textColorHint="@color/red"
+                app:layout_constraintEnd_toEndOf="@+id/etDescription"
+                app:layout_constraintStart_toStartOf="@+id/etDescription"
+                app:layout_constraintTop_toBottomOf="@+id/etDescription" />
+
+            <Button
+                android:id="@+id/btnAddImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="@color/blue"
+                android:text="Add image"
+                app:layout_constraintEnd_toEndOf="@+id/ivImage"
+                app:layout_constraintHorizontal_bias="0.11"
+                app:layout_constraintStart_toStartOf="@+id/ivImage"
+                app:layout_constraintTop_toBottomOf="@+id/ivImage" />
+
+            <Button
+                android:id="@+id/btnDeleteImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:backgroundTint="@color/blue"
+                android:text="Delete image"
+                app:layout_constraintBottom_toBottomOf="@+id/btnAddImage"
+                app:layout_constraintStart_toEndOf="@+id/btnAddImage"
+                app:layout_constraintTop_toTopOf="@+id/btnAddImage" />
+
+            <EditText
+                android:id="@+id/etItems"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:inputType="text"
+                android:text="Name"
+                android:textColor="@color/white"
+                android:textColorHint="@color/red"
+                app:layout_constraintEnd_toEndOf="@+id/ibPrevious"
+                app:layout_constraintStart_toStartOf="@+id/ivImage"
+                app:layout_constraintTop_toBottomOf="@+id/btnDeleteImage" />
+
+            <TextView
+                android:id="@+id/tvDivideWith"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Divide with &quot;;&quot;"
+                android:textColor="@color/gray"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/etItems"
+                app:layout_constraintTop_toBottomOf="@+id/etItems" />
+
+            <CheckBox
+                android:id="@+id/cbAnon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Anonymous voting"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/tvDivideWith"
+                app:layout_constraintTop_toBottomOf="@+id/tvDivideWith" />
+
+            <CheckBox
+                android:id="@+id/cbMultiAnswer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Multi-Answer"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/tvDivideWith"
+                app:layout_constraintTop_toBottomOf="@+id/cbAnon" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
