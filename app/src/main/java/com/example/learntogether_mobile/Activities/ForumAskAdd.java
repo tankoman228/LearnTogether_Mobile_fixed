@@ -1,8 +1,10 @@
-package com.example.learntogether_mobile;
+package com.example.learntogether_mobile.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.learntogether_mobile.R;
 
 public class ForumAskAdd extends AppCompatActivity {
 
