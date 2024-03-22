@@ -1,6 +1,6 @@
-package com.example.learntogether_mobile.API;
+package com.example.learntogether_mobile.API
 
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.SerializedName
 
 /**
  * Класс универсальный для обработки полученных списков после запроса. Сгенерирован скриптами на основе кода для бэкенда,
@@ -8,181 +8,181 @@ import com.google.gson.annotations.SerializedName;
  *
  * Ещё раз, класс СГЕНЕРИРОВАН СКРИПТАМИ, не человеком, разбираться в этом болоте не нужно!
  */
-public class ListU {
+class ListU {
     @SerializedName("NeedHelp")
-    public boolean NeedHelp;
+    var NeedHelp = false
 
     @SerializedName("AccountTitle")
-    public String AccountTitle;
+    var AccountTitle: String? = null
 
     @SerializedName("Author")
-    public String Author;
+    var Author: String? = null
 
     @SerializedName("About")
-    public String About;
+    var About: String? = null
 
     @SerializedName("Rating")
-    public float Rating;
+    var Rating = 0f
 
     @SerializedName("Role")
-    public String Role;
+    var Role: String? = null
 
     @SerializedName("Start")
-    public String Start;
+    var Start: String? = null
 
     @SerializedName("Sender")
-    public String Sender;
+    var Sender: String? = null
 
     @SerializedName("Username")
-    public String Username;
+    var Username: String? = null
 
     @SerializedName("ID_Vote")
-    public int ID_Vote;
+    var ID_Vote = 0
 
     @SerializedName("ID_Role")
-    public int ID_Role;
+    var ID_Role = 0
 
     @SerializedName("Account")
-    public String Account;
+    var Account: String? = null
 
     @SerializedName("PeopleJoined")
-    public int PeopleJoined;
+    var PeopleJoined = 0
 
     @SerializedName("Items")
-    public String Items;
+    var Items: String? = null
 
     @SerializedName("WhenAdd")
-    public String WhenAdd;
+    var WhenAdd: String? = null
 
     @SerializedName("LastSeen")
-    public String LastSeen;
+    var LastSeen: String? = null
 
     @SerializedName("StartsAt")
-    public String StartsAt;
+    var StartsAt: String? = null
 
     @SerializedName("ID_InfoBase")
-    public int ID_InfoBase;
+    var ID_InfoBase = 0
 
     @SerializedName("Finished")
-    public boolean Finished;
+    var Finished = false
 
     @SerializedName("ID_Task")
-    public int ID_Task;
+    var ID_Task = 0
 
     @SerializedName("Reason")
-    public String Reason;
+    var Reason: String? = null
 
     @SerializedName("ID_News")
-    public int ID_News;
+    var ID_News = 0
 
     @SerializedName("Item")
-    public String Item;
+    var Item: String? = null
 
     @SerializedName("Text")
-    public String Text;
+    var Text: String? = null
 
     @SerializedName("Deadline")
-    public String Deadline;
+    var Deadline: String? = null
 
     @SerializedName("TaskTitle")
-    public String TaskTitle;
+    var TaskTitle: String? = null
 
     @SerializedName("Surety")
-    public float Surety;
+    var Surety = 0f
 
     @SerializedName("Type")
-    public String Type;
+    var Type: String? = null
 
     @SerializedName("Progress")
-    public float Progress;
+    var Progress = 0f
 
     @SerializedName("IsAdmin")
-    public boolean IsAdmin;
+    var IsAdmin = false
 
     @SerializedName("Permissions")
-    public String Permissions;
+    var Permissions: String? = null
 
     @SerializedName("Anonymous")
-    public boolean Anonymous;
+    var Anonymous = false
 
     @SerializedName("Title")
-    public String Title;
+    var Title: String? = null
 
     @SerializedName("Moderated")
-    public boolean Moderated;
+    var Moderated = false
 
     @SerializedName("ID_Complaint")
-    public int ID_Complaint;
+    var ID_Complaint = 0
 
     @SerializedName("Suspected")
-    public String Suspected;
+    var Suspected: String? = null
 
     @SerializedName("Rate")
-    public float Rate;
+    var Rate = 0f
 
     @SerializedName("Priority")
-    public float Priority;
+    var Priority = 0f
 
     @SerializedName("SuspectedID")
-    public int SuspectedID;
+    var SuspectedID = 0
 
     @SerializedName("End")
-    public String End;
+    var End: String? = null
 
     @SerializedName("Name")
-    public String Name;
+    var Name: String? = null
 
     @SerializedName("ID_Meeting")
-    public int ID_Meeting;
+    var ID_Meeting = 0
 
     @SerializedName("Images")
-    public String Images;
+    var Images: String? = null
 
     @SerializedName("CommentsFound")
-    public String CommentsFound;
+    var CommentsFound: String? = null
 
     @SerializedName("Count")
-    public String Count;
+    var Count: String? = null
 
     @SerializedName("ID_Comment")
-    public int ID_Comment;
+    var ID_Comment = 0
 
     @SerializedName("Place")
-    public String Place;
+    var Place: String? = null
 
     @SerializedName("ID_Author")
-    public int ID_Author;
+    var ID_Author = 0
 
     @SerializedName("Avatar")
-    public String Avatar;
+    var Avatar: String? = null
 
     @SerializedName("ID_Account")
-    public int ID_Account;
+    var ID_Account = 0
 
     @SerializedName("AuthorTitle")
-    public String AuthorTitle;
+    var AuthorTitle: String? = null
 
     @SerializedName("Attachment")
-    public String Attachment;
+    var Attachment: String? = null
 
     @SerializedName("ID_Information")
-    public int ID_Information;
+    var ID_Information = 0
 
     @SerializedName("SenderID")
-    public int SenderID;
+    var SenderID = 0
 
     @SerializedName("DateTime")
-    public String DateTime;
+    var DateTime: String? = null
 
     @SerializedName("Icon")
-    public String Icon;
+    var Icon: String? = null
 
     @SerializedName("AdminLevel")
-    public int AdminLevel;
+    var AdminLevel = 0
 
     @SerializedName("ID_ForumAsk")
-    public int ID_ForumAsk;
+    var ID_ForumAsk = 0
 
     @SerializedName("Solved")
-    public boolean Solved;
+    var Solved = false
 }

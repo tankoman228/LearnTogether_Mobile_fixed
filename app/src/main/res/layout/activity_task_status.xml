@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.TaskStatus"
+    android:background="@color/black2"
+    android:orientation="vertical"
+    android:padding="15sp">
+
+    <TextView
+        android:id="@+id/tvHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your task status:"
+        android:textColor="@color/white"
+        android:textSize="34sp"></TextView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/cbNeedHelp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Need help"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <CheckBox
+            android:id="@+id/cbFinished"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30sp"
+            android:text="Finished"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Priority:"
+        android:textColor="@color/white"
+        android:textSize="20sp"></TextView>
+
+    <SeekBar
+        android:id="@+id/sbPriority"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:min="0"
+        android:progress="20"
+        android:progressBackgroundTint="@color/white"
+        android:thumb="@android:drawable/ic_dialog_alert" />
+
+    <Button
+        android:id="@+id/btnUpdateTaskStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15sp"
+        android:backgroundTint="@color/blue"
+        android:text="Update task status"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10sp"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5sp"
+            android:backgroundTint="@color/blue"
+            android:text="Show for this task"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5sp"
+            android:backgroundTint="@color/blue"
+            android:text="All your tasks"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+</LinearLayout>

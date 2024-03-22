@@ -1,6 +1,6 @@
-package com.example.learntogether_mobile.API;
+package com.example.learntogether_mobile.API
 
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.SerializedName
 
 /**
  * Класс универсальный для обработки/отправки запросов. Сгенерирован скриптами на основе кода для бэкенда,
@@ -8,97 +8,102 @@ import com.google.gson.annotations.SerializedName;
  *
  * Ещё раз, класс СГЕНЕРИРОВАН СКРИПТАМИ, не человеком, разбираться в этом болоте не нужно!
  */
-public class RequestU {
+open class RequestU {
     @SerializedName("session_token")
-    public String session_token;
+    var session_token: String? = null
 
     @SerializedName("id_object")
-    public int id_object;
+    var id_object = 0
 
+    @JvmField
     @SerializedName("username")
-    public String username;
+    var username: String? = null
 
+    @JvmField
     @SerializedName("token")
-    public String token;
+    var token: String? = null
 
+    @JvmField
     @SerializedName("password")
-    public String password;
+    var password: String? = null
 
     @SerializedName("text")
-    public String text;
+    var text: String? = null
 
     @SerializedName("attachment")
-    public String attachment;
+    var attachment: String? = null
 
     @SerializedName("ID_InfoBase")
-    public int ID_InfoBase;
+    var ID_InfoBase = 0
 
     @SerializedName("id_group")
-    public int id_group;
+    var id_group = 0
 
+    @JvmField
     @SerializedName("title")
-    public String title;
+    var title: String? = null
 
     @SerializedName("tags")
-    public String tags;
+    var tags: String? = null
 
     @SerializedName("group")
-    public int group;
+    var group = 0
 
     @SerializedName("NewName")
-    public String NewName;
+    var NewName: String? = null
 
     @SerializedName("NewIcon")
-    public String NewIcon;
+    var NewIcon: String? = null
 
     @SerializedName("NewDescription")
-    public String NewDescription;
+    var NewDescription: String? = null
 
     @SerializedName("contents")
-    public String contents;
+    var contents: String? = null
 
     @SerializedName("type")
-    public String type;
+    var type: String? = null
 
     @SerializedName("starts")
-    public String starts;
+    var starts: String? = null
 
     @SerializedName("place")
-    public String place;
+    var place: String? = null
 
     @SerializedName("ID_Group")
-    public int ID_Group;
+    var ID_Group = 0
 
     @SerializedName("ID_Role")
-    public int ID_Role;
+    var ID_Role = 0
 
     @SerializedName("Text")
-    public String Text;
+    var TextH: String? = null
 
     @SerializedName("ID_Account")
-    public int ID_Account;
+    var ID_Account = 0
 
     @SerializedName("Name")
-    public String Name;
+    var Name: String? = null
 
     @SerializedName("IsAdmin")
-    public boolean IsAdmin;
+    var IsAdmin = false
 
     @SerializedName("AdminLevel")
-    public int AdminLevel;
+    var AdminLevel = 0
 
     @SerializedName("Reason")
-    public String Reason;
+    var Reason: String? = null
 
     @SerializedName("images")
-    public String images;
+    var images: String? = null
 
     @SerializedName("deadline")
-    public String deadline;
+    var deadline: String? = null
 
     @SerializedName("recovery_contact")
-    public String recovery_contact;
+    var recovery_contact: String? = null
 
+    @JvmField
     @SerializedName("contact")
-    public String contact;
+    var contact: String? = null
 }

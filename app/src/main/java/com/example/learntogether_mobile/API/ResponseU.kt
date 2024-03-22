@@ -1,8 +1,6 @@
-package com.example.learntogether_mobile.API;
+package com.example.learntogether_mobile.API
 
-import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
+import com.google.gson.annotations.SerializedName
 
 /**
  * Класс универсальный для обработки/отправки запросов. Сгенерирован скриптами на основе кода для бэкенда,
@@ -10,46 +8,49 @@ import java.util.List;
  *
  * Ещё раз, класс СГЕНЕРИРОВАН СКРИПТАМИ, не человеком, разбираться в этом болоте не нужно!
  */
-public class ResponseU {
+class ResponseU {
+    @JvmField
     @SerializedName("Error")
-    public String Error;
+    var Error: String? = null
 
     @SerializedName("Success")
-    public boolean Success;
+    var Success = false
 
     @SerializedName("Comments")
-    public List<ListU> Comments;
+    var Comments: List<ListU>? = null
 
     @SerializedName("Asks")
-    public List<ListU> Asks;
+    var Asks: List<ListU>? = null
 
     @SerializedName("Infos")
-    public List<ListU> Infos;
+    var Infos: List<ListU>? = null
 
     @SerializedName("Contents")
-    public String Contents;
+    var Contents: String? = null
 
     @SerializedName("Meetings")
-    public List<ListU> Meetings;
+    var Meetings: List<ListU>? = null
 
     @SerializedName("Responds")
-    public List<ListU> Responds;
+    var Responds: List<ListU>? = null
 
+    @JvmField
     @SerializedName("Result")
-    public String Result;
+    var Result: String? = null
 
     @SerializedName("Roles")
-    public List<ListU> Roles;
+    var Roles: List<ListU>? = null
 
     @SerializedName("Complaints")
-    public List<ListU> Complaints;
+    var Complaints: List<ListU>? = null
 
+    @JvmField
     @SerializedName("Token")
-    public String Token;
+    var Token: String? = null
 
     @SerializedName("List")
-    public List<String> stringList;
+    var stringList: List<String>? = null
 
     @SerializedName("NotificationPort")
-    public int NotificationPort;
+    var NotificationPort = 0
 }

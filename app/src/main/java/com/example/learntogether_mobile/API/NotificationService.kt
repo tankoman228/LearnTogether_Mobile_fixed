@@ -1,203 +1,200 @@
-package com.example.learntogether_mobile.API;
+package com.example.learntogether_mobile.API
 
-import android.Manifest;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.Service;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.AsyncTask;
-import android.os.Handler;
-import android.os.IBinder;
-import android.util.Log;
+import android.Manifest
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.app.Service
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.AsyncTask
+import android.os.Handler
+import android.os.IBinder
+import android.util.Log
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import com.example.learntogether_mobile.Activities.MainActivity
+import com.example.learntogether_mobile.R
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.util.Random
 
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
+class NotificationService : Service() {
 
-import com.example.learntogether_mobile.Activities.MainActivity;
-import com.example.learntogether_mobile.R;
-
-import java.util.List;
-import java.util.Random;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class NotificationService extends Service {
-
-    private static Handler mHandler;
-    private static Runnable mRunnable;
-    private static final int FOREGROUND_NOTIFICATION_ID = 25;
-    private static final String FOREGROUND_CHANNEL_ID = "Notification Channel Service";
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        mHandler = new Handler();
-        mRunnable = () -> new NetworkTask().execute();
+    companion object {
+        private var mHandler: Handler? = null
+        private var mRunnable: Runnable? = null
+        private const val FOREGROUND_NOTIFICATION_ID = 25
+        private const val FOREGROUND_CHANNEL_ID = "Notification Channel Service"
+        private const val CHANNEL_ID = "LT"
     }
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-
-        NotificationChannel channel = new NotificationChannel(FOREGROUND_CHANNEL_ID, "My Service Channel",
-                NotificationManager.IMPORTANCE_HIGH);
-        NotificationManager manager = getSystemService(NotificationManager.class);
-        manager.createNotificationChannel(channel);
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, FOREGROUND_CHANNEL_ID)
-                .setSmallIcon(R.drawable.logo)
-                .setContentTitle("Notification Service")
-                .setStyle(new NotificationCompat.BigTextStyle().bigText("If you see this text, notification channel is open and if something new appears you can see it"))
-                .setPriority(NotificationCompat.PRIORITY_HIGH);
-
-        Intent notificationIntent = new Intent(this, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,
-                0, notificationIntent, PendingIntent.FLAG_IMMUTABLE);
-        builder.setContentIntent(pendingIntent);
-
-        Notification notification = builder.build();
-        startForeground(FOREGROUND_NOTIFICATION_ID, notification);
-
-        mHandler.removeCallbacks(mRunnable);
-        mHandler.post(mRunnable);
-
-        return START_STICKY;
+    override fun onCreate() {
+        super.onCreate()
+        mHandler = Handler()
+        mRunnable = Runnable { NetworkTask().execute() }
     }
 
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
+    override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
+        val channel = NotificationChannel(
+            FOREGROUND_CHANNEL_ID, "My Service Channel",
+            NotificationManager.IMPORTANCE_HIGH
+        )
+        val manager = getSystemService(
+            NotificationManager::class.java
+        )
+        manager.createNotificationChannel(channel)
+        val builder = NotificationCompat.Builder(this, FOREGROUND_CHANNEL_ID)
+            .setSmallIcon(R.drawable.logo)
+            .setContentTitle("Notification Service")
+            .setStyle(
+                NotificationCompat.BigTextStyle()
+                    .bigText("If you see this text, notification channel is open and if something new appears you can see it")
+            )
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+        val notificationIntent = Intent(this, MainActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(
+            this,
+            0, notificationIntent, PendingIntent.FLAG_IMMUTABLE
+        )
+        builder.setContentIntent(pendingIntent)
+        val notification = builder.build()
+        startForeground(FOREGROUND_NOTIFICATION_ID, notification)
+        mHandler!!.removeCallbacks(mRunnable!!)
+        mHandler!!.post(mRunnable!!)
+        return START_STICKY
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mHandler.removeCallbacks(mRunnable); // Остановка выполнения процесса при уничтожении службы
-        stopForeground(true);
+    override fun onBind(intent: Intent): IBinder? {
+        return null
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mHandler!!.removeCallbacks(mRunnable!!) // Остановка выполнения процесса при уничтожении службы
+        stopForeground(true)
+    }
 
-    private static final String CHANNEL_ID = "LT";
-
-    private class NetworkTask extends AsyncTask<Void, Void, Void> {
-        private Handler handler = new Handler();
-
-        public final int interval = 15000; //ms
-
-        private Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                sendRetrofit(NotificationService.this);
-                handler.postDelayed(this, interval);
+    private inner class NetworkTask : AsyncTask<Void?, Void?, Void?>() {
+        private val handler = Handler()
+        val interval = 45000 //ms
+        private val runnable: Runnable = object : Runnable {
+            override fun run() {
+                if (Variables.password != null) {
+                    sendRetrofit(this@NotificationService)
+                    handler.postDelayed(this, interval.toLong())
+                }
+                else {
+                    Log.d("API", "Auto authentification cancelled, notifications won't work")
+                    stopSelf()
+                }
             }
-        };
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            handler.post(runnable);
-            return null;
+        }
+        override fun doInBackground(vararg params: Void?): Void? {
+            if (Variables.password != null)
+                handler.post(runnable)
+            return null
         }
     }
 
-    private void sendRetrofit(Context context) {
-        Log.d("API", "Checking notifications");
-        RequestU request = new RequestU() {{
-            session_token = Variables.SessionToken;
-        }};
-        RetrofitRequest r = new RetrofitRequest();
-        Call<ResponseU> call = r.apiService.check_notifications(request);
-        call.enqueue(new Callback<ResponseU>() {
-            @Override
-            public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
+    private fun sendRetrofit(context: Context) {
 
+        Log.d("API", "Checking notifications")
 
-                if (response.body().Error != null) {
-                    Log.d("API", "Not critical error: " + response.body().Error);
-                    if (response.body().Error.equals("Unknown session")) {
-                        Log.d("API", "Autologin");
+        val request0 = RequestU();
+        request0.session_token = Variables.SessionToken
 
-                        RequestU request = new RequestU() {{
-                            username = "tank228";
-                            password = "123";
-                        }};
+        val r0 = RetrofitRequest()
+        val call = r0.apiService.check_notifications(request0)
+        //First try
+        call.enqueue(object : Callback<ResponseU> {
+            override fun onResponse(call: Call<ResponseU>, response: Response<ResponseU>) {
+                if (response.body()!!.Error != null) {
+                    Log.d("API", "Not critical error: " + response.body()!!.Error)
+                    if (response.body()!!.Error == "Unknown session") {
+                        Log.d("API", "Autologin")
+                        val request1 = RequestU();
+                        request1.username = Variables.username
+                        request1.password = Variables.password
 
-                        RetrofitRequest r = new RetrofitRequest();
-                        Call<ResponseU> call2 = r.apiService.login(request);
+                        val r1 = RetrofitRequest()
+                        val call2 = r1.apiService.login(request1)
+                        call2.enqueue(object : Callback<ResponseU> {
+                            override fun onResponse(
+                                call: Call<ResponseU>,
+                                response: Response<ResponseU>
+                            ) {
+                                if (response.body()!!.Token != null) {
+                                    Variables.SessionToken = response.body()!!.Token
+                                    val request3 = RequestU();
+                                    request3.session_token = Variables.SessionToken
 
-                        call2.enqueue(new Callback<ResponseU>() {
-                            @Override
-                            public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
-                                if (response.body().Token != null) {
-                                    Variables.SessionToken = response.body().Token;
-
-                                    RequestU request = new RequestU() {{
-                                        session_token = Variables.SessionToken;
-                                    }};
-                                    RetrofitRequest r = new RetrofitRequest();
-                                    Call<ResponseU> call3 = r.apiService.check_notifications(request);
-                                    call3.enqueue(new Callback<ResponseU>() {
-                                        @Override
-                                        public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
-                                            showNotifications(response.body().stringList, context);
+                                    val r3 = RetrofitRequest()
+                                    val call3 = r3.apiService.check_notifications(request3)
+                                    call3.enqueue(object : Callback<ResponseU> {
+                                        override fun onResponse(
+                                            call: Call<ResponseU>,
+                                            response: Response<ResponseU>
+                                        ) {
+                                            showNotifications(response.body()!!.stringList, context)
                                         }
-                                        @Override
-                                        public void onFailure(Call<ResponseU> call, Throwable t) {
-                                            Log.d("API", "ERROR: " + t.getMessage());
+
+                                        override fun onFailure(
+                                            call: Call<ResponseU>,
+                                            t: Throwable
+                                        ) {
+                                            Log.d("API", "ERROR: " + t.message)
                                         }
-                                    });
+                                    })
                                 }
                             }
-
-                            @Override
-                            public void onFailure(Call<ResponseU> call, Throwable t) {
-                                Log.d("API", "ERROR: " + t.getMessage());
+                            //Failure login
+                            override fun onFailure(call: Call<ResponseU>, t: Throwable) {
+                                Log.d("API", "ERROR: " + t.message)
+                                Variables.password = null
+                                showNotification("Error: you are unregistered", this@NotificationService)
                             }
-                        });
+                        })
                     }
-                }
-                else
-                    showNotifications(response.body().stringList, context);
+                } else showNotifications(response.body()!!.stringList, context)
             }
 
-            @Override
-            public void onFailure(Call<ResponseU> call, Throwable t) {
-                Log.d("API", "ERROR: " + t.getMessage());
+            override fun onFailure(call: Call<ResponseU>, t: Throwable) {
+                Log.d("API", "ERROR: " + t.message)
             }
-        });
+        })
     }
 
-    private void showNotifications(List<String> list, Context context) {
-
-        if (list == null)
-            return;
-
-        for (String message: list) {
-            Log.d("API", message);
-
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "LearnTogether", importance);
-
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                    .setSmallIcon(R.drawable.logo)
-                    .setContentTitle("Learn Together")
-                    .setContentText(message)
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.createNotificationChannel(channel);
-
-            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-                return;
-            }
-
-            notificationManager.notify( (new Random().nextInt()) / 100, builder.build());
+    private fun showNotifications(list: List<String>?, context: Context) {
+        if (list == null) return
+        for (message in list) {
+            showNotification(message, context)
         }
+    }
+
+    private fun showNotification(message: String, context: Context) {
+
+            Log.d("API", message)
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(CHANNEL_ID, "LearnTogether", importance)
+            val builder = NotificationCompat.Builder(context, CHANNEL_ID)
+                .setSmallIcon(R.drawable.logo)
+                .setContentTitle("Learn Together")
+                .setContentText(message)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            val notificationManager =
+                context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+            if (ActivityCompat.checkSelfPermission(
+                    context,
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                return
+            }
+            notificationManager.notify(Random().nextInt() / 100, builder.build())
+
     }
 }

@@ -2,11 +2,13 @@ package com.example.learntogether_mobile.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.learntogether_mobile.API.NotificationService;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
@@ -48,7 +50,7 @@ public class Register extends AppCompatActivity {
             }};
 
             RetrofitRequest r = new RetrofitRequest();
-            Call<ResponseU> call = r.apiService.login(request);
+            Call<ResponseU> call = r.apiService.register(request);
             call.enqueue(new Callback<ResponseU>() {
                 @Override
                 public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
@@ -59,8 +61,15 @@ public class Register extends AppCompatActivity {
                             return;
                         }
 
-                        if (response.body().Token != null)
+                        if (response.body().Token != null) {
                             Variables.SessionToken = response.body().Token;
+                            Variables.username = request.username;
+                            Variables.password = request.password;
+                            Variables.saveValues(Register.this);
+
+                            startActivity(new Intent(Register.this, News.class));
+                            startForegroundService(new Intent(Register.this, NotificationService.class));
+                        }
 
                         Toast.makeText(Register.this, response.body().Result, Toast.LENGTH_SHORT).show();
                     });
