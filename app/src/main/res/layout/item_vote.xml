@@ -83,12 +83,13 @@
         android:id="@+id/ibComments"
         android:layout_width="40sp"
         android:layout_height="40sp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:background="@color/black2"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:srcCompat="@drawable/messages_2"
-        tools:layout_editor_absoluteX="355dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/messages_2" />
 
     <TextView
         android:id="@+id/tvCommentsNum"

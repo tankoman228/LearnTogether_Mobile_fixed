@@ -49,7 +49,7 @@ class ListU {
     var PeopleJoined = 0
 
     @SerializedName("Items")
-    var Items: String? = null
+    var Items: List<String>? = null
 
     @SerializedName("WhenAdd")
     var WhenAdd: String? = null
@@ -117,6 +117,7 @@ class ListU {
     @SerializedName("Suspected")
     var Suspected: String? = null
 
+    @JvmField
     @SerializedName("Rate")
     var Rate = 0f
 
@@ -185,4 +186,12 @@ class ListU {
 
     @SerializedName("Solved")
     var Solved = false
+
+    @JvmField
+    var type_ = ""
+
+    fun initByType(type: String): ListU {
+        this.type_ = type;
+        return this
+    }
 }

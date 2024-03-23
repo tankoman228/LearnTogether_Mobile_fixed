@@ -9,11 +9,15 @@ import com.google.gson.annotations.SerializedName
  * Ещё раз, класс СГЕНЕРИРОВАН СКРИПТАМИ, не человеком, разбираться в этом болоте не нужно!
  */
 open class RequestU {
+
     @SerializedName("session_token")
     var session_token: String? = null
 
     @SerializedName("id_object")
     var id_object = 0
+
+    @SerializedName("search_string")
+    var search_string: String? = null
 
     @JvmField
     @SerializedName("username")
@@ -106,4 +110,15 @@ open class RequestU {
     @JvmField
     @SerializedName("contact")
     var contact: String? = null
+
+    @JvmField
+    @SerializedName("Rank")
+    var Rank: Int? = null
+
+    @SerializedName("number")
+    var number: Int? = null
+
+    @JvmField
+    @SerializedName("id")
+    var id: Int? = null
 }

@@ -25,6 +25,15 @@ class ResponseU {
     @SerializedName("Infos")
     var Infos: List<ListU>? = null
 
+    @SerializedName("news")
+    var news: List<ListU>? = null
+
+    @SerializedName("tasks")
+    var tasks: List<ListU>? = null
+
+    @SerializedName("votes")
+    var votes: List<ListU>? = null
+
     @SerializedName("Contents")
     var Contents: String? = null
 

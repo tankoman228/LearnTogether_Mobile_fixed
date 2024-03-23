@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 public class Variables {
     public static String SessionToken, username, password, server = "http://80.89.196.150:8000/";
+    public static int current_id_group = 1;
 
     public static void saveValues(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
