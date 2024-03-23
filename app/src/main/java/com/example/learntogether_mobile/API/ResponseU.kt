@@ -14,7 +14,7 @@ class ResponseU {
     var Error: String? = null
 
     @SerializedName("Success")
-    var Success = false
+    var Success: Boolean? = false
 
     @SerializedName("Comments")
     var Comments: List<ListU>? = null
@@ -61,5 +61,5 @@ class ResponseU {
     var stringList: List<String>? = null
 
     @SerializedName("NotificationPort")
-    var NotificationPort = 0
+    var NotificationPort: Int? = 0
 }

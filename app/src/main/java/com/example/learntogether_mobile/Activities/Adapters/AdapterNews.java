@@ -161,6 +161,7 @@ public class AdapterNews extends BaseAdapter {
                     RequestU req = new RequestU();
                     req.setSession_token(Variables.SessionToken);
                     req.setType(item.type_);
+                    req.setGroup(Variables.current_id_group);
                     switch (item.type_) {
                         case "n":
                             req.id = item.getID_News(); break;
@@ -290,6 +291,7 @@ public class AdapterNews extends BaseAdapter {
                     RequestU req = new RequestU();
                     req.setSession_token(Variables.SessionToken);
                     req.setType(item.type_);
+                    req.setGroup(Variables.current_id_group);
                     switch (item.type_) {
                         case "n":
                             req.id = item.getID_News(); break;
@@ -388,6 +390,7 @@ public class AdapterNews extends BaseAdapter {
                     RequestU req = new RequestU();
                     req.setSession_token(Variables.SessionToken);
                     req.setType(item.type_);
+                    req.setGroup(Variables.current_id_group);
                     switch (item.type_) {
                         case "n":
                             req.id = item.getID_News(); break;

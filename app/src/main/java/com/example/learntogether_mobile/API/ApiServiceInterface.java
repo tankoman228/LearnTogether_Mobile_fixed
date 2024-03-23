@@ -101,7 +101,7 @@ public interface ApiServiceInterface {
     @POST("/moderator/get_complaints")
     Call<ResponseU> get_complaints(@Body RequestU request);
 
-    @POST("/moderator/get_news")
+    @POST("/news/get_news")
     Call<ResponseU> get_news(@Body RequestU request);
 
     @POST("/news/accept_news")

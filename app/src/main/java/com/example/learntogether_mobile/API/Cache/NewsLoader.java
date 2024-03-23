@@ -1,6 +1,7 @@
 package com.example.learntogether_mobile.API.Cache;
 
 import android.content.Context;
+import android.os.Debug;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -22,7 +23,7 @@ public class NewsLoader {
 
     public static ArrayList<ListU> news_list = new ArrayList<>()/*, tasks_list  = new ArrayList<>(), votes_list = new ArrayList<>()*/;
 
-    public static void loadFromRetrofit(Context context, String serachString, int max_id ) {
+    public static void loadFromRetrofit(CallbackAfterLoaded callback, Context context, String serachString, int max_id ) {
         if (max_id == 0)
             max_id = 999999999;
 
@@ -64,6 +65,9 @@ public class NewsLoader {
                 //votes_list.sort(Comparator.comparingInt(ListU::getID_InfoBase));
 
                 news_list.sort(Comparator.comparingInt(ListU::getID_InfoBase));
+                callback.updateAdapter();
+
+                Log.d("API", "news loaded: " + news_list.size());
             }
 
             @Override
