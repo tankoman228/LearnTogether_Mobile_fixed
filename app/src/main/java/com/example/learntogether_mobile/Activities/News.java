@@ -1,17 +1,16 @@
 package com.example.learntogether_mobile.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 
 import com.example.learntogether_mobile.API.Cache.NewsLoader;
-import com.example.learntogether_mobile.API.ListU;
+import com.example.learntogether_mobile.Activities.Adapters.AdapterNews;
 import com.example.learntogether_mobile.R;
-
-import java.util.List;
 
 public class News extends AppCompatActivity {
 
@@ -21,6 +20,7 @@ public class News extends AppCompatActivity {
 
     EditText etSearch;
     ImageButton btnNews, btnInfo, btnMeetings, btnForum, btnPeople, btnHelp, btnOptions, btnMyProfile;
+    ListView listView;
 
 
     @Override
@@ -37,6 +37,7 @@ public class News extends AppCompatActivity {
         btnHelp = findViewById(R.id.ibHelp);
         btnMyProfile = findViewById(R.id.ibProfile);
         btnOptions = findViewById(R.id.ibOptions);
+        listView = findViewById(R.id.rv);
 
         loadTab(currentTab);
     }
@@ -54,11 +55,6 @@ public class News extends AppCompatActivity {
 
     protected void loadNews() {
         NewsLoader.loadFromRetrofit(this, etSearch.getText().toString(), 999999);
-
-
-    }
-
-    protected void searchNews(String str) {
-
+        listView.setAdapter(new AdapterNews(this, NewsLoader.news_list));
     }
 }

@@ -20,7 +20,7 @@ import retrofit2.Response;
 
 public class NewsLoader {
 
-    public static List<ListU> news_list = new ArrayList<>()/*, tasks_list  = new ArrayList<>(), votes_list = new ArrayList<>()*/;
+    public static ArrayList<ListU> news_list = new ArrayList<>()/*, tasks_list  = new ArrayList<>(), votes_list = new ArrayList<>()*/;
 
     public static void loadFromRetrofit(Context context, String serachString, int max_id ) {
         if (max_id == 0)

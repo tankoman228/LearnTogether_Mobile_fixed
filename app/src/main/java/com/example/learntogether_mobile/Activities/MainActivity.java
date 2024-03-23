@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         if (Variables.password != null) {
 
             Intent intent = new Intent(this, NotificationService.class);
-            startForegroundService(intent);
+            //startForegroundService(intent);
 
             findViewById(R.id.btnRegister).setVisibility(View.INVISIBLE);
             findViewById(R.id.btnLogin).setVisibility(View.INVISIBLE);
@@ -68,16 +68,17 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
                     MainActivity.this.runOnUiThread(() -> {
-                        if (response.body().Token != null) {
+                        if (response.body() != null && response.body().Token != null) {
                             Variables.SessionToken = response.body().Token;
                             Variables.username = request.username;
                             Variables.password = request.password;
                             Variables.saveValues(MainActivity.this);
 
                             startActivity(new Intent(MainActivity.this, News.class));
-                            startForegroundService(new Intent(MainActivity.this, NotificationService.class));
+                            //startForegroundService(new Intent(MainActivity.this, NotificationService.class));
                         }
-                        Toast.makeText(MainActivity.this, response.body().Result, Toast.LENGTH_SHORT).show();
+                        if (response.body() != null)
+                            Toast.makeText(MainActivity.this, response.body().Result, Toast.LENGTH_SHORT).show();
 
                         findViewById(R.id.btnRegister).setVisibility(View.VISIBLE);
                         findViewById(R.id.btnLogin).setVisibility(View.VISIBLE);
