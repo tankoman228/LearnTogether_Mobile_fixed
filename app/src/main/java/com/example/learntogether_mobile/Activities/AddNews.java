@@ -3,12 +3,17 @@ package com.example.learntogether_mobile.Activities;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.icu.text.SimpleDateFormat;
+import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -21,7 +26,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,10 +38,13 @@ import com.example.learntogether_mobile.API.Variables;
 import com.example.learntogether_mobile.R;
 import com.github.chrisbanes.photoview.PhotoView;
 
-import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
-import java.util.Objects;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -54,7 +61,7 @@ public class AddNews extends AppCompatActivity {
     private TextView tvSelectType;
     private EditText etHeader;
     private EditText etDescription;
-    private EditText editTextDate;
+    private ConstraintLayout editTextDate;
     private Button btnAddImage;
     private Button btnDeleteImage;
     private EditText etItems;
@@ -83,7 +90,7 @@ public class AddNews extends AppCompatActivity {
         tvSelectType = findViewById(R.id.tvSelectType);
         etHeader = findViewById(R.id.etHeader);
         etDescription = findViewById(R.id.etDescription);
-        editTextDate = findViewById(R.id.editTextDate);
+        editTextDate = findViewById(R.id.layoutDatePicker);
         btnAddImage = findViewById(R.id.btnAddImage);
         btnDeleteImage = findViewById(R.id.btnDeleteImage);
         etItems = findViewById(R.id.etItems);
@@ -137,6 +144,7 @@ public class AddNews extends AppCompatActivity {
                 cbAnon.setVisibility(View.GONE);
                 cbMultiAnswer.setVisibility(View.GONE);
                 tvDivideWith.setVisibility(View.GONE);
+                init_task_UI();
             }
             case "V" -> {
                 ibNext.setVisibility(View.GONE);
@@ -150,6 +158,7 @@ public class AddNews extends AppCompatActivity {
                 cbAnon.setVisibility(View.VISIBLE);
                 cbMultiAnswer.setVisibility(View.VISIBLE);
                 tvDivideWith.setVisibility(View.VISIBLE);
+                initVoteUI();
             }
             default ->
                     Toast.makeText(this, "Select news type", Toast.LENGTH_SHORT).show();
@@ -233,6 +242,70 @@ public class AddNews extends AppCompatActivity {
     }
     private ActivityResultLauncher<String> requestPermissionLauncher;
     private ActivityResultLauncher<Intent> pickImageLauncher;
+
+    private Date deadlineDate;
+    private Date deadlineTime;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
+    private TextView tv_Deadline;
+    private void init_task_UI() {
+        tv_Deadline = findViewById(R.id.tv_Deadline);
+
+        findViewById(R.id.btnDeadlineDate).setOnClickListener(l -> {
+            DatePickerDialog.OnDateSetListener dateSetListener = (view, year, monthOfYear, dayOfMonth) -> {
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(year, monthOfYear, dayOfMonth);
+                deadlineDate = calendar.getTime();
+                updateDeadlineText();
+            };
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(this, dateSetListener, Calendar.getInstance().get(Calendar.YEAR),
+                    Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+            datePickerDialog.show();
+        });
+        findViewById(R.id.btnDeadlineTime).setOnClickListener(l -> {
+            TimePickerDialog.OnTimeSetListener timeSetListener = (view, hourOfDay, minute) -> {
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                calendar.set(Calendar.MINUTE, minute);
+                deadlineTime = calendar.getTime();
+                updateDeadlineText();
+            };
+
+            TimePickerDialog timePickerDialog = new TimePickerDialog(this, timeSetListener,
+                    Calendar.getInstance().get(Calendar.HOUR_OF_DAY), Calendar.getInstance().get(Calendar.MINUTE), true);
+            timePickerDialog.show();
+        });
+    }
+    private void  updateDeadlineText() {
+        if (deadlineDate == null || deadlineTime == null) {
+            if (deadlineDate == null) {
+                tv_Deadline.setText("Select deadline date");
+            }
+            else {
+                tv_Deadline.setText("Select deadline time");
+            }
+        }
+        else {
+            Date fullDeadline = combineDateAndTime(deadlineDate, deadlineTime);
+            tv_Deadline.setText(dateFormat.format(fullDeadline));
+        }
+    }
+    private Date combineDateAndTime(Date date, Date time) {
+        Calendar dateCal = Calendar.getInstance();
+        dateCal.setTime(date);
+
+        Calendar timeCal = Calendar.getInstance();
+        timeCal.setTime(time);
+
+        int year = dateCal.get(Calendar.YEAR);
+        int month = dateCal.get(Calendar.MONTH);
+        int day = dateCal.get(Calendar.DAY_OF_MONTH);
+        int hour = timeCal.get(Calendar.HOUR_OF_DAY);
+        int minute = timeCal.get(Calendar.MINUTE);
+
+        LocalDateTime localDateTime = LocalDateTime.of(year, month, day, hour, minute);
+        return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+    }
 
 
     //Vote special UI logic
@@ -319,9 +392,24 @@ public class AddNews extends AppCompatActivity {
         request.title = etHeader.getText().toString();
         request.setText(etDescription.getText().toString());
         request.setTags(etTaglist.getText().toString());
-        request.setDeadline(editTextDate.getText().toString());
+        request.setDeadline(tv_Deadline.getText().toString());
 
+        RetrofitRequest r = new RetrofitRequest();
+        r.apiService.add_task(request).enqueue(new Callback<ResponseU>() {
+            @Override
+            public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
+                if (response.body().Error != null) {
+                    Toast.makeText(AddNews.this, response.body().Error, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                AddNews.this.finish();
+            }
 
+            @Override
+            public void onFailure(Call<ResponseU> call, Throwable t) {
+                Toast.makeText(AddNews.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
     private void saveVote(){
         RequestU request = new RequestU();
@@ -330,5 +418,30 @@ public class AddNews extends AppCompatActivity {
         request.title = etHeader.getText().toString();
         request.setText(etDescription.getText().toString());
         request.setTags(etTaglist.getText().toString());
+        request.MultAnswer = cbMultiAnswer.isChecked();
+        request.Anonymous = cbAnon.isChecked();
+        request.items = Arrays.asList(items);
+
+        if (items.length < 2) {
+            Toast.makeText(this, "No enough items!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        RetrofitRequest r = new RetrofitRequest();
+        r.apiService.add_vote(request).enqueue(new Callback<ResponseU>() {
+            @Override
+            public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
+                if (response.body().Error != null) {
+                    Toast.makeText(AddNews.this, response.body().Error, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                AddNews.this.finish();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseU> call, Throwable t) {
+                Toast.makeText(AddNews.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

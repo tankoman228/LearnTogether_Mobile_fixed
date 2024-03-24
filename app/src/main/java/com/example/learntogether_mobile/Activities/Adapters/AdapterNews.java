@@ -268,7 +268,7 @@ public class AdapterNews extends BaseAdapter {
                 ibAvatar.setImageBitmap(ImageConverter.decodeImage(item.getAvatar()));
             tvCommentsNum.setText(String.valueOf(item.getCommentsFound()));
             progressBar.setProgress((int)(item.Rate * 20f));
-            tvDeadline.setText(item.getDeadline());
+            tvDeadline.setText(new StringBuilder().append(tvDeadline.getText().toString()).append(item.getDeadline()).toString().replace("T", " "));
 
             for (int i = 1; i < 6; i++) {
                 int finalI = i;
@@ -357,7 +357,6 @@ public class AdapterNews extends BaseAdapter {
                 Comments.ID_InfoBase = item.getID_InfoBase();
                 ctx.startActivity(new Intent(ctx, Comments.class));
             });
-
 
             return view;
         }
@@ -492,6 +491,9 @@ public class AdapterNews extends BaseAdapter {
 
             holder.checkBox.setText(item.text);
             holder.tvResult.setText(item.result);
+            if (item.result.equals("")) {
+                holder.tvResult.setVisibility(View.GONE);
+            }
         }
 
         @Override

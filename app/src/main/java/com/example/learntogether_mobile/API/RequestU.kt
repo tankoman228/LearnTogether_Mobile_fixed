@@ -127,6 +127,14 @@ open class RequestU {
     var Items: List<String>? = null
 
     @JvmField
-    @SerializedName("Item")
-    var Item: List<String>? = null
+    @SerializedName("Anonymous")
+    var Anonymous: Boolean = false
+
+    @JvmField
+    @SerializedName("MultAnswer")
+    var MultAnswer: Boolean = false
+
+    @JvmField
+    @SerializedName("items")
+    var items: List<String>? = null
 }
