@@ -1,7 +1,6 @@
 package com.example.learntogether_mobile.API.Cache;
 
 import android.content.Context;
-import android.os.Debug;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -13,7 +12,6 @@ import com.example.learntogether_mobile.API.Variables;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -65,7 +63,7 @@ public class NewsLoader {
                 //votes_list.sort(Comparator.comparingInt(ListU::getID_InfoBase));
 
                 news_list.sort(Comparator.comparingInt(ListU::getID_InfoBase));
-                callback.updateAdapter();
+                callback.updateInterface();
 
                 Log.d("API", "news loaded: " + news_list.size());
             }

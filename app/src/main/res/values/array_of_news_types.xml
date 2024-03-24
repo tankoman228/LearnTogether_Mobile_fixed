@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="news_types">
+        <item>News (post with images)</item>
+        <item>Task (may have a deadline)</item>
+        <item>Vote</item>
+    </string-array>
+
+</resources>

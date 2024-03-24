@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.AddNews"
-    android:background="@color/black2">
+    android:background="@color/black2"
+    android:backgroundTintMode="add"
+    tools:context=".Activities.AddNews">
 
 
     <ScrollView
@@ -74,10 +75,13 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
-                android:background="@drawable/button_bg_menu"
+                android:background="@drawable/outlined_blue_button"
+                android:backgroundTint="@color/gray"
+                android:entries="@array/news_types"
                 android:hint="News type"
-                android:textColor="@color/black"
-                android:textColorHint="@color/black"
+                android:spinnerMode="dropdown"
+                android:textColor="@color/white"
+                android:textColorHint="@color/red"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvSelectType" />
@@ -105,7 +109,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:text="News will become visible if moderator checks it. After clicking you offer publication to admins of your group"
+                android:text="If you are not moderator, news will become visible only after moderator checking"
                 android:textColor="@color/red"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -195,19 +199,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:ems="10"
+                android:hint="Vote options"
                 android:inputType="text"
-                android:text="Name"
                 android:textColor="@color/white"
                 android:textColorHint="@color/red"
                 app:layout_constraintEnd_toEndOf="@+id/ibPrevious"
-                app:layout_constraintStart_toStartOf="@+id/ivImage"
+                app:layout_constraintStart_toStartOf="@+id/etHeader"
                 app:layout_constraintTop_toBottomOf="@+id/btnDeleteImage" />
 
             <TextView
                 android:id="@+id/tvDivideWith"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Divide with &quot;;&quot;"
+                android:text="Divide with &quot;,&quot;"
                 android:textColor="@color/gray"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@+id/etItems"

@@ -62,4 +62,8 @@ class ResponseU {
 
     @SerializedName("NotificationPort")
     var NotificationPort: Int? = 0
+
+    @JvmField
+    @SerializedName("users")
+    var users: List<ListU>? = null
 }

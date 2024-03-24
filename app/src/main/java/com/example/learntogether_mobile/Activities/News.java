@@ -80,7 +80,7 @@ public class News extends AppCompatActivity implements CallbackAfterLoaded {
     }
 
     @Override
-    public void updateAdapter() {
+    public void updateInterface() {
         this.runOnUiThread(() -> {
             listView.setAdapter(new AdapterNews(this, NewsLoader.news_list));
             Log.d("API", "news loaded to adapter");
