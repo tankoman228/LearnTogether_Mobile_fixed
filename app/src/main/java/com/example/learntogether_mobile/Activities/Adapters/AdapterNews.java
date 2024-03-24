@@ -2,6 +2,7 @@ package com.example.learntogether_mobile.Activities.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,10 +27,12 @@ import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
 import com.example.learntogether_mobile.API.Variables;
 import com.example.learntogether_mobile.Activities.Comments;
+import com.example.learntogether_mobile.Activities.FullScreenImageActivity;
 import com.example.learntogether_mobile.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -100,7 +102,7 @@ public class AdapterNews extends BaseAdapter {
             ImageView ivImage = view.findViewById(R.id.ivImage);
             TextView tvPhotosNum = view.findViewById(R.id.tvNum);
 
-            tvUsername.setText(item.getUsername());
+            tvUsername.setText(item.getAuthorTitle());
             tvWhen.setText(item.getWhenAdd());
             tvTitle.setText(item.getTitle());
             tvDescr.setText(item.getText());
@@ -196,7 +198,36 @@ public class AdapterNews extends BaseAdapter {
                 Comments.ID_InfoBase = item.getID_InfoBase();
                 ctx.startActivity(new Intent(ctx, Comments.class));
             });
-
+            List<Bitmap> bitmaps = ImageConverter.decodeImages(item.getImages());
+            if (bitmaps.size() == 0) {
+                ivImage.setVisibility(View.GONE);
+                ibNext.setVisibility(View.GONE);
+                ibPrevious.setVisibility(View.GONE);
+                tvPhotosNum.setVisibility(View.GONE);
+            }
+            else {
+                AtomicInteger i = new AtomicInteger();
+                ivImage.setImageBitmap(bitmaps.get(0));
+                tvPhotosNum.setText(new StringBuilder().append("1/").append(bitmaps.size()).toString());
+                ibNext.setOnClickListener(l -> {
+                    i.getAndIncrement();
+                    if (i.get() >= bitmaps.size())
+                        i.set(0);
+                    ivImage.setImageBitmap(bitmaps.get(i.get()));
+                    tvPhotosNum.setText(new StringBuilder().append(i.get() + 1).append("/").append(bitmaps.size()).toString());
+                });
+                ibPrevious.setOnClickListener(l -> {
+                    i.getAndDecrement();
+                    if (i.get() < 0)
+                        i.set(bitmaps.size() - 1);
+                    ivImage.setImageBitmap(bitmaps.get(i.get()));
+                    tvPhotosNum.setText(new StringBuilder().append(i.get() + 1).append("/").append(bitmaps.size()).toString());
+                });
+                ivImage.setOnClickListener(l -> {
+                    FullScreenImageActivity.bitmap = bitmaps.get(i.get());
+                    ctx.startActivity(new Intent(ctx, FullScreenImageActivity.class));
+                });
+            }
 
             return view;
         }
@@ -229,7 +260,7 @@ public class AdapterNews extends BaseAdapter {
             Button btnMyStatus = view.findViewById(R.id.btnMyStatus);
             Button btnWatchJoined = view.findViewById(R.id.btnWatchJoined);
 
-            tvUsername.setText(item.getUsername());
+            tvUsername.setText(item.getAuthorTitle());
             tvWhen.setText(item.getWhenAdd());
             tvTitle.setText(item.getTitle());
             tvTextDescription.setText(item.getText());
@@ -350,7 +381,7 @@ public class AdapterNews extends BaseAdapter {
             Button btnShowResults = view.findViewById(R.id.btnShowResults);
             RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
 
-            tvUsername.setText(item.getUsername());
+            tvUsername.setText(item.getAuthorTitle());
             tvWhen.setText(item.getWhenAdd());
             tvTitle.setText(item.getTitle());
             tvTextDescription.setText(item.getText());

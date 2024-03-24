@@ -14,7 +14,7 @@ open class RequestU {
     var session_token: String? = null
 
     @SerializedName("id_object")
-    var id_object = 0
+    var id_object: Int?  = 0
 
     @SerializedName("search_string")
     var search_string: String? = null
@@ -38,10 +38,10 @@ open class RequestU {
     var attachment: String? = null
 
     @SerializedName("ID_InfoBase")
-    var ID_InfoBase = 0
+    var ID_InfoBase: Int? = 0
 
     @SerializedName("id_group")
-    var id_group = 0
+    var id_group: Int? = 0
 
     @JvmField
     @SerializedName("title")
@@ -75,25 +75,25 @@ open class RequestU {
     var place: String? = null
 
     @SerializedName("ID_Group")
-    var ID_Group = 0
+    var ID_Group: Int? = 0
 
     @SerializedName("ID_Role")
-    var ID_Role = 0
+    var ID_Role: Int? = 0
 
     @SerializedName("Text")
     var TextH: String? = null
 
     @SerializedName("ID_Account")
-    var ID_Account = 0
+    var ID_Account: Int? = 0
 
     @SerializedName("Name")
     var Name: String? = null
 
     @SerializedName("IsAdmin")
-    var IsAdmin = false
+    var IsAdmin: Boolean? = false
 
     @SerializedName("AdminLevel")
-    var AdminLevel = 0
+    var AdminLevel: Int? = 0
 
     @SerializedName("Reason")
     var Reason: String? = null
@@ -121,4 +121,12 @@ open class RequestU {
     @JvmField
     @SerializedName("id")
     var id: Int? = null
+
+    @JvmField
+    @SerializedName("Items")
+    var Items: List<String>? = null
+
+    @JvmField
+    @SerializedName("Item")
+    var Item: List<String>? = null
 }

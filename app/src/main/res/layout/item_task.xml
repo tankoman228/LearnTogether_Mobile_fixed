@@ -111,7 +111,7 @@
 
         <Button
             android:id="@+id/btn1"
-            android:layout_width="60sp"
+            android:layout_width="50sp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/blue"
@@ -124,7 +124,7 @@
 
         <Button
             android:id="@+id/btn2"
-            android:layout_width="60sp"
+            android:layout_width="50sp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/blue"
@@ -137,7 +137,7 @@
 
         <Button
             android:id="@+id/btn3"
-            android:layout_width="60sp"
+            android:layout_width="50sp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/blue"
@@ -150,7 +150,7 @@
 
         <Button
             android:id="@+id/btn4"
-            android:layout_width="60sp"
+            android:layout_width="50sp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/blue"
@@ -163,7 +163,7 @@
 
         <Button
             android:id="@+id/btn5"
-            android:layout_width="60sp"
+            android:layout_width="50sp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/blue"

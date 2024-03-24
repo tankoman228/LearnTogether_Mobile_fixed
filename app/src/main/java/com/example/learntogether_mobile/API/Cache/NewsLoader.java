@@ -37,8 +37,13 @@ public class NewsLoader {
         call.enqueue(new Callback<>() {
             @Override
             public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
+
+                if (response.body() == null) {
+                    return;
+                }
+
                 if (response.body().Error != null) {
-                    Toast.makeText(context, response.body().Error, Toast.LENGTH_SHORT);
+                    Toast.makeText(context, response.body().Error, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 news_list = new ArrayList<>();
@@ -62,7 +67,7 @@ public class NewsLoader {
                 }
                 //votes_list.sort(Comparator.comparingInt(ListU::getID_InfoBase));
 
-                news_list.sort(Comparator.comparingInt(ListU::getID_InfoBase));
+                news_list.sort(Comparator.comparingInt(ListU::getID_InfoBase).reversed());
                 callback.updateInterface();
 
                 Log.d("API", "news loaded: " + news_list.size());

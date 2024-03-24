@@ -12,6 +12,8 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,18 +26,28 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.learntogether_mobile.API.ImageConverter;
+import com.example.learntogether_mobile.API.RequestU;
+import com.example.learntogether_mobile.API.ResponseU;
+import com.example.learntogether_mobile.API.RetrofitRequest;
+import com.example.learntogether_mobile.API.Variables;
 import com.example.learntogether_mobile.R;
+import com.github.chrisbanes.photoview.PhotoView;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class AddNews extends AppCompatActivity {
 
     private ImageButton ibNext, ibPrevious;
     private TextView tvNum;
-    private ImageView ivImage;
+    private PhotoView ivImage;
     private Spinner spType;
     private Button btnSave;
     private TextView tvWarningNotModerator;
@@ -224,14 +236,99 @@ public class AddNews extends AppCompatActivity {
 
 
     //Vote special UI logic
+    String[] items;
     private void initVoteUI() {
-
+        etItems.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                Log.d("APPLOG", "skip tc");
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.d("APPLOG", "skip tc");
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                items = s.toString().split(";");
+                StringBuilder text = new StringBuilder("Divide with \",\"\n");
+                for (String item: items) {
+                    text.append(item).append("\n");
+                }
+                tvDivideWith.setText(text);
+            }
+        });
     }
 
 
     //Sending to server
     private void btnSaveOnclickListener() {
 
-    }
+        if (etHeader.getText().toString().length() < 2 ||
+            etDescription.getText().toString().length() < 2 ||
+            etTaglist.getText().toString().length() < 2
+        ) {
+            Toast.makeText(this, "Unfilled values!", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
+        btnSave.setVisibility(View.GONE);
+        switch (selectedType) {
+            case "N" -> {
+                saveNews();
+            }
+            case "T" -> {
+                saveTask();
+            }
+            case "V" -> {
+                saveVote();
+            }
+            default ->
+                    Toast.makeText(this, "Select news type", Toast.LENGTH_SHORT).show();
+        }
+    }
+    private void saveNews() {
+        RequestU request = new RequestU();
+        request.setSession_token(Variables.SessionToken);
+        request.setId_group(Variables.current_id_group);
+        request.title = etHeader.getText().toString();
+        request.setText(etDescription.getText().toString());
+        request.setTags(etTaglist.getText().toString());
+        request.setImages(ImageConverter.encodeImages(selectedImages));
+
+        RetrofitRequest r = new RetrofitRequest();
+        r.apiService.add_news(request).enqueue(new Callback<ResponseU>() {
+            @Override
+            public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
+                if (response.body().Error != null) {
+                    Toast.makeText(AddNews.this, response.body().Error, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                AddNews.this.finish();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseU> call, Throwable t) {
+                Toast.makeText(AddNews.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private void saveTask() {
+        RequestU request = new RequestU();
+        request.setSession_token(Variables.SessionToken);
+        request.setId_group(Variables.current_id_group);
+        request.title = etHeader.getText().toString();
+        request.setText(etDescription.getText().toString());
+        request.setTags(etTaglist.getText().toString());
+        request.setDeadline(editTextDate.getText().toString());
+
+
+    }
+    private void saveVote(){
+        RequestU request = new RequestU();
+        request.setSession_token(Variables.SessionToken);
+        request.setId_group(Variables.current_id_group);
+        request.title = etHeader.getText().toString();
+        request.setText(etDescription.getText().toString());
+        request.setTags(etTaglist.getText().toString());
+    }
 }

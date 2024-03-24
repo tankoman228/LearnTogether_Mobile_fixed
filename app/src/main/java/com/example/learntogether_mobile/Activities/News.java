@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Debug;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -56,8 +58,29 @@ public class News extends AppCompatActivity implements CallbackAfterLoaded {
             }
 
         });
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                loadTab(currentTab);
+            }
+        });
 
         Log.d("API", "1");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         loadTab(currentTab);
     }
 
