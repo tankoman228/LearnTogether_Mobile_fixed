@@ -14,10 +14,15 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.example.learntogether_mobile.API.Cache.CallbackAfterLoaded;
+import com.example.learntogether_mobile.API.Cache.ForumLoader;
 import com.example.learntogether_mobile.API.Cache.NewsLoader;
+import com.example.learntogether_mobile.API.ListU;
+import com.example.learntogether_mobile.Activities.Adapters.AdapterForum;
 import com.example.learntogether_mobile.Activities.Adapters.AdapterNews;
 import com.example.learntogether_mobile.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
 
 public class News extends AppCompatActivity implements CallbackAfterLoaded {
 
@@ -48,10 +53,17 @@ public class News extends AppCompatActivity implements CallbackAfterLoaded {
         listView = findViewById(R.id.rv);
         fb = findViewById(R.id.floatingActionButton2);
 
+        btnNews.setOnClickListener(l -> loadTab(tabNews));
+        //...
+        btnForum.setOnClickListener(l -> loadTab(tabForum));
+
         fb.setOnClickListener(l -> {
             switch (currentTab) {
                 case tabNews:
                     startActivity(new Intent(this, AddNews.class));
+                    break;
+                case tabForum:
+                    startActivity(new Intent(this, ForumAskAdd.class));
                     break;
                 default:
                     break;
@@ -90,23 +102,27 @@ public class News extends AppCompatActivity implements CallbackAfterLoaded {
         switch (currentTab) {
             case tabNews:
                 Log.d("API", "3");
-                loadNews();
+                NewsLoader.loadFromRetrofit(this,this, etSearch.getText().toString(), 999999);
+                break;
+            case tabForum:
+                ForumLoader.Reload(this, etSearch.getText().toString());
                 break;
             default:
                 break;
         }
     }
 
-    protected void loadNews() {
-        NewsLoader.loadFromRetrofit(this,this, etSearch.getText().toString(), 999999);
-        Log.d("API", "news loaded...");
-    }
-
     @Override
     public void updateInterface() {
         this.runOnUiThread(() -> {
-            listView.setAdapter(new AdapterNews(this, NewsLoader.news_list));
-            Log.d("API", "news loaded to adapter");
+            if (currentTab == tabNews) {
+                listView.setAdapter(new AdapterNews(this, NewsLoader.news_list));
+                Log.d("API", "news loaded to adapter");
+            }
+            else if (currentTab == tabForum)  {
+                listView.setAdapter(new AdapterForum(this, new ArrayList<>(ForumLoader.Asks)));
+                Log.d("API", "forum loaded to adapter");
+            }
         });
     }
 }
