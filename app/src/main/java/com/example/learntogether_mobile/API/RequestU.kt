@@ -128,13 +128,16 @@ open class RequestU {
 
     @JvmField
     @SerializedName("Anonymous")
-    var Anonymous: Boolean = false
+    var Anonymous: Boolean? = false
 
     @JvmField
     @SerializedName("MultAnswer")
-    var MultAnswer: Boolean = false
+    var MultAnswer: Boolean? = false
 
     @JvmField
     @SerializedName("items")
     var items: List<String>? = null
+
+    @SerializedName("id_comment")
+    var id_comment: Int? = null
 }

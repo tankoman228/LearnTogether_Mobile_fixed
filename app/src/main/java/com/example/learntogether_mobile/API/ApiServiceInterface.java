@@ -23,7 +23,7 @@ public interface ApiServiceInterface {
     @POST("/comments/add_comment")
     Call<ResponseU> add_comment(@Body RequestU request);
 
-    @DELETE("/comments/delete_comment")
+    @POST("/comments/delete_comment")
     Call<ResponseU> delete_comment(@Body RequestU request);
 
     @POST("/comments/rate")
