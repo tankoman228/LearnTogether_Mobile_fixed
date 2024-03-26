@@ -3,56 +3,67 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black2"
+    android:background="@color/gray"
     android:orientation="vertical"
     android:padding="10sp">
 
-    <Button
-        android:id="@+id/btnClear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/blue"
-        android:text="Clear Attachment"
-        app:icon="@android:drawable/ic_dialog_alert" />
-
-    <Button
-        android:id="@+id/btnAddImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/blue"
-        android:text="Select Image"
-        app:icon="@android:drawable/gallery_thumb" />
-
-    <ImageView
-        android:id="@+id/imageView"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="fitCenter"
-        android:visibility="gone" />
+        android:layout_height="match_parent" >
 
-    <EditText
-        android:id="@+id/editTextLink"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter Link URL"
-        android:textColor="@color/white"
-        android:textColorHint="@color/gray" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btnAddLink"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/blue"
-        android:text="Add Link"
-        app:icon="@android:drawable/ic_dialog_email" />
+            <Button
+                android:id="@+id/btnClear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black2"
+                android:text="Clear Attachment"
+                app:icon="@android:drawable/ic_dialog_alert" />
 
-    <TextView
-        android:id="@+id/textViewLink"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:autoLink="all|web|phone|none|map|email"
-        android:linksClickable="true"
-        android:textColor="@color/white"
-        android:textColorLink="@color/white" />
+            <Button
+                android:id="@+id/btnAddImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black2"
+                android:text="Select Image"
+                app:icon="@android:drawable/gallery_thumb" />
+
+            <com.github.chrisbanes.photoview.PhotoView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/editTextLink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Link URL"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray" />
+
+            <Button
+                android:id="@+id/btnAddLink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black2"
+                android:text="Add Link"
+                app:icon="@android:drawable/ic_dialog_email" />
+
+            <TextView
+                android:id="@+id/textViewLink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autoLink="all|web|phone|none|map|email"
+                android:linksClickable="true"
+                android:textColor="@color/black"
+                android:textColorLink="@color/red" />
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

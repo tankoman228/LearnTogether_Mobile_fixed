@@ -86,6 +86,7 @@ public class AdapterForum extends BaseAdapter {
                         return;
                     }
                     Toast.makeText(ctx, "Deleted", Toast.LENGTH_SHORT).show();
+                    ((AppCompatActivity)ctx).runOnUiThread(() -> view.setVisibility(View.GONE));
                 }
                 @Override
                 public void onFailure(Call<ResponseU> call, Throwable t) {
@@ -110,6 +111,7 @@ public class AdapterForum extends BaseAdapter {
                             return;
                         }
                         Toast.makeText(ctx, "Marked as solved", Toast.LENGTH_SHORT).show();
+                        ((AppCompatActivity)ctx).runOnUiThread(() -> view.findViewById(R.id.btnMarkSolved).setVisibility(View.GONE));
                     }
 
                     @Override

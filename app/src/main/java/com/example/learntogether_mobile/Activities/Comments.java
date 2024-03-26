@@ -55,6 +55,12 @@ public class Comments extends AppCompatActivity implements CallbackAfterLoaded {
         findViewById(R.id.btnCancel).setOnClickListener(l -> {
             commentForm.setVisibility(View.INVISIBLE);
         });
+        DialogAttachment.AttachmentJson = "";
+        findViewById(R.id.btnAddAttachment).setOnClickListener(l -> {
+            DialogAttachment.WatchOnly = false;
+            DialogAttachment d = new DialogAttachment();
+            d.show(getSupportFragmentManager(), "custom");
+        });
         findViewById(R.id.btnSend).setOnClickListener(l -> {
 
             String text = et.getText().toString();
@@ -68,6 +74,8 @@ public class Comments extends AppCompatActivity implements CallbackAfterLoaded {
             request.setId_object(ID_InfoBase);
             request.setSession_token(Variables.SessionToken);
             request.setText(text);
+            if (!DialogAttachment.AttachmentJson.equals(""))
+                request.setAttachment(DialogAttachment.AttachmentJson);
             RetrofitRequest r = new RetrofitRequest();
             r.apiService.add_comment(request).enqueue(new Callback<ResponseU>() {
                 @Override
