@@ -38,6 +38,7 @@ class NotificationService : Service() {
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
+
         val channel = NotificationChannel(
             FOREGROUND_CHANNEL_ID, "My Service Channel",
             NotificationManager.IMPORTANCE_HIGH
@@ -62,6 +63,7 @@ class NotificationService : Service() {
         builder.setContentIntent(pendingIntent)
         val notification = builder.build()
         startForeground(FOREGROUND_NOTIFICATION_ID, notification)
+
         mHandler!!.removeCallbacks(mRunnable!!)
         mHandler!!.post(mRunnable!!)
         return START_STICKY

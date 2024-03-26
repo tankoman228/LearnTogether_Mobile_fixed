@@ -51,8 +51,14 @@ public class MainActivity extends AppCompatActivity {
         Variables.loadValues(this);
         if (Variables.password != null) {
 
-            Intent intent = new Intent(this, NotificationService.class);
-            //startForegroundService(intent);
+            try {
+                Intent intent = new Intent(this, NotificationService.class);
+                startForegroundService(intent);
+            }
+            catch (Exception e) {
+               e.printStackTrace();
+            }
+
 
             findViewById(R.id.btnRegister).setVisibility(View.INVISIBLE);
             findViewById(R.id.btnLogin).setVisibility(View.INVISIBLE);

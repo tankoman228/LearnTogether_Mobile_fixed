@@ -9,6 +9,7 @@ import android.os.Debug;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -115,14 +116,23 @@ public class News extends AppCompatActivity implements CallbackAfterLoaded {
     @Override
     public void updateInterface() {
         this.runOnUiThread(() -> {
+            int firstVisibleItem = listView.getFirstVisiblePosition();
+            View firstVisibleView = listView.getChildAt(0);
+            int top = (firstVisibleView == null) ? 0 : (firstVisibleView.getTop() - listView.getPaddingTop());
+
             if (currentTab == tabNews) {
-                listView.setAdapter(new AdapterNews(this, NewsLoader.news_list));
+                AdapterNews adapter = new AdapterNews(this, NewsLoader.news_list);
+                listView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
                 Log.d("API", "news loaded to adapter");
-            }
-            else if (currentTab == tabForum)  {
-                listView.setAdapter(new AdapterForum(this, new ArrayList<>(ForumLoader.Asks)));
+            } else if (currentTab == tabForum) {
+                AdapterForum adapter = new AdapterForum(this, new ArrayList<>(ForumLoader.Asks));
+                listView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
                 Log.d("API", "forum loaded to adapter");
             }
+
+            listView.setSelectionFromTop(firstVisibleItem, top);
         });
     }
 }

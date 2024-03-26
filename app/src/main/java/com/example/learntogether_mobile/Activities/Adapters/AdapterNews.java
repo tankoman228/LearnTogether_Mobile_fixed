@@ -32,6 +32,10 @@ import com.example.learntogether_mobile.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import retrofit2.Call;
@@ -42,6 +46,7 @@ public class AdapterNews extends BaseAdapter {
 
     Context ctx;
     LayoutInflater lInflater;
+    final ExecutorService executor = Executors.newFixedThreadPool(1);
 
     private ArrayList<ListU> objects;
 
@@ -198,12 +203,59 @@ public class AdapterNews extends BaseAdapter {
                 Comments.ID_InfoBase = item.getID_InfoBase();
                 ctx.startActivity(new Intent(ctx, Comments.class));
             });
+
+            final List<Bitmap>[] bitmaps = new List[]{null};
+
+            AtomicInteger i = new AtomicInteger(0);
+            ibNext.setOnClickListener(l -> {
+                i.getAndIncrement();
+                if (i.get() >= bitmaps[0].size())
+                    i.set(0);
+                ivImage.setImageBitmap(bitmaps[0].get(i.get()));
+                tvPhotosNum.setText(new StringBuilder().append(i.get() + 1).append("/").append(bitmaps[0].size()).toString());
+            });
+
+            ibPrevious.setOnClickListener(l -> {
+                i.getAndDecrement();
+                if (i.get() < 0)
+                    i.set(bitmaps[0].size() - 1);
+                ivImage.setImageBitmap(bitmaps[0].get(i.get()));
+                tvPhotosNum.setText(new StringBuilder().append(i.get() + 1).append("/").append(bitmaps[0].size()).toString());
+            });
+
+            ivImage.setOnClickListener(l -> {
+                FullScreenImageActivity.bitmap = bitmaps[0].get(i.get());
+                ctx.startActivity(new Intent(ctx, FullScreenImageActivity.class));
+            });
+
+            ivImage.setVisibility(View.GONE);
+            ibNext.setVisibility(View.GONE);
+            ibPrevious.setVisibility(View.GONE);
+            tvPhotosNum.setVisibility(View.GONE);
+
+            executor.execute(() -> {
+                try {
+                    bitmaps[0] = ImageConverter.decodeImages(item.getImages());
+                    ((AppCompatActivity)ctx).runOnUiThread(() -> {
+                        if (bitmaps[0].size() != 0) {
+                            ivImage.setVisibility(View.VISIBLE);
+                            ibNext.setVisibility(View.VISIBLE);
+                            ibPrevious.setVisibility(View.VISIBLE);
+                            tvPhotosNum.setVisibility(View.VISIBLE);
+
+                            ivImage.setImageBitmap(bitmaps[0].get(0));
+                            tvPhotosNum.setText(new StringBuilder().append("1/").append(bitmaps[0].size()).toString());
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+
+            /*
             List<Bitmap> bitmaps = ImageConverter.decodeImages(item.getImages());
             if (bitmaps.size() == 0) {
-                ivImage.setVisibility(View.GONE);
-                ibNext.setVisibility(View.GONE);
-                ibPrevious.setVisibility(View.GONE);
-                tvPhotosNum.setVisibility(View.GONE);
+
             }
             else {
                 AtomicInteger i = new AtomicInteger();
@@ -227,7 +279,7 @@ public class AdapterNews extends BaseAdapter {
                     FullScreenImageActivity.bitmap = bitmaps.get(i.get());
                     ctx.startActivity(new Intent(ctx, FullScreenImageActivity.class));
                 });
-            }
+            }*/
 
             return view;
         }
