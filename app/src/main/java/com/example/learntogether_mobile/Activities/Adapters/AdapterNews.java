@@ -28,6 +28,7 @@ import com.example.learntogether_mobile.API.RetrofitRequest;
 import com.example.learntogether_mobile.API.Variables;
 import com.example.learntogether_mobile.Activities.Comments;
 import com.example.learntogether_mobile.Activities.FullScreenImageActivity;
+import com.example.learntogether_mobile.Activities.TaskStatus;
 import com.example.learntogether_mobile.R;
 
 import java.util.ArrayList;
@@ -309,8 +310,11 @@ public class AdapterNews extends BaseAdapter {
             };
             Button btnMarkModerated = view.findViewById(R.id.btnMarkModerated);
 
-            Button btnMyStatus = view.findViewById(R.id.btnMyStatus);
-            Button btnWatchJoined = view.findViewById(R.id.btnWatchJoined);
+            view.findViewById(R.id.btnMyStatus).setOnClickListener(l -> {
+                TaskStatus.ShowMy = true;
+                TaskStatus.Task = item;
+                ctx.startActivity(new Intent(ctx, TaskStatus.class));
+            });
 
             tvUsername.setText(item.getAuthorTitle());
             tvWhen.setText(item.getWhenAdd());

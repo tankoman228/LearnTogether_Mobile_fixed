@@ -81,7 +81,7 @@ class NotificationService : Service() {
 
     private inner class NetworkTask : AsyncTask<Void?, Void?, Void?>() {
         private val handler = Handler()
-        val interval = 45000 //ms
+        val interval = 75000 //ms
         private val runnable: Runnable = object : Runnable {
             override fun run() {
                 if (Variables.password != null) {

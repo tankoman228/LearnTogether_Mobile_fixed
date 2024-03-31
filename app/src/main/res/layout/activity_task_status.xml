@@ -17,6 +17,27 @@
         android:textColor="@color/white"
         android:textSize="34sp"></TextView>
 
+    <TextView
+        android:id="@+id/tvDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxHeight="100sp"
+        android:scrollbarTrackVertical="@android:drawable/alert_dark_frame"
+        android:scrollbars="vertical"
+        android:text="Descr"
+        android:textColor="@color/gray"
+        android:textSize="20sp"
+        android:verticalScrollbarPosition="right" />
+
+    <TextView
+        android:id="@+id/tvDeadline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Deadline: "
+        android:textColor="@color/red"
+        android:textSize="18sp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -57,15 +78,36 @@
         android:progressBackgroundTint="@color/white"
         android:thumb="@android:drawable/ic_dialog_alert" />
 
-    <Button
-        android:id="@+id/btnUpdateTaskStatus"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15sp"
-        android:backgroundTint="@color/blue"
-        android:text="Update task status"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:layout_margin="10sp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnUpdateTaskStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/blue"
+            android:text="Update status"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:icon="@drawable/profile_2user" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/btnDeleteTaskStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/blue"
+            android:text="Delete status"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -74,26 +116,32 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/btnShowForThis"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5sp"
             android:backgroundTint="@color/blue"
-            android:text="Show for this task"
+            android:text="Others' statuses"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
         <Button
+            android:id="@+id/btnAllYourTasks"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5sp"
             android:backgroundTint="@color/blue"
             android:text="All your tasks"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <ListView
+        android:id="@+id/lv"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

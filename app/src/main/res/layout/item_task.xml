@@ -101,12 +101,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnWatchJoined">
+        app:layout_constraintTop_toBottomOf="@+id/btnMyStatus">
 
         <Button
             android:id="@+id/btn1"
@@ -213,23 +212,11 @@
         android:layout_height="40sp"
         android:layout_marginTop="8dp"
         android:background="@drawable/outlined_blue_button"
-        android:text="My status"
+        android:text="Open in task manager"
         android:textColor="@color/blue"
         app:icon="@drawable/note_2"
         app:layout_constraintStart_toStartOf="@+id/tvTextDescription"
         app:layout_constraintTop_toBottomOf="@+id/tvTextDescription" />
-
-    <android.widget.Button
-        android:id="@+id/btnWatchJoined"
-        android:layout_width="wrap_content"
-        android:layout_height="40sp"
-        android:layout_marginStart="16dp"
-        android:background="@drawable/outlined_blue_button"
-        android:text="Watch Joined"
-        android:textColor="@color/blue"
-        app:icon="@drawable/profile_2user"
-        app:layout_constraintStart_toEndOf="@+id/btnMyStatus"
-        app:layout_constraintTop_toTopOf="@+id/btnMyStatus" />
 
     <TextView
         android:id="@+id/tvDeadline"

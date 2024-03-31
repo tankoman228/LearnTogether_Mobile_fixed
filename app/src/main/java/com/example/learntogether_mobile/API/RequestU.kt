@@ -10,6 +10,10 @@ import com.google.gson.annotations.SerializedName
  */
 open class RequestU {
 
+    @JvmField
+    @SerializedName("ID_Task")
+    var ID_Task: Int? = null
+
     @SerializedName("session_token")
     var session_token: String? = null
 
@@ -140,4 +144,19 @@ open class RequestU {
 
     @SerializedName("id_comment")
     var id_comment: Int? = null
+
+    @SerializedName("only_mine")
+    var only_mine: Boolean? = null
+
+    @SerializedName("todo")
+    var todo: String? = null
+
+    @SerializedName("NeedHelp")
+    var NeedHelp = false
+
+    @SerializedName("Finished")
+    var Finished = false
+
+    @SerializedName("Priority")
+    var Priority = 0f
 }

@@ -22,6 +22,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/black2"
                 android:text="Clear Attachment"
+                android:textSize="16sp"
                 app:icon="@android:drawable/ic_dialog_alert" />
 
             <Button
@@ -30,6 +31,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/black2"
                 android:text="Select Image"
+                android:textSize="16sp"
                 app:icon="@android:drawable/gallery_thumb" />
 
             <com.github.chrisbanes.photoview.PhotoView
@@ -45,7 +47,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Enter Link URL"
                 android:textColor="@color/black"
-                android:textColorHint="@color/gray" />
+                android:textColorHint="@color/gray"
+                android:textSize="20sp" />
 
             <Button
                 android:id="@+id/btnAddLink"
@@ -53,6 +56,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/black2"
                 android:text="Add Link"
+                android:textSize="16sp"
                 app:icon="@android:drawable/ic_dialog_email" />
 
             <TextView
@@ -62,7 +66,8 @@
                 android:autoLink="all|web|phone|none|map|email"
                 android:linksClickable="true"
                 android:textColor="@color/black"
-                android:textColorLink="@color/red" />
+                android:textColorLink="@color/red"
+                android:textSize="24sp" />
         </LinearLayout>
     </ScrollView>
 

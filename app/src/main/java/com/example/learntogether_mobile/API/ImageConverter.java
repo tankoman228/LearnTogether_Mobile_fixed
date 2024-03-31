@@ -15,7 +15,7 @@ public class ImageConverter {
     // Метод для кодирования изображения в строку Base64
     public static String encodeImage(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 70, byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.WEBP, 70, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream.toByteArray();
         return Base64.encodeToString(byteArray, Base64.URL_SAFE);
     }
@@ -32,7 +32,7 @@ public class ImageConverter {
         StringBuilder encodedString = new StringBuilder();
         for (Bitmap bitmap : imageList) {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 70, byteArrayOutputStream);
+            bitmap.compress(Bitmap.CompressFormat.WEBP, 70, byteArrayOutputStream);
             byte[] byteArray = byteArrayOutputStream.toByteArray();
             String base64Image = Base64.encodeToString(byteArray, Base64.URL_SAFE);
             encodedString.append(base64Image).append(" ");
