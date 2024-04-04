@@ -24,6 +24,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".Activities.MeetingInfo"
+            android:exported="false" />
+        <activity
             android:name=".Activities.FullScreenImageActivity"
             android:exported="false" />
         <activity

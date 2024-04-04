@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/black2">
+
+    <android.widget.Button
+        android:id="@+id/btnGo"
+        android:layout_width="0dp"
+        android:layout_height="40sp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/outlined_blue_button"
+        android:text="Watch more"
+        android:textColor="@color/blue"
+        app:layout_constraintStart_toStartOf="@+id/tvDescription"
+        app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Meeting name"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Description"
+        android:textColor="@color/gray"
+        app:layout_constraintEnd_toEndOf="@+id/tvTitle"
+        app:layout_constraintStart_toStartOf="@+id/tvTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+    <TextView
+        android:id="@+id/tvUsername"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="By [NAME]"
+        android:textColor="@color/gray"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnGo"
+        app:layout_constraintEnd_toEndOf="@+id/tvDescription"
+        app:layout_constraintStart_toEndOf="@+id/btnGo"
+        app:layout_constraintTop_toTopOf="@+id/btnGo" />
+
+    <TextView
+        android:id="@+id/tvWhenAndWhere"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Meeting in [PLACE] at [TIME]"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tvUsername"
+        app:layout_constraintStart_toStartOf="@+id/btnGo"
+        app:layout_constraintTop_toBottomOf="@+id/btnGo" />
+</androidx.constraintlayout.widget.ConstraintLayout>
