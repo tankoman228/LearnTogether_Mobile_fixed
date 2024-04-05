@@ -28,7 +28,7 @@ class ListU {
     var Role: String? = null
 
     @SerializedName("Start")
-    var Start: String? = null
+    var Start: Int? = null
 
     @SerializedName("Sender")
     var Sender: String? = null
@@ -128,7 +128,7 @@ class ListU {
     var SuspectedID = 0
 
     @SerializedName("End")
-    var End: String? = null
+    var End: Int? = null
 
     @SerializedName("Name")
     var Name: String? = null
