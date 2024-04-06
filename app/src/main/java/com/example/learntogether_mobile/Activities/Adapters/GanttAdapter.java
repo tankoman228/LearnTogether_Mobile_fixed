@@ -17,6 +17,7 @@ import java.util.List;
 public class GanttAdapter extends RecyclerView.Adapter<GanttAdapter.GanttViewHolder> {
 
     private List<ListU> responsesList;
+    public static boolean ShowUsername = false;
 
     public GanttAdapter(List<ListU> responsesList) {
         this.responsesList = responsesList;
@@ -31,10 +32,25 @@ public class GanttAdapter extends RecyclerView.Adapter<GanttAdapter.GanttViewHol
 
     @Override
     public void onBindViewHolder(@NonNull GanttViewHolder holder, int position) {
+
         ListU response = responsesList.get(position);
 
         // Set data to views
-        holder.tvUsername.setText(response.getAccount());
+        if (ShowUsername) {
+            holder.tvUsername.setText(response.getSurety() + "% " + response.getAccount());
+        }
+        else {
+            holder.tvUsername.setText(new StringBuilder().
+                    append(response.getSurety()).
+                    append("% ").
+                    append(response.getStart() / 60).
+                    append(":").
+                    append(response.getStart() % 60).
+                    append("-").
+                    append(response.getEnd() / 60).
+                    append(":").
+                    append(response.getEnd() % 60).toString());
+        }
 
         int startTime = response.getStart();
         int endTime = response.getEnd();

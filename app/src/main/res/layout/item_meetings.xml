@@ -6,6 +6,17 @@
     android:layout_height="wrap_content"
     android:background="@color/black2">
 
+    <ImageButton
+        android:id="@+id/ibDelete"
+        android:layout_width="50sp"
+        android:layout_height="50sp"
+        android:backgroundTint="@color/black2"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvTitle"
+        app:srcCompat="@android:drawable/ic_menu_delete" />
+
     <android.widget.Button
         android:id="@+id/btnGo"
         android:layout_width="0dp"
@@ -47,9 +58,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="By [NAME]"
+        android:text="Org. by [NAME]"
         android:textColor="@color/gray"
-        android:textSize="20sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/btnGo"
         app:layout_constraintEnd_toEndOf="@+id/tvDescription"
         app:layout_constraintStart_toEndOf="@+id/btnGo"
