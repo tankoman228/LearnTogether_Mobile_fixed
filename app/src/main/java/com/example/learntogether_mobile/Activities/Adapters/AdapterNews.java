@@ -3,12 +3,14 @@ package com.example.learntogether_mobile.Activities.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -33,6 +35,7 @@ import com.example.learntogether_mobile.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -478,12 +481,9 @@ public class AdapterNews extends BaseAdapter {
                     req.setType(item.type_);
                     req.setGroup(Variables.current_id_group);
                     switch (item.type_) {
-                        case "n":
-                            req.id = item.getID_News(); break;
-                        case "t":
-                            req.id = item.getID_Task(); break;
-                        case "v":
-                            req.id = item.getID_Vote(); break;
+                        case "n" -> req.id = item.getID_News();
+                        case "t" -> req.id = item.getID_Task();
+                        case "v" -> req.id = item.getID_Vote();
                     }
 
                     RetrofitRequest r = new RetrofitRequest();
@@ -491,6 +491,7 @@ public class AdapterNews extends BaseAdapter {
                         @Override
                         public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
 
+                            assert response.body() != null;
                             if (response.body().Error != null) {
                                 Toast.makeText(ctx, "Error: " + response.body().Error, Toast.LENGTH_SHORT).show();
                                 return;
@@ -517,8 +518,84 @@ public class AdapterNews extends BaseAdapter {
                 options.add(new VoteOption(option, ""));
             }
             recyclerView.setLayoutManager(new LinearLayoutManager(ctx));
-            recyclerView.setAdapter(new AdapterVoteItem(options));
+            final AdapterVoteItem[] adapterVoteItem = {new AdapterVoteItem(options)};
+            recyclerView.setAdapter(adapterVoteItem[0]);
 
+            btnSave.setOnClickListener(l -> {
+
+                RequestU requestU = new RequestU();
+                requestU.setSession_token(Variables.SessionToken);
+                requestU.items = new ArrayList<>();
+                requestU.setId_object(item.getID_Vote());
+
+                for (var voteOption: adapterVoteItem[0].dataList) {
+                    if (voteOption.selected)
+                        requestU.items.add(voteOption.text);
+                }
+
+                new RetrofitRequest().apiService.vote(requestU).enqueue(new Callback<ResponseU>() {
+                    @Override
+                    public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
+                        if (response.body() == null) {
+                            Log.d("API", "vote error");
+                            return;
+                        }
+
+                        Toast.makeText(ctx, Objects.requireNonNullElse(response.body().Error, "Success!"), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseU> call, Throwable t) {
+
+                    }
+                });
+            });
+            btnShowResults.setOnClickListener(l -> {
+                RequestU requestU = new RequestU();
+                requestU.setSession_token(Variables.SessionToken);
+                requestU.setId_object(item.getID_Vote());
+
+                new RetrofitRequest().apiService.get_vote_info(requestU).enqueue(new Callback<ResponseU>() {
+                    @Override
+                    public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
+                        if (response.body() == null) {
+                            Log.d("API", "vote get info error");
+                            return;
+                        }
+
+                        var voteOptions = adapterVoteItem[0].dataList;
+
+                        if (item.getAnonymous()) {
+                            for (var have: voteOptions) {
+                                for (var got: response.body().Results) {
+                                    if (Objects.equals(got.getItem(), have.text)) {
+                                        have.result = "voted: " + got.getCount();
+                                    }
+                                }
+                            }
+                        }
+                        else {
+                            for (var have: voteOptions) {
+                                have.result = "";
+                                for (var got: response.body().Results) {
+                                    if (Objects.equals(got.getItem(), have.text)) {
+                                        have.result += got.getName() + "\n";
+                                    }
+                                }
+                            }
+                        }
+                        ((AppCompatActivity)ctx).runOnUiThread(() -> {
+                            adapterVoteItem[0] = new AdapterVoteItem(voteOptions);
+                            recyclerView.setAdapter(adapterVoteItem[0]);
+                        });
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseU> call, Throwable t) {
+
+                    }
+                });
+            });
 
             return view;
         }
@@ -550,6 +627,9 @@ public class AdapterNews extends BaseAdapter {
             if (item.result.equals("")) {
                 holder.tvResult.setVisibility(View.GONE);
             }
+            holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                item.selected = isChecked;
+            });
         }
 
         @Override
@@ -571,6 +651,8 @@ public class AdapterNews extends BaseAdapter {
 
     public class VoteOption {
         public String text, result;
+        public boolean selected = false;
+
         public VoteOption(String text, String result) {
             this.text = text;
             this.result = result;

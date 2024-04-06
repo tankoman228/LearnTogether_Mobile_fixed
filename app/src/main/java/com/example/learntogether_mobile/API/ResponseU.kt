@@ -66,4 +66,8 @@ class ResponseU {
     @JvmField
     @SerializedName("users")
     var users: List<ListU>? = null
+
+    @JvmField
+    @SerializedName("Results")
+    var Results: List<ListU>? = null
 }

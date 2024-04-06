@@ -18,7 +18,7 @@ open class RequestU {
     var session_token: String? = null
 
     @SerializedName("id_object")
-    var id_object: Int?  = 0
+    var id_object: Int? = null
 
     @SerializedName("search_string")
     var search_string: String? = null
