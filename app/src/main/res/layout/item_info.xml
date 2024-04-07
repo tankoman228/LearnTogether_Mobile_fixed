@@ -118,7 +118,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvUsername" />
 
     <ImageButton
-        android:id="@+id/imageView"
+        android:id="@+id/ibDelete"
         android:layout_width="60sp"
         android:layout_height="60sp"
         android:layout_marginEnd="8dp"
@@ -207,17 +207,5 @@
         app:layout_constraintBottom_toBottomOf="@+id/ibComments"
         app:layout_constraintEnd_toStartOf="@+id/ibComments"
         app:layout_constraintTop_toTopOf="@+id/ibComments" />
-
-    <TextView
-        android:id="@+id/tvRating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:text="4,5 / 5"
-        android:textColor="@color/blue"
-        android:textSize="22sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvCommentsNum"
-        app:layout_constraintStart_toStartOf="@+id/progressBar"
-        app:layout_constraintTop_toTopOf="@+id/tvCommentsNum" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
