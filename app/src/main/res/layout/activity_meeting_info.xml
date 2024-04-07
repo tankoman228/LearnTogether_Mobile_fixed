@@ -54,16 +54,6 @@
                     android:textSize="20sp" />
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10sp"
-                    android:layout_weight="1"
-                    android:text="]----------["
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-
-                <TextView
                     android:id="@+id/tvWhere"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -90,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:max="1440"
-                android:progress="300"
+                android:progress="700"
                 android:progressDrawable="@drawable/outlined_blue_button"
                 android:thumb="@drawable/setting_2" />
 
@@ -109,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:max="1440"
-                android:progress="700"
+                android:progress="1000"
                 android:progressDrawable="@drawable/outlined_blue_button"
                 android:thumb="@drawable/setting_2" />
 
@@ -154,8 +144,8 @@
                 android:checked="false"
                 android:text="ToggleButton"
                 android:textColor="@color/black"
-                android:textOff="Showing time"
-                android:textOn="Showing usernames" />
+                android:textOff="Showing time and usernames"
+                android:textOn="Hiding time and usernames" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -165,6 +155,36 @@
                 android:text="Joined people:"
                 android:textColor="@color/gray"
                 android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="00:00"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="12:00"
+                    android:textAlignment="center"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="24:00"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/white" />
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvJoined"

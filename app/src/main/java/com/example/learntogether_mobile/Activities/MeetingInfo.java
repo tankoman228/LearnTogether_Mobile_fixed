@@ -1,6 +1,7 @@
 package com.example.learntogether_mobile.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -9,10 +10,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.learntogether_mobile.API.ListU;
+import com.example.learntogether_mobile.API.RequestU;
+import com.example.learntogether_mobile.API.ResponseU;
+import com.example.learntogether_mobile.API.RetrofitRequest;
+import com.example.learntogether_mobile.API.Variables;
+import com.example.learntogether_mobile.Activities.Adapters.GanttAdapter;
 import com.example.learntogether_mobile.R;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MeetingInfo extends AppCompatActivity {
 
@@ -44,7 +57,7 @@ public class MeetingInfo extends AppCompatActivity {
         tvTitle.setText(meeting.getTitle());
         tvText.setText(meeting.getText());
         tvWhere.setText(meeting.getPlace());
-        tvWhen.setText(meeting.getDateTime());
+        tvWhen.setText(meeting.getStartsAt());
 
         sbFrom.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -68,6 +81,9 @@ public class MeetingInfo extends AppCompatActivity {
         sbUntil.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (sbFrom.getProgress() > progress) {
+                    sbFrom.setProgress(progress);
+                }
                 updateSelectedTime();
             }
 
@@ -103,32 +119,100 @@ public class MeetingInfo extends AppCompatActivity {
             JoinRetrofit();
         });
         toggleButton.setOnClickListener(l -> {
-
+            LoadRetrofit();
         });
+
+        updateSelectedTime();
         LoadRetrofit();
     }
 
     private void updateSelectedTime() {
+
+        if (sbSure.getProgress() == 0) {
+            btnJoin.setText("Refuse meeting");
+            return;
+        }
+
         String text = getTimeStringFromMinutes(sbFrom.getProgress());;
         text += " - ";
         text += getTimeStringFromMinutes(sbUntil.getProgress());
-        text += "\t ±";
-        text += getTimeStringFromMinutes(sbSure.getProgress());
+        text += "\t Sure in ";
+        text += sbSure.getProgress();
         text += "%";
         btnJoin.setText(text);
     }
-    private String getTimeStringFromMinutes(int minutes) {
+    public static String getTimeStringFromMinutes(int minutes) {
         int hours = minutes / 60;
         int mints = minutes % 60;
-        return hours + ":" + mints;
+
+        String hh = String.valueOf(hours), mm = String.valueOf(mints);
+        if (hh.length() < 2) hh = 0 + hh;
+        if (mm.length() < 2) mm = 0 + mm;
+
+        return hh + ":" + mm;
     }
 
 
     private void JoinRetrofit() {
+        GanttAdapter.ShowUsername = toggleButton.isChecked();
 
+        RequestU requestU = new RequestU();
+        requestU.setSession_token(Variables.SessionToken);
+        requestU.setId_object(meeting.getID_Meeting());
+        requestU.setStarts(String.valueOf(sbFrom.getProgress()));
+        requestU.setEnd(String.valueOf(sbUntil.getProgress()));
+        requestU.setSurety(sbSure.getProgress());
+        new RetrofitRequest().apiService.join_meeting(requestU).enqueue(new Callback<ResponseU>() {
+            @Override
+            public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
+                LoadRetrofit();
+                Toast.makeText(MeetingInfo.this, "Success", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseU> call, Throwable t) {
+
+            }
+        });
     }
 
     private void LoadRetrofit() {
+        GanttAdapter.ShowUsername = !toggleButton.isChecked();
 
+        RequestU requestU = new RequestU();
+        requestU.setSession_token(Variables.SessionToken);
+        requestU.setId_object(meeting.getID_Meeting());
+        new RetrofitRequest().apiService.get_meeting(requestU).enqueue(new Callback<ResponseU>() {
+            @Override
+            public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
+                MeetingInfo.this.runOnUiThread(() -> {
+
+                    var joined = new ArrayList<ListU>();
+                    var refused = new ArrayList<ListU>();
+
+                    assert response.body() != null;
+                    assert response.body().Results != null;
+                    for (var resp: response.body().Results) {
+                        if (resp.getSurety() <= 1) {
+                            refused.add(resp);
+                        }
+                        else {
+                            joined.add(resp);
+                        }
+                    }
+
+                    rvJoined.setLayoutManager(new LinearLayoutManager(MeetingInfo.this));
+                    rvRefused.setLayoutManager(new LinearLayoutManager(MeetingInfo.this));
+
+                    rvJoined.setAdapter(new GanttAdapter(joined));
+                    rvRefused.setAdapter(new GanttAdapter(refused));
+                });
+            }
+
+            @Override
+            public void onFailure(Call<ResponseU> call, Throwable t) {
+
+            }
+        });
     }
 }

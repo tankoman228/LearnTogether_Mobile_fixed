@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.learntogether_mobile.API.ListU;
+import com.example.learntogether_mobile.Activities.MeetingInfo;
 import com.example.learntogether_mobile.R;
 
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
 public class GanttAdapter extends RecyclerView.Adapter<GanttAdapter.GanttViewHolder> {
 
     private List<ListU> responsesList;
-    public static boolean ShowUsername = false;
+    public static boolean ShowUsername = true;
 
     public GanttAdapter(List<ListU> responsesList) {
         this.responsesList = responsesList;
@@ -34,22 +35,31 @@ public class GanttAdapter extends RecyclerView.Adapter<GanttAdapter.GanttViewHol
     public void onBindViewHolder(@NonNull GanttViewHolder holder, int position) {
 
         ListU response = responsesList.get(position);
+        if (response.getSurety() <= 1) {
+            holder.tvUsername.setVisibility(View.VISIBLE);
+            holder.pbLeft.setVisibility(View.GONE);
+            holder.pbRight.setVisibility(View.GONE);
+            holder.pbBg.setVisibility(View.GONE);
+            holder.tvUsername.setText(response.getAccount());
+            return;
+        }
+
 
         // Set data to views
         if (ShowUsername) {
-            holder.tvUsername.setText(response.getSurety() + "% " + response.getAccount());
+            holder.tvUsername.setText(new StringBuilder().
+                    append(MeetingInfo.getTimeStringFromMinutes(response.getStart())).
+                    append("-").
+                    append(MeetingInfo.getTimeStringFromMinutes(response.getEnd())).
+                    append("\t").
+                    append(response.getAccount()).
+                    append(" ").
+                    append((int)response.getSurety()).
+                    append("% ")
+                    .toString());
         }
         else {
-            holder.tvUsername.setText(new StringBuilder().
-                    append(response.getSurety()).
-                    append("% ").
-                    append(response.getStart() / 60).
-                    append(":").
-                    append(response.getStart() % 60).
-                    append("-").
-                    append(response.getEnd() / 60).
-                    append(":").
-                    append(response.getEnd() % 60).toString());
+            holder.tvUsername.setVisibility(View.GONE);
         }
 
         int startTime = response.getStart();
@@ -71,12 +81,14 @@ public class GanttAdapter extends RecyclerView.Adapter<GanttAdapter.GanttViewHol
         TextView tvUsername;
         ProgressBar pbLeft;
         ProgressBar pbRight;
+        ProgressBar pbBg;
 
         public GanttViewHolder(@NonNull View itemView) {
             super(itemView);
             tvUsername = itemView.findViewById(R.id.tvUsername);
             pbLeft = itemView.findViewById(R.id.pbLeft);
             pbRight = itemView.findViewById(R.id.pbRight);
+            pbBg = itemView.findViewById(R.id.pbBg);
         }
     }
 }

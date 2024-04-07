@@ -159,4 +159,10 @@ open class RequestU {
 
     @SerializedName("Priority")
     var Priority = 0f
+
+    @SerializedName("Surety")
+    var Surety = 0f
+
+    @SerializedName("End")
+    var End: String? = null
 }

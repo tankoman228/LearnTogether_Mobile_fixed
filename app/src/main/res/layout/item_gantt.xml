@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/black2">
 
@@ -14,47 +14,48 @@
         android:maxLines="1"
         android:text="30% 10:00-12:34"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toStartOf="@+id/pbLeft"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/pbLeft" />
 
     <ProgressBar
         android:id="@+id/pbLeft"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="340sp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="120sp"
+        android:layout_marginEnd="8dp"
         android:max="1440"
         android:progress="500"
         android:progressTint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
         android:id="@+id/pbRight"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="340sp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="120sp"
         android:max="1440"
         android:progress="700"
         android:progressTint="@color/black"
         android:rotation="180"
+        app:layout_constraintEnd_toEndOf="@+id/pbLeft"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
         android:id="@+id/pbBg"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="340sp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="120sp"
         android:max="100"
         android:progress="100"
         android:progressTint="@color/white"
         android:progressTintMode="multiply"
         android:rotation="180"
         android:translationZ="-2sp"
+        app:layout_constraintEnd_toEndOf="@+id/pbLeft"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
