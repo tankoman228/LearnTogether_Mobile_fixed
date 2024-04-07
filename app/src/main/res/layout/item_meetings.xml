@@ -10,6 +10,8 @@
         android:id="@+id/ibDelete"
         android:layout_width="50sp"
         android:layout_height="50sp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:backgroundTint="@color/black2"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
@@ -71,7 +73,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif-medium"
         android:text="Meeting in [PLACE] at [TIME]"
         android:textColor="@color/white"
@@ -80,4 +82,28 @@
         app:layout_constraintEnd_toEndOf="@+id/tvUsername"
         app:layout_constraintStart_toStartOf="@+id/btnGo"
         app:layout_constraintTop_toBottomOf="@+id/btnGo" />
+
+    <TextView
+        android:id="@+id/tvCommentsNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:text="30"
+        android:textColor="@color/blue"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ibComments"
+        app:layout_constraintEnd_toStartOf="@+id/ibComments"
+        app:layout_constraintTop_toTopOf="@+id/ibComments" />
+
+    <ImageButton
+        android:id="@+id/ibComments"
+        android:layout_width="40sp"
+        android:layout_height="40sp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/black2"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/tvWhenAndWhere"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvWhenAndWhere"
+        app:srcCompat="@drawable/messages_2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

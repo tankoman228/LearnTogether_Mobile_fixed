@@ -21,6 +21,7 @@ import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
 import com.example.learntogether_mobile.API.Variables;
+import com.example.learntogether_mobile.Activities.Comments;
 import com.example.learntogether_mobile.Activities.MeetingInfo;
 import com.example.learntogether_mobile.R;
 
@@ -72,12 +73,17 @@ public class AdapterMeetings extends BaseAdapter {
 
         tvTitle.setText(thisMeeting.getTitle());
         tvDescription.setText(thisMeeting.getText());
-        tvUsername.setText(thisMeeting.getAuthorTitle());
-        tvWhenAndWhere.setText("At " + thisMeeting.getDateTime() + " in " + thisMeeting.getPlace());
+        tvUsername.setText(tvUsername.getText().toString().replace("[NAME]", thisMeeting.getAuthorTitle()));
+        tvWhenAndWhere.setText("At " + thisMeeting.getStartsAt() + " in " + thisMeeting.getPlace());
 
         view.findViewById(R.id.btnGo).setOnClickListener(l -> {
             MeetingInfo.meeting = thisMeeting;
             ctx.startActivity(new Intent(ctx, MeetingInfo.class));
+        });
+        ((TextView)view.findViewById(R.id.tvCommentsNum)).setText(thisMeeting.getCommentsFound());
+        view.findViewById(R.id.ibComments).setOnClickListener(l -> {
+            Comments.ID_InfoBase = thisMeeting.getID_InfoBase();
+            ctx.startActivity(new Intent(ctx, Comments.class));
         });
         view.findViewById(R.id.ibDelete).setOnClickListener(l -> {
             RequestU req = new RequestU();
