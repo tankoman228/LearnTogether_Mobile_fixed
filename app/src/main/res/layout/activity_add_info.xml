@@ -64,27 +64,13 @@
                 app:layout_constraintStart_toStartOf="@+id/etHeader"
                 app:layout_constraintTop_toBottomOf="@+id/etTaglist" />
 
-            <EditText
-                android:id="@+id/layoutDatePicker"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:ems="10"
-                android:hint="Deadline for this task"
-                android:inputType="datetime"
-                android:textColor="@color/gray"
-                android:textColorHint="@color/red"
-                app:layout_constraintEnd_toEndOf="@+id/etDescription"
-                app:layout_constraintStart_toStartOf="@+id/etDescription"
-                app:layout_constraintTop_toBottomOf="@+id/etDescription" />
-
             <Button
                 android:id="@+id/btnDeleteImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:backgroundTint="@color/blue"
-                android:text="Delete file"
+                android:text="Delete files"
                 android:textSize="16sp"
                 app:icon="@android:drawable/ic_menu_delete"
                 app:layout_constraintBottom_toBottomOf="@+id/btnAddImage"
@@ -109,11 +95,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layoutDatePicker" />
+                app:layout_constraintTop_toBottomOf="@+id/etDescription" />
 
             <EditText
                 android:id="@+id/etTaglist"

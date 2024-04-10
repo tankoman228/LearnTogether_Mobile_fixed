@@ -105,8 +105,7 @@ public class AdapterInfo  extends BaseAdapter {
         }
         else {
             view.findViewById(R.id.btnDownload).setOnClickListener(l -> {
-                thisInfo.getID_InfoBase(); //Идентификация данных (набора файлов)
-                //код для загрузки
+                thisInfo.getID_InfoBase();
 
                 RequestU requestU = new RequestU();
                 requestU.setSession_token(Variables.SessionToken);
