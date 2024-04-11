@@ -36,13 +36,17 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnSwitchToThis"
+    <Space
+        android:layout_width="50dp"
+        android:layout_height="wrap_content" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="10sp"
-        android:backgroundTint="@color/blue"
-        android:text="Switch to this" />
+        android:layout_height="match_parent"
+        android:layout_margin="5sp"
+        android:backgroundTint="@color/black2"
+        android:scaleType="fitCenter"
+        android:src="@android:drawable/ic_menu_directions" />
 
 </LinearLayout>
