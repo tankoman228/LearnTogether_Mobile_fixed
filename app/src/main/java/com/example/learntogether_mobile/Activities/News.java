@@ -16,10 +16,12 @@ import android.widget.ListView;
 
 import com.example.learntogether_mobile.API.Cache.CallbackAfterLoaded;
 import com.example.learntogether_mobile.API.Cache.ForumLoader;
+import com.example.learntogether_mobile.API.Cache.InfosLoader;
 import com.example.learntogether_mobile.API.Cache.MeetingsLoader;
 import com.example.learntogether_mobile.API.Cache.NewsLoader;
 import com.example.learntogether_mobile.API.ListU;
 import com.example.learntogether_mobile.Activities.Adapters.AdapterForum;
+import com.example.learntogether_mobile.Activities.Adapters.AdapterInfo;
 import com.example.learntogether_mobile.Activities.Adapters.AdapterMeetings;
 import com.example.learntogether_mobile.Activities.Adapters.AdapterNews;
 import com.example.learntogether_mobile.R;
@@ -57,6 +59,7 @@ public class News extends AppCompatActivity implements CallbackAfterLoaded {
         fb = findViewById(R.id.floatingActionButton2);
 
         btnNews.setOnClickListener(l -> loadTab(tabNews));
+        btnInfo.setOnClickListener(l -> loadTab(tabInfo));
         btnMeetings.setOnClickListener(l -> loadTab(tabMeetings));
         //...
         btnForum.setOnClickListener(l -> loadTab(tabForum));
@@ -65,6 +68,9 @@ public class News extends AppCompatActivity implements CallbackAfterLoaded {
             switch (currentTab) {
                 case tabNews:
                     startActivity(new Intent(this, AddNews.class));
+                    break;
+                case tabInfo:
+                    startActivity(new Intent(this, AddInfo.class));
                     break;
                 case tabMeetings:
                     startActivity(new Intent(this, AddMeeting.class));
@@ -111,6 +117,9 @@ public class News extends AppCompatActivity implements CallbackAfterLoaded {
                 Log.d("API", "3");
                 NewsLoader.loadFromRetrofit(this, this, etSearch.getText().toString(), 999999);
             }
+            case tabInfo -> {
+                InfosLoader.Reload(this, etSearch.getText().toString());
+            }
             case tabMeetings -> MeetingsLoader.Reload(this, etSearch.getText().toString());
             case tabForum -> ForumLoader.Reload(this, etSearch.getText().toString());
             default -> {
@@ -130,6 +139,10 @@ public class News extends AppCompatActivity implements CallbackAfterLoaded {
                 listView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
                 Log.d("API", "news loaded to adapter");
+            } else if (currentTab == tabInfo) {
+                AdapterInfo adapter = new AdapterInfo(this, new ArrayList<>(InfosLoader.Infos));
+                listView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
             } else if (currentTab == tabMeetings) {
                 AdapterMeetings adapter = new AdapterMeetings(this, new ArrayList<>(MeetingsLoader.Meetings));
                 listView.setAdapter(adapter);

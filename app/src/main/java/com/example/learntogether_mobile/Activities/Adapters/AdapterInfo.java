@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -100,8 +102,9 @@ public class AdapterInfo  extends BaseAdapter {
             });
         });
 
-        if (FileEncoderDecoder.checkFilesDownloaded(thisInfo.getID_InfoBase(), ctx)) {
+        if (FileEncoderDecoder.checkFilesDownloaded(thisInfo.getID_InfoBase())) {
             view.findViewById(R.id.btnDownload).setVisibility(View.GONE);
+            view.findViewById(R.id.layoutRate).setVisibility(View.VISIBLE);
         }
         else {
             view.findViewById(R.id.btnDownload).setOnClickListener(l -> {
@@ -109,9 +112,56 @@ public class AdapterInfo  extends BaseAdapter {
 
                 RequestU requestU = new RequestU();
                 requestU.setSession_token(Variables.SessionToken);
+                requestU.setId_object(thisInfo.getID_Information());
+                new RetrofitRequest().apiService.download(requestU).enqueue(new Callback<ResponseU>() {
+                    @Override
+                    public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
+                        FileEncoderDecoder.decodeBase64ToFile(response.body().getContents(), ctx, thisInfo.getID_InfoBase());
 
+                        ((AppCompatActivity)ctx).runOnUiThread(() -> {
+                            view.findViewById(R.id.layoutRate).setVisibility(View.VISIBLE);
+                            view.findViewById(R.id.btnDownload).setVisibility(View.GONE);
+                        });
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseU> call, Throwable t) {
+
+                    }
+                });
             });
         }
+
+        ProgressBar progressBar = view.findViewById(R.id.progressBar);
+        Button btnRates[] = {
+                view.findViewById(R.id.btn1),
+                view.findViewById(R.id.btn2),
+                view.findViewById(R.id.btn3),
+                view.findViewById(R.id.btn4),
+                view.findViewById(R.id.btn5)
+        };
+        for (int i = 1; i < 6; i++) {
+            int finalI = i;
+            btnRates[i-1].setOnClickListener(l -> {
+                RequestU req = new RequestU();
+                req.setID_InfoBase(thisInfo.getID_InfoBase());
+                req.setSession_token(Variables.SessionToken);
+                req.Rank = finalI;
+                RetrofitRequest r = new RetrofitRequest();
+                r.apiService.rate(req).enqueue(new Callback<ResponseU>() {
+                    @Override
+                    public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
+                        Toast.makeText(ctx, "Thanks for your rate", Toast.LENGTH_SHORT).show();
+                    }
+                    @Override
+                    public void onFailure(Call<ResponseU> call, Throwable t) {
+                        Toast.makeText(ctx, "Error", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            });
+        }
+        progressBar.setProgress((int)(thisInfo.Rate * 20f));
+
 
         return view;
     }

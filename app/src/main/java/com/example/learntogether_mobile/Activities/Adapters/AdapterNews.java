@@ -256,35 +256,6 @@ public class AdapterNews extends BaseAdapter {
                 }
             });
 
-            /*
-            List<Bitmap> bitmaps = ImageConverter.decodeImages(item.getImages());
-            if (bitmaps.size() == 0) {
-
-            }
-            else {
-                AtomicInteger i = new AtomicInteger();
-                ivImage.setImageBitmap(bitmaps.get(0));
-                tvPhotosNum.setText(new StringBuilder().append("1/").append(bitmaps.size()).toString());
-                ibNext.setOnClickListener(l -> {
-                    i.getAndIncrement();
-                    if (i.get() >= bitmaps.size())
-                        i.set(0);
-                    ivImage.setImageBitmap(bitmaps.get(i.get()));
-                    tvPhotosNum.setText(new StringBuilder().append(i.get() + 1).append("/").append(bitmaps.size()).toString());
-                });
-                ibPrevious.setOnClickListener(l -> {
-                    i.getAndDecrement();
-                    if (i.get() < 0)
-                        i.set(bitmaps.size() - 1);
-                    ivImage.setImageBitmap(bitmaps.get(i.get()));
-                    tvPhotosNum.setText(new StringBuilder().append(i.get() + 1).append("/").append(bitmaps.size()).toString());
-                });
-                ivImage.setOnClickListener(l -> {
-                    FullScreenImageActivity.bitmap = bitmaps.get(i.get());
-                    ctx.startActivity(new Intent(ctx, FullScreenImageActivity.class));
-                });
-            }*/
-
             return view;
         }
         if (item.type_.equals("t")) {

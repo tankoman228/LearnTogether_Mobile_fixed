@@ -8,8 +8,12 @@ import android.content.ClipData;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -33,7 +37,7 @@ public class AddInfo extends AppCompatActivity {
     EditText etTitle, etText, etTags;
     TextView tvFilenames;
     Button btnAdd, btnDelete, btnSave;
-    File[] files = new File[0];
+    Uri[] uris = new Uri[0];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +54,18 @@ public class AddInfo extends AppCompatActivity {
 
         btnAdd.setOnClickListener(l -> {
             Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
             intent.setType("*/*");
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, Environment.getExternalStorageDirectory().toURI());
+            }
+
             startActivityForResult(intent, REQUEST_CODE);
         });
         btnDelete.setOnClickListener(l -> {
-            files = new File[0];
+            uris = new Uri[0];
             tvFilenames.setText("No files selected!");
         });
         btnSave.setOnClickListener(l -> {
@@ -63,7 +73,7 @@ public class AddInfo extends AppCompatActivity {
             String title = etTitle.getText().toString();
             String tags = etTags.getText().toString();
             String text = etText.getText().toString();
-            if (files.length == 0 || title.length() < 2 || tags.length() < 2 || text.length() < 2) {
+            if (uris.length == 0 || title.length() < 2 || tags.length() < 2 || text.length() < 2) {
                 Toast.makeText(this, "Empty fields!", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -74,7 +84,7 @@ public class AddInfo extends AppCompatActivity {
             requestU.title = title;
             requestU.setText(text);
             requestU.setTags(tags);
-            requestU.setContents(FileEncoderDecoder.encodeFilesToBase64(files));
+            requestU.setContents(FileEncoderDecoder.encodeFilesToBase64(uris, this));
             requestU.setType("f");
             new RetrofitRequest().apiService.add_info(requestU).enqueue(new Callback<ResponseU>() {
                 @Override
@@ -106,43 +116,25 @@ public class AddInfo extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            if (data != null) {
-                ClipData clipData = data.getClipData();
-                if (clipData != null) {
-                    files = new File[clipData.getItemCount()];
-                    for (int i = 0; i < clipData.getItemCount(); i++) {
-                        Uri uri = clipData.getItemAt(i).getUri();
-                        String path = getPathFromUri(uri);
-                        files[i] = new File(path);
-                    }
-                    afterSelectedFiles();
-                } else {
-                    Uri uri = data.getData();
-                    String path = getPathFromUri(uri);
-                    files = new File[1];
-                    files[0] = new File(path);
-                    afterSelectedFiles();
-                }
+        if (data != null && data.getData() != null) {
+            Uri uri = data.getData();
+            uris = new Uri[]{uri};
+        } else if (data != null && data.getClipData() != null) {
+            int count = data.getClipData().getItemCount();
+            uris = new Uri[count];
+            for (int i = 0; i < count; i++) {
+                uris[i] = data.getClipData().getItemAt(i).getUri();
             }
+        } else {
+            uris = new Uri[0];
         }
-    }
-    private String getPathFromUri(Uri uri) {
-        String path = "";
-        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
-        if (cursor != null) {
-            cursor.moveToFirst();
-            int index = cursor.getColumnIndex(MediaStore.Files.FileColumns.DATA);
-            path = cursor.getString(index);
-            cursor.close();
-        }
-        return path;
+        afterSelectedFiles();
     }
 
     private void afterSelectedFiles() {
         StringBuilder str = new StringBuilder("Files: ");
-        for (File file : files) {
-            str.append(file.getName());
+        for (Uri file : uris) {
+            str.append(file.getPath() + "\n");
         }
         tvFilenames.setText(str.toString());
     }
