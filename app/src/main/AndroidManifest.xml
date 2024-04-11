@@ -25,6 +25,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".Activities.RolesEdit"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.RegisterTokens"
+            android:exported="false" />
+        <activity
             android:name=".Activities.AddMeeting"
             android:exported="false" />
         <activity

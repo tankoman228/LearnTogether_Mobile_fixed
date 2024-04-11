@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/black2">
 
     <Button
-        android:id="@+id/40sp"
+        android:id="@+id/btnCurrentGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
         android:backgroundTint="@color/blue"
         android:text="Current Group"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,9 +19,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/40sp"
+        android:id="@+id/btnAllGroups"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
         android:backgroundTint="@color/blue"
         android:text="All Groups"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,20 +31,19 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/ibGroupAvatar"
         android:layout_width="110sp"
         android:layout_height="110sp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:backgroundTint="@color/black"
         android:scaleType="fitCenter"
-        app:layout_constraintEnd_toEndOf="@+id/40sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/40sp"
+        app:layout_constraintTop_toBottomOf="@id/btnCurrentGroup"
         tools:srcCompat="@drawable/logo" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvGroupName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -50,13 +51,13 @@
         android:text="Group Name"
         android:textColor="@color/white"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButton2"
+        app:layout_constraintBottom_toBottomOf="@+id/ibGroupAvatar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageButton2"
-        app:layout_constraintTop_toTopOf="@+id/imageButton2" />
+        app:layout_constraintStart_toEndOf="@+id/ibGroupAvatar"
+        app:layout_constraintTop_toTopOf="@+id/ibGroupAvatar" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/etGroupDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -66,18 +67,19 @@
         android:text="Group description"
         android:textColor="@color/white"
         android:textColorHint="@color/blue"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="@+id/imageButton2"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton2" />
+        app:layout_constraintEnd_toEndOf="@+id/tvGroupName"
+        app:layout_constraintStart_toStartOf="@+id/ibGroupAvatar"
+        app:layout_constraintTop_toBottomOf="@+id/ibGroupAvatar" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btnUpdateGroupProfile"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Update"
-        app:layout_constraintEnd_toEndOf="@+id/editTextText"
-        app:layout_constraintStart_toStartOf="@+id/editTextText"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+        android:backgroundTint="@color/blue"
+        android:text="Update group profile"
+        app:layout_constraintEnd_toEndOf="@+id/etGroupDescription"
+        app:layout_constraintStart_toStartOf="@+id/etGroupDescription"
+        app:layout_constraintTop_toBottomOf="@+id/etGroupDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

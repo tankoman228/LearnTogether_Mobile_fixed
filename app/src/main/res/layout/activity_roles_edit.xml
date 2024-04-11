@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black2"
+    tools:context=".Activities.RolesEdit">
+
+    <Spinner
+        android:id="@+id/spinner2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ToggleButton
+        android:id="@+id/tbSwitchMode"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="ToggleButton"
+        android:textOff="Edit existing role"
+        android:textOn="Create new role"
+        app:layout_constraintEnd_toEndOf="@+id/spinner2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/spinner2"
+        app:layout_constraintTop_toBottomOf="@+id/etRolename" />
+
+    <EditText
+        android:id="@+id/etRolename"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Role name"
+        android:inputType="text"
+        android:textColor="@color/white"
+        android:textColorHint="@color/red"
+        app:layout_constraintEnd_toEndOf="@+id/tbSwitchMode"
+        app:layout_constraintStart_toStartOf="@+id/tbSwitchMode"
+        app:layout_constraintTop_toBottomOf="@+id/spinner2" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnSave"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnReadAboutPermissions">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/cbModerateP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Moderate publications"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/cbOffer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Offer publications"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/cbRoles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Edit roles"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/cbGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Edit group"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/cbForumAllowed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Forum allowed"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/cbCommentsAllowed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Comments allowed"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/cbModerareCpmments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Moderate comments"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/cbInvite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Invite into group"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/cbBan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ban accounts"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/cbAdmin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Is Admin"
+                android:textColor="@color/white" />
+
+            <EditText
+                android:id="@+id/etAdminLevel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Admin level"
+                android:inputType="number"
+                android:textColor="@color/white"
+                android:textColorHint="@color/red" />
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/blue"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/scrollView2"
+        app:layout_constraintStart_toStartOf="@+id/scrollView2" />
+
+    <Button
+        android:id="@+id/btnReadAboutPermissions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/blue"
+        android:text="Read about permissions"
+        app:layout_constraintEnd_toEndOf="@+id/tbSwitchMode"
+        app:layout_constraintStart_toStartOf="@+id/tbSwitchMode"
+        app:layout_constraintTop_toBottomOf="@+id/tbSwitchMode" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
