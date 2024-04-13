@@ -43,7 +43,8 @@ public class EditMyProfile extends AppCompatActivity {
 
         etName.setText(Variables.Title);
         etDescr.setText(Variables.AboutMe);
-        ibAvatar.setImageBitmap(Variables.myIcon);
+        if (Variables.myIcon != null)
+            ibAvatar.setImageBitmap(Variables.myIcon);
 
         findViewById(R.id.btnReturnBack).setOnClickListener(l -> finish());
         ibAvatar.setOnClickListener(l -> {
