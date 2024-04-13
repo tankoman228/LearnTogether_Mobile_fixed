@@ -96,7 +96,7 @@ public class AdapterNews extends BaseAdapter {
             ImageButton ibAvatar = view.findViewById(R.id.ibAvatar);
             ImageButton ibDelete = view.findViewById(R.id.imageView);
             ProgressBar progressBar = view.findViewById(R.id.progressBar);
-            Button btnRates[] = {
+            Button[] btnRates = {
                     view.findViewById(R.id.btn1),
                     view.findViewById(R.id.btn2),
                     view.findViewById(R.id.btn3),

@@ -52,6 +52,7 @@ public class Login extends AppCompatActivity {
                             Variables.username = request.username;
                             Variables.password = request.password;
                             Variables.saveValues(Login.this);
+                            Variables.requireMyAccountInfo();
 
                             startActivity(new Intent(Login.this, News.class));
                             startForegroundService(new Intent(Login.this, NotificationService.class));

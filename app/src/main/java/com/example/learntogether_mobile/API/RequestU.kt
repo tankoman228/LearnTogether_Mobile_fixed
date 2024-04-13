@@ -10,6 +10,9 @@ import com.google.gson.annotations.SerializedName
  */
 open class RequestU {
 
+    @SerializedName("id_max")
+    var id_max: Int? = null
+
     @JvmField
     @SerializedName("ID_Task")
     var ID_Task: Int? = null

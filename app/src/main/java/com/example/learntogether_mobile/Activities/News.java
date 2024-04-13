@@ -10,6 +10,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AbsListView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -36,7 +38,8 @@ public class News extends AppCompatActivity implements CallbackAfterLoaded {
 
 
     EditText etSearch;
-    ImageButton btnNews, btnInfo, btnMeetings, btnForum, btnPeople, btnHelp, btnOptions, btnMyProfile;
+    ImageButton btnNews, btnInfo, btnMeetings, btnForum, btnPeople, btnHelp, btnOptions;
+    Button btnMyProfile;
     ListView listView;
     FloatingActionButton fb;
 
@@ -53,8 +56,8 @@ public class News extends AppCompatActivity implements CallbackAfterLoaded {
         btnForum = findViewById(R.id.btnForum);
         btnPeople = findViewById(R.id.btnPeople);
         btnHelp = findViewById(R.id.ibHelp);
-        btnMyProfile = findViewById(R.id.ibProfile);
-        btnOptions = findViewById(R.id.ibOptions);
+        btnMyProfile = findViewById(R.id.btnProfile);
+        //btnOptions = findViewById(R.id.ibOptions);
         listView = findViewById(R.id.rv);
         fb = findViewById(R.id.floatingActionButton2);
 
@@ -63,6 +66,7 @@ public class News extends AppCompatActivity implements CallbackAfterLoaded {
         btnMeetings.setOnClickListener(l -> loadTab(tabMeetings));
         //...
         btnForum.setOnClickListener(l -> loadTab(tabForum));
+        btnMyProfile.setOnClickListener(l -> startActivity(new Intent(this, EditMyProfile.class)));
 
         fb.setOnClickListener(l -> {
             switch (currentTab) {
@@ -100,6 +104,34 @@ public class News extends AppCompatActivity implements CallbackAfterLoaded {
             }
         });
 
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE
+                        && (listView.getLastVisiblePosition() - listView.getHeaderViewsCount() -
+                        listView.getFooterViewsCount()) >= (listView.getAdapter().getCount() - 1)) {
+                    switch (currentTab) {
+                        case tabNews ->
+                                NewsLoader.loadFromRetrofitMore(News.this, News.this, etSearch.getText().toString());
+                        case tabInfo -> InfosLoader.Load(News.this, etSearch.getText().toString());
+                        case tabMeetings ->
+                                MeetingsLoader.Load(News.this, etSearch.getText().toString());
+                        case tabForum ->
+                                ForumLoader.loadLater(News.this, etSearch.getText().toString());
+                        default -> {
+                        }
+                    }
+                    // Now your listview has hit the bottom
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+        });
+
         Log.d("API", "1");
     }
 
@@ -115,7 +147,7 @@ public class News extends AppCompatActivity implements CallbackAfterLoaded {
         switch (currentTab) {
             case tabNews -> {
                 Log.d("API", "3");
-                NewsLoader.loadFromRetrofit(this, this, etSearch.getText().toString(), 999999);
+                NewsLoader.loadFromRetrofit(this, this, etSearch.getText().toString());
             }
             case tabInfo -> {
                 InfosLoader.Reload(this, etSearch.getText().toString());

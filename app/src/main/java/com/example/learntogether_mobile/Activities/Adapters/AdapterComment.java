@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 
+import com.example.learntogether_mobile.API.ImageConverter;
 import com.example.learntogether_mobile.API.ListU;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
@@ -65,9 +66,9 @@ public class AdapterComment extends BaseAdapter {
         View view = lInflater.inflate(R.layout.item_comment, parent, false);
 
         ListU thisComment = getComment(position);
-        //if (thisComment.getAvatar() != null) {
-        //    ((ImageView) view.findViewById(R.id.ivAvatar)).setImageBitmap(thisComment.getAvatar());
-        //}
+        if (thisComment.getAvatar() != null) {
+            ((ImageView) view.findViewById(R.id.ivAvatar)).setImageBitmap(ImageConverter.decodeImage(thisComment.getAvatar()));
+        }
 
         ((TextView) view.findViewById(R.id.tvAuthor)).setText(thisComment.getAuthor());
         ((TextView) view.findViewById(R.id.tvText)).setText(thisComment.getText());

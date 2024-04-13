@@ -53,6 +53,12 @@ public interface ApiServiceInterface {
     @POST("/groups/edit_group")
     Call<ResponseU> edit_group(@Body RequestU request);
 
+    @POST("/groups/edit_profile")
+    Call<ResponseU> edit_profile(@Body RequestU request);
+
+    @POST("/groups/my_account_info")
+    Call<ListU> my_account_info(@Body RequestU request);
+
     @POST("/info/get_infos")
     Call<ResponseU> get_infos(@Body RequestU request);
 

@@ -52,8 +52,8 @@
 
     <ImageButton
         android:id="@+id/ibAvatar"
-        android:layout_width="60sp"
-        android:layout_height="60sp"
+        android:layout_width="80sp"
+        android:layout_height="80sp"
         android:layout_marginStart="4dp"
         android:backgroundTint="@color/black2"
         android:scaleType="centerCrop"
