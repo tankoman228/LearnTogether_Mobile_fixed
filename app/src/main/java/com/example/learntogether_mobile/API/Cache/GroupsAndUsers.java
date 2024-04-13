@@ -54,8 +54,7 @@ public class GroupsAndUsers {
             @Override
             public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
                 UsersListForCurrentGroup = new ArrayList<>();
-
-                UsersListForCurrentGroup = response.body().users;
+                Groups = response.body().Results;
                 callback.updateInterface();
             }
 
