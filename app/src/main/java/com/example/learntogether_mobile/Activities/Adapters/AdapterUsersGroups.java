@@ -1,40 +1,61 @@
 package com.example.learntogether_mobile.Activities.Adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.ImageDecoder;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.learntogether_mobile.API.Cache.GroupsAndUsers;
+import com.example.learntogether_mobile.API.ImageConverter;
 import com.example.learntogether_mobile.API.ListU;
+import com.example.learntogether_mobile.API.RequestU;
+import com.example.learntogether_mobile.API.ResponseU;
+import com.example.learntogether_mobile.API.RetrofitRequest;
+import com.example.learntogether_mobile.API.Variables;
 import com.example.learntogether_mobile.R;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AdapterUsersGroups extends BaseAdapter {
 
     public interface AdapterUsersGroupsChoiceCallback {
         void callback(boolean GroupList);
+        void selectGroupIconRequired();
     }
 
 
     private List<ListU> items;
-    private boolean GroupList = false;
+    public static boolean GroupList = false;
     Context ctx;
     LayoutInflater lInflater;
+    AdapterUsersGroupsChoiceCallback callback;
+    public static Bitmap currentIcon;
 
 
-    public AdapterUsersGroups(List<ListU> items, boolean GroupList, Context context) {
+    public AdapterUsersGroups(List<ListU> items,Context context, AdapterUsersGroupsChoiceCallback callback) {
         this.items = items;
-        this.GroupList = GroupList;
         ctx = context;
+        this.callback = callback;
 
         lInflater = (LayoutInflater) ctx
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
+
 
     @Override
     public int getCount() {
@@ -59,11 +80,86 @@ public class AdapterUsersGroups extends BaseAdapter {
         if (position == 0) {
             View view = lInflater.inflate(R.layout.item_additional_to_main_layout, parent, false);
 
+            Button btnGroups = view.findViewById(R.id.btnAllGroups);
+            Button btnUsers = view.findViewById(R.id.btnCurrentGroup);
+            ImageButton ibCurrentGroup = view.findViewById(R.id.ibGroupAvatar);
+            TextView tvName = view.findViewById(R.id.tvGroupName);
+            EditText etDescr = view.findViewById(R.id.etGroupDescription);
+
+            for (ListU group: GroupsAndUsers.Groups) {
+                if (group.getID_Group() == Variables.current_id_group) {
+                    if (group.getIcon() != null)
+                        currentIcon = ImageConverter.decodeImage(group.getIcon());
+                    ibCurrentGroup.setImageBitmap(currentIcon);
+                    tvName.setText(group.getName());
+                    etDescr.setText(group.getDescription());
+                    break;
+                }
+            }
+
+            if (GroupList) {
+                btnGroups.setScaleX(1.1f);
+                btnUsers.setOnClickListener(l -> {
+                    callback.callback(false);
+                    btnUsers.setClickable(false);
+                });
+            }
+            else {
+                btnUsers.setScaleX(1.1f);
+                btnGroups.setOnClickListener(l -> {
+                    callback.callback(true);
+                    btnGroups.setClickable(false);
+                });
+
+            }
+
+            if (Variables.IsAllowed("edit_group")) {
+                ibCurrentGroup.setOnClickListener(l -> {
+                    callback.selectGroupIconRequired();
+                });
+            } else {
+                etDescr.setEnabled(false);
+            }
+            etDescr.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+                @Override
+                public void afterTextChanged(Editable s) {
+                    RequestU requestU = new RequestU();
+                    requestU.setSession_token(Variables.SessionToken);
+                    requestU.setNewDescription(etDescr.getText().toString());
+                    requestU.setGroup(Variables.current_id_group);
+                    new RetrofitRequest().apiService.edit_group(requestU).enqueue(new Callback<ResponseU>() {
+                        @Override
+                        public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseU> call, Throwable t) {
+
+                        }
+                    });
+                }
+            });
             return view;
         }
 
+
+        View view;
+        if (convertView == null) {
+            view = lInflater.inflate(R.layout.item_group, parent, false);
+        } else {
+            view = convertView;
+        }
+
         ListU item = (ListU)getItem(position);
-        View view = lInflater.inflate(R.layout.item_group, parent, false);
         ImageView ivIcon = view.findViewById(R.id.ivIcon);
         TextView tvName = view.findViewById(R.id.tvName);
         TextView tvText = view.findViewById(R.id.tvSomeText);
@@ -76,7 +172,14 @@ public class AdapterUsersGroups extends BaseAdapter {
         else {
             tvName.setText(item.getTitle());
             tvText.setText(item.getUsername());
+            imageButtonGo.setOnClickListener(l -> {
+
+            });
         }
+        if (item.getIcon() != null) {
+            ivIcon.setImageBitmap(ImageConverter.decodeImage(item.getIcon()));
+        }
+
         return view;
     }
 }

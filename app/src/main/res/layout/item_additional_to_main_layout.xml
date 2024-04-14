@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:backgroundTint="@color/blue"
-        android:text="Current Group"
+        android:text="Users"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.85"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:backgroundTint="@color/blue"
-        android:text="All Groups"
+        android:text="Groups"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.15"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,16 +70,5 @@
         app:layout_constraintEnd_toEndOf="@+id/tvGroupName"
         app:layout_constraintStart_toStartOf="@+id/ibGroupAvatar"
         app:layout_constraintTop_toBottomOf="@+id/ibGroupAvatar" />
-
-    <Button
-        android:id="@+id/btnUpdateGroupProfile"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="@color/blue"
-        android:text="Update group profile"
-        app:layout_constraintEnd_toEndOf="@+id/etGroupDescription"
-        app:layout_constraintStart_toStartOf="@+id/etGroupDescription"
-        app:layout_constraintTop_toBottomOf="@+id/etGroupDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

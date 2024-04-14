@@ -29,6 +29,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AdapterForum extends BaseAdapter {
+
     Context ctx;
     LayoutInflater lInflater;
 

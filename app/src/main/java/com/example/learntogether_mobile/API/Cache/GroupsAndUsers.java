@@ -18,8 +18,8 @@ import retrofit2.Response;
 
 public class GroupsAndUsers {
 
-    public static List<ListU> UsersListForCurrentGroup;
-    public static List<ListU> Groups;
+    public static List<ListU> UsersListForCurrentGroup = new ArrayList<>();
+    public static List<ListU> Groups = new ArrayList<>();
 
     public static void UpdateCacheUsersForCurrentGroup(CallbackAfterLoaded callback) {
 

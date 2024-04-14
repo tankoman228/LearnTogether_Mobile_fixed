@@ -39,11 +39,17 @@ class ListU {
     @SerializedName("ID_Vote")
     var ID_Vote = 0
 
+    @SerializedName("ID_Group")
+    var ID_Group = 0
+
     @SerializedName("ID_Role")
     var ID_Role = 0
 
     @SerializedName("Account")
     var Account: String? = null
+
+    @SerializedName("Description")
+    var Description: String? = null
 
     @SerializedName("PeopleJoined")
     var PeopleJoined = 0

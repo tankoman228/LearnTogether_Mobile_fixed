@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Debug;
 import android.text.Editable;
@@ -18,18 +21,32 @@ import android.widget.ListView;
 
 import com.example.learntogether_mobile.API.Cache.CallbackAfterLoaded;
 import com.example.learntogether_mobile.API.Cache.ForumLoader;
+import com.example.learntogether_mobile.API.Cache.GroupsAndUsers;
 import com.example.learntogether_mobile.API.Cache.InfosLoader;
 import com.example.learntogether_mobile.API.Cache.MeetingsLoader;
 import com.example.learntogether_mobile.API.Cache.NewsLoader;
+import com.example.learntogether_mobile.API.ImageConverter;
 import com.example.learntogether_mobile.API.ListU;
+import com.example.learntogether_mobile.API.RequestU;
+import com.example.learntogether_mobile.API.ResponseU;
+import com.example.learntogether_mobile.API.RetrofitRequest;
+import com.example.learntogether_mobile.API.Variables;
 import com.example.learntogether_mobile.Activities.Adapters.AdapterForum;
 import com.example.learntogether_mobile.Activities.Adapters.AdapterInfo;
 import com.example.learntogether_mobile.Activities.Adapters.AdapterMeetings;
 import com.example.learntogether_mobile.Activities.Adapters.AdapterNews;
+import com.example.learntogether_mobile.Activities.Adapters.AdapterUsersGroups;
 import com.example.learntogether_mobile.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class News extends AppCompatActivity implements CallbackAfterLoaded {
 
@@ -64,7 +81,7 @@ public class News extends AppCompatActivity implements CallbackAfterLoaded {
         btnNews.setOnClickListener(l -> loadTab(tabNews));
         btnInfo.setOnClickListener(l -> loadTab(tabInfo));
         btnMeetings.setOnClickListener(l -> loadTab(tabMeetings));
-        //...
+        btnPeople.setOnClickListener(l -> loadTab(tabPeople));
         btnForum.setOnClickListener(l -> loadTab(tabForum));
         btnMyProfile.setOnClickListener(l -> startActivity(new Intent(this, EditMyProfile.class)));
 
@@ -154,6 +171,10 @@ public class News extends AppCompatActivity implements CallbackAfterLoaded {
             }
             case tabMeetings -> MeetingsLoader.Reload(this, etSearch.getText().toString());
             case tabForum -> ForumLoader.Reload(this, etSearch.getText().toString());
+            case tabPeople -> {
+                GroupsAndUsers.UpdateCacheGroups(this);
+                GroupsAndUsers.UpdateCacheUsersForCurrentGroup(this);
+            }
             default -> {
             }
         }
@@ -185,9 +206,70 @@ public class News extends AppCompatActivity implements CallbackAfterLoaded {
                 listView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
                 Log.d("API", "forum loaded to adapter");
+            } else if (currentTab == tabPeople) {
+
+                List<ListU> listUS;
+                if (AdapterUsersGroups.GroupList) {
+                    listUS = GroupsAndUsers.Groups;
+                }
+                else {
+                    listUS = GroupsAndUsers.UsersListForCurrentGroup;
+                }
+
+                AdapterUsersGroups adapterUsersGroups = new AdapterUsersGroups(listUS, this, new AdapterUsersGroups.AdapterUsersGroupsChoiceCallback() {
+                    @Override
+                    public void callback(boolean GroupList) {
+                        AdapterUsersGroups.GroupList = GroupList;
+                        updateInterface();
+                    }
+
+                    @Override
+                    public void selectGroupIconRequired() {
+                        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        startActivityForResult(intent, 150150401);
+                    }
+                });
+                listView.setAdapter(adapterUsersGroups);
+                adapterUsersGroups.notifyDataSetChanged();
             }
 
             listView.setSelectionFromTop(firstVisibleItem, top);
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 150150401 && resultCode == RESULT_OK && data != null) {
+            Uri selectedImage = data.getData();
+            try {
+                InputStream inputStream = getContentResolver().openInputStream(selectedImage);
+
+                AdapterUsersGroups.currentIcon = BitmapFactory.decodeStream(inputStream);
+                RequestU requestU = new RequestU();
+                requestU.setSession_token(Variables.SessionToken);
+                requestU.setGroup(Variables.current_id_group);
+                requestU.setNewIcon(ImageConverter.encodeImage(AdapterUsersGroups.currentIcon));
+                new RetrofitRequest().apiService.edit_group(requestU).enqueue(new Callback<ResponseU>() {
+                    @Override
+                    public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
+                        runOnUiThread(() -> {
+                            loadTab(currentTab);
+                        });
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseU> call, Throwable t) {
+
+                    }
+                });
+
+                updateInterface();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

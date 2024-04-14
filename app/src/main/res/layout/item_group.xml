@@ -8,14 +8,16 @@
 
     <ImageView
         android:id="@+id/ivIcon"
-        android:layout_width="100sp"
-        android:layout_height="100sp"
-        android:scaleType="fitXY"
+        android:layout_width="90sp"
+        android:layout_height="90sp"
+        android:layout_margin="5sp"
+        android:scaleType="fitCenter"
         app:srcCompat="@drawable/logo" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="100sp"
+        android:layout_marginStart="10sp"
         android:gravity="center"
         android:orientation="vertical">
 

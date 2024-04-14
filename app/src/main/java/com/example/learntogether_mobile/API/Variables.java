@@ -54,4 +54,13 @@ public class Variables {
             }
         });
     }
+
+    public static boolean IsAllowed(String permission) {
+        for (String s: myPermissions) {
+            if (permission.equals(s)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
