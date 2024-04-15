@@ -102,8 +102,9 @@ public class AdapterUsersGroups extends BaseAdapter {
             }
 
             if (GroupList) {
-                btnGroups.setBackgroundTintList(ColorStateList.valueOf(view.getResources().getColor(R.color.gray)));
-                btnGroups.setTextColor(view.getResources().getColor(R.color.white));
+                btnUsers.setBackgroundTintList(ColorStateList.valueOf(view.getResources().getColor(R.color.gray)));
+                btnUsers.setTextColor(view.getResources().getColor(R.color.white));
+
                 btnUsers.setOnClickListener(l -> {
                     callback.callback(false);
                     btnUsers.setClickable(false);
@@ -111,8 +112,9 @@ public class AdapterUsersGroups extends BaseAdapter {
 
             }
             else {
-                btnUsers.setBackgroundTintList(ColorStateList.valueOf(view.getResources().getColor(R.color.gray)));
-                btnUsers.setTextColor(view.getResources().getColor(R.color.white));
+                btnGroups.setBackgroundTintList(ColorStateList.valueOf(view.getResources().getColor(R.color.gray)));
+                btnGroups.setTextColor(view.getResources().getColor(R.color.white));
+
                 btnGroups.setOnClickListener(l -> {
                     callback.callback(true);
                     btnGroups.setClickable(false);
