@@ -188,6 +188,9 @@ public class AdapterUsersGroups extends BaseAdapter {
                 Variables.current_id_group = item.getID_Group();
                 callback.callback(true);
             });
+            if (item.getID_Group() == Variables.current_id_group) {
+                view.setBackgroundTintList(ColorStateList.valueOf(ctx.getResources().getColor(R.color.black)));
+            }
         }
         else {
             tvName.setText(item.getTitle());

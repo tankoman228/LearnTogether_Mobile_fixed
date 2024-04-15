@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                             Variables.username = request.username;
                             Variables.password = request.password;
                             Variables.saveValues(MainActivity.this);
-                            Variables.requireMyAccountInfo();
+                            Variables.requireMyAccountInfo(MainActivity.this);
 
                             startActivity(new Intent(MainActivity.this, News.class));
                             //startForegroundService(new Intent(MainActivity.this, NotificationService.class));

@@ -6,11 +6,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.example.learntogether_mobile.API.ListU;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
 import com.example.learntogether_mobile.API.Variables;
 import com.example.learntogether_mobile.R;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,11 +43,15 @@ public class AdminPanel extends AppCompatActivity {
         new RetrofitRequest().apiService.get_complaints(requestU).enqueue(new Callback<ResponseU>() {
             @Override
             public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
-                String s = "";
-                for (var c: response.body().getComplaints()) {
-                    s += "\n[" + c.getSender() + "] --!> [" + c.getSuspected()  + "] <=> " + c.getReason() + " : " + c.getDateTime() + "\n";
+                List<ListU> complaintsList = new ArrayList<>(response.body().getComplaints());
+                Collections.reverse(complaintsList);
+
+                StringBuilder s = new StringBuilder();
+                for (var c : complaintsList) {
+                    s.append("\n[").append(c.getSender()).append("] --!> [").append(c.getSuspected()).append("] <=> ").append(c.getReason()).append(" : ").append(c.getDateTime()).append("\n");
                 }
-                String finalS = s;
+
+                String finalS = s.toString();
                 runOnUiThread(() -> {
                     tvC.setText(finalS);
                 });

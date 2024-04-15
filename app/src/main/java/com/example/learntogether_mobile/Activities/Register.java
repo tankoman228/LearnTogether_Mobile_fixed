@@ -66,7 +66,7 @@ public class Register extends AppCompatActivity {
                             Variables.username = request.username;
                             Variables.password = request.password;
                             Variables.saveValues(Register.this);
-                            Variables.requireMyAccountInfo();
+                            Variables.requireMyAccountInfo(Register.this);
 
                             startActivity(new Intent(Register.this, News.class));
                             startForegroundService(new Intent(Register.this, NotificationService.class));

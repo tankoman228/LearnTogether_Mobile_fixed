@@ -101,6 +101,9 @@ public interface ApiServiceInterface {
     @POST("/moderator/block_account")
     Call<ResponseU> block_account(@Body RequestU request);
 
+    @POST("/moderator/ban_account")
+    Call<ResponseU> ban_account(@Body RequestU request);
+
     @POST("/moderator/complaint")
     Call<ResponseU> complaint(@Body RequestU request);
 

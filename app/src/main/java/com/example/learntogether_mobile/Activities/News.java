@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.learntogether_mobile.API.Cache.CallbackAfterLoaded;
 import com.example.learntogether_mobile.API.Cache.ForumLoader;
@@ -98,6 +99,17 @@ public class News extends AppCompatActivity implements CallbackAfterLoaded {
                     break;
                 case tabForum:
                     startActivity(new Intent(this, ForumAskAdd.class));
+                    break;
+                case tabPeople:
+                    if (AdapterUsersGroups.GroupList) {
+                        startActivity(new Intent(News.this, JoinGroup.class));
+                    } else {
+                        if (!Variables.IsAllowed("create_tokens")) {
+                            Toast.makeText(News.this, "not allowed", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        startActivity(new Intent(News.this, RegisterTokens.class));
+                    }
                     break;
                 default:
                     break;
@@ -221,6 +233,9 @@ public class News extends AppCompatActivity implements CallbackAfterLoaded {
                     public void callback(boolean GroupList) {
                         AdapterUsersGroups.GroupList = GroupList;
                         updateInterface();
+                        if (GroupList) {
+                            Variables.requireMyAccountInfo(News.this);
+                        }
                     }
 
                     @Override
