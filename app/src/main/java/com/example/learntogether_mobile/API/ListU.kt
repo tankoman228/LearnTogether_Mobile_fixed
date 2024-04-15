@@ -106,7 +106,7 @@ class ListU {
     var IsAdmin = false
 
     @SerializedName("Permissions")
-    var Permissions: String? = null
+    var Permissions: List<String>? = null
 
     @SerializedName("Anonymous")
     var Anonymous = false

@@ -86,6 +86,9 @@ public interface ApiServiceInterface {
     @POST("/moderator/create_token")
     Call<ResponseU> create_token(@Body RequestU request);
 
+    @POST("/moderator/get_tokens")
+    Call<ResponseU> get_tokens(@Body RequestU request);
+
     @POST("/moderator/delete_ib")
     Call<ResponseU> delete_ib(@Body RequestU request);
 
