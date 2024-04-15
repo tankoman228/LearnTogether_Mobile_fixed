@@ -1,4 +1,4 @@
-package com.example.learntogether_mobile.Activities;
+package com.example.learntogether_mobile.Activities.Dialogs;
 
 import static android.app.Activity.RESULT_OK;
 

@@ -2,19 +2,16 @@ package com.example.learntogether_mobile.Activities.Adapters;
 
 import java.util.ArrayList;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.PopupMenu;
 
 import com.example.learntogether_mobile.API.ImageConverter;
 import com.example.learntogether_mobile.API.ListU;
@@ -22,7 +19,7 @@ import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
 import com.example.learntogether_mobile.API.Variables;
-import com.example.learntogether_mobile.Activities.DialogAttachment;
+import com.example.learntogether_mobile.Activities.Dialogs.DialogAttachment;
 import com.example.learntogether_mobile.R;
 
 import retrofit2.Call;

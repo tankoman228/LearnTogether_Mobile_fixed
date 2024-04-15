@@ -2,7 +2,6 @@ package com.example.learntogether_mobile.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +17,7 @@ import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
 import com.example.learntogether_mobile.API.Variables;
 import com.example.learntogether_mobile.Activities.Adapters.AdapterComment;
+import com.example.learntogether_mobile.Activities.Dialogs.DialogAttachment;
 import com.example.learntogether_mobile.R;
 
 import java.util.ArrayList;

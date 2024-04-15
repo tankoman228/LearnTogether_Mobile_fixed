@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/avatars" />
+        tools:src="@drawable/logo" />
 
     <TextView
         android:id="@+id/tvUserTitle"
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:backgroundTint="@color/blue"
-        android:text="Clause"
+        android:text="Complaint"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvAboutMe" />
 
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:backgroundTint="@color/red"
-        android:text="Edit user role"
+        android:text="Edit user"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/tvAboutMe" />
 

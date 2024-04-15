@@ -1,6 +1,8 @@
 package com.example.learntogether_mobile.Activities.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageDecoder;
@@ -23,6 +25,8 @@ import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
 import com.example.learntogether_mobile.API.Variables;
+import com.example.learntogether_mobile.Activities.AdminPanel;
+import com.example.learntogether_mobile.Activities.WatchProfile;
 import com.example.learntogether_mobile.R;
 
 import java.util.List;
@@ -98,14 +102,17 @@ public class AdapterUsersGroups extends BaseAdapter {
             }
 
             if (GroupList) {
-                btnGroups.setScaleX(1.1f);
+                btnGroups.setBackgroundTintList(ColorStateList.valueOf(view.getResources().getColor(R.color.gray)));
+                btnGroups.setTextColor(view.getResources().getColor(R.color.white));
                 btnUsers.setOnClickListener(l -> {
                     callback.callback(false);
                     btnUsers.setClickable(false);
                 });
+
             }
             else {
-                btnUsers.setScaleX(1.1f);
+                btnUsers.setBackgroundTintList(ColorStateList.valueOf(view.getResources().getColor(R.color.gray)));
+                btnUsers.setTextColor(view.getResources().getColor(R.color.white));
                 btnGroups.setOnClickListener(l -> {
                     callback.callback(true);
                     btnGroups.setClickable(false);
@@ -148,6 +155,16 @@ public class AdapterUsersGroups extends BaseAdapter {
                     });
                 }
             });
+
+
+            if (Variables.IsAllowed("edit_group") || Variables.IsAllowed("edit_roles")) {
+                Button adp = view.findViewById(R.id.btnAdminPanel);
+                adp.setVisibility(View.VISIBLE);
+                adp.setOnClickListener(l -> {
+                    ctx.startActivity(new Intent(ctx, AdminPanel.class));
+                });
+            }
+
             return view;
         }
 
@@ -163,17 +180,21 @@ public class AdapterUsersGroups extends BaseAdapter {
         ImageView ivIcon = view.findViewById(R.id.ivIcon);
         TextView tvName = view.findViewById(R.id.tvName);
         TextView tvText = view.findViewById(R.id.tvSomeText);
-        ImageButton imageButtonGo = view.findViewById(R.id.imageButton2);
 
         if (GroupList) {
             tvName.setText(item.getName());
             tvText.setVisibility(View.GONE);
+            view.setOnClickListener(l -> {
+                Variables.current_id_group = item.getID_Group();
+                callback.callback(true);
+            });
         }
         else {
             tvName.setText(item.getTitle());
             tvText.setText(item.getUsername());
-            imageButtonGo.setOnClickListener(l -> {
-
+            view.setOnClickListener(l -> {
+                WatchProfile.Profile = item;
+                ctx.startActivity(new Intent(ctx, WatchProfile.class));
             });
         }
         if (item.getIcon() != null) {
