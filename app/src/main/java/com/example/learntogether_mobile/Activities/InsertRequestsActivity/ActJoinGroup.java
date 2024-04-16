@@ -1,4 +1,4 @@
-package com.example.learntogether_mobile.Activities.InsertRequests;
+package com.example.learntogether_mobile.Activities.InsertRequestsActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +16,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Присоединение к группе по приглашению
+ */
 public class ActJoinGroup extends AppCompatActivity {
 
     EditText etToken;
@@ -42,7 +45,7 @@ public class ActJoinGroup extends AppCompatActivity {
                     }
 
 
-                    Toast.makeText(ActJoinGroup.this, "The new group added to list", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActJoinGroup.this, R.string.the_new_group_added_to_list, Toast.LENGTH_SHORT).show();
                     finish();
                 }
 

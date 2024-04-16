@@ -1,4 +1,4 @@
-package com.example.learntogether_mobile.API.Cache;
+package com.example.learntogether_mobile.API.Loaders;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,7 +9,6 @@ import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
 import com.example.learntogether_mobile.API.Variables;
-import com.example.learntogether_mobile.Activities.News;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -18,6 +17,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Загрузка данных в оперативную память из базы, обратная связь через интерфейсы
+ */
 public class NewsLoader {
 
     public static ArrayList<ListU> news_list = new ArrayList<>()/*, tasks_list  = new ArrayList<>(), votes_list = new ArrayList<>()*/;

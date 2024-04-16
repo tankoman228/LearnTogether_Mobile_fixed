@@ -1,4 +1,4 @@
-package com.example.learntogether_mobile.Activities;
+package com.example.learntogether_mobile.Activities.WatchMoreActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.learntogether_mobile.API.Cache.CallbackAfterLoaded;
+import com.example.learntogether_mobile.API.Loaders.CallbackAfterLoaded;
 import com.example.learntogether_mobile.API.ListU;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
@@ -27,13 +27,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Comments extends AppCompatActivity implements CallbackAfterLoaded {
+/**
+ * Просмотр комментариев к соответствующей записи в базе (по ID_InfoBase)
+ */
+public class ActComments extends AppCompatActivity implements CallbackAfterLoaded {
 
     public static int ID_InfoBase = -1;
     public List<ListU> comments = new ArrayList<>();
     private ConstraintLayout commentForm;
     private EditText et;
-
     private ListView lv;
 
     @Override
@@ -44,7 +46,6 @@ public class Comments extends AppCompatActivity implements CallbackAfterLoaded {
         lv = findViewById(R.id.lv);
         et = findViewById(R.id.editTextTextMultiLine);
         commentForm = findViewById(R.id.commentAddForm);
-
 
         findViewById(R.id.btnBack).setOnClickListener(l -> {
             finish();
@@ -61,12 +62,13 @@ public class Comments extends AppCompatActivity implements CallbackAfterLoaded {
             DialogAttachment d = new DialogAttachment();
             d.show(getSupportFragmentManager(), "custom");
         });
+
         findViewById(R.id.btnSend).setOnClickListener(l -> {
 
             String text = et.getText().toString();
 
             if (text.length() < 2) {
-                Toast.makeText(this, "Too short message!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.too_short_message, Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -77,26 +79,26 @@ public class Comments extends AppCompatActivity implements CallbackAfterLoaded {
             if (!DialogAttachment.AttachmentJson.equals(""))
                 request.setAttachment(DialogAttachment.AttachmentJson);
             RetrofitRequest r = new RetrofitRequest();
+            commentForm.setVisibility(View.GONE);
             r.apiService.add_comment(request).enqueue(new Callback<ResponseU>() {
                 @Override
                 public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
 
                     if (response.body() == null) {
-                        Toast.makeText(Comments.this, "500", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActComments.this, "500", Toast.LENGTH_SHORT).show();
                     }
                     else if (response.body().Error != null) {
-                        Toast.makeText(Comments.this, response.body().Error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActComments.this, response.body().Error, Toast.LENGTH_SHORT).show();
                     }
-                    Comments.this.runOnUiThread(() -> {
+                    ActComments.this.runOnUiThread(() -> {
                         et.setText("");
-                        commentForm.setVisibility(View.GONE);
                         reloadComments();
                     });
                 }
 
                 @Override
                 public void onFailure(Call<ResponseU> call, Throwable t) {
-                    Toast.makeText(Comments.this, ":(", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActComments.this, ":(", Toast.LENGTH_SHORT).show();
                 }
             });
         });

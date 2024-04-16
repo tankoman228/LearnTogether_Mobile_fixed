@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -28,18 +27,16 @@ import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
 import com.example.learntogether_mobile.API.Variables;
-import com.example.learntogether_mobile.Activities.Comments;
-import com.example.learntogether_mobile.Activities.FullScreenImageActivity;
-import com.example.learntogether_mobile.Activities.TaskStatus;
+import com.example.learntogether_mobile.Activities.WatchMoreActivity.ActComments;
+import com.example.learntogether_mobile.Activities.WatchMoreActivity.ActFullScreenImageActivity;
+import com.example.learntogether_mobile.Activities.WatchMoreActivity.ActTaskStatus;
 import com.example.learntogether_mobile.R;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import retrofit2.Call;
@@ -133,8 +130,8 @@ public class AdapterNews extends BaseAdapter {
             });
 
             ivImage.setOnClickListener(l -> {
-                FullScreenImageActivity.bitmap = bitmaps[0].get(i.get());
-                ctx.startActivity(new Intent(ctx, FullScreenImageActivity.class));
+                ActFullScreenImageActivity.bitmap = bitmaps[0].get(i.get());
+                ctx.startActivity(new Intent(ctx, ActFullScreenImageActivity.class));
             });
 
             ivImage.setVisibility(View.GONE);
@@ -160,10 +157,8 @@ public class AdapterNews extends BaseAdapter {
                     e.printStackTrace();
                 }
             });
-
-            return view;
         }
-        if (item.type_.equals("t")) {
+        else if (item.type_.equals("t")) {
 
             view = lInflater.inflate(R.layout.item_task, parent, false);
             // Задача
@@ -178,9 +173,9 @@ public class AdapterNews extends BaseAdapter {
             ProgressBar progressBar = view.findViewById(R.id.progressBar);
 
             view.findViewById(R.id.btnMyStatus).setOnClickListener(l -> {
-                TaskStatus.ShowMy = true;
-                TaskStatus.Task = item;
-                ctx.startActivity(new Intent(ctx, TaskStatus.class));
+                ActTaskStatus.ShowMy = true;
+                ActTaskStatus.Task = item;
+                ctx.startActivity(new Intent(ctx, ActTaskStatus.class));
             });
 
             tvUsername.setText(item.getAuthorTitle());
@@ -192,8 +187,6 @@ public class AdapterNews extends BaseAdapter {
             tvCommentsNum.setText(String.valueOf(item.getCommentsFound()));
             progressBar.setProgress((int)(item.Rate * 20f));
             tvDeadline.setText(new StringBuilder().append(tvDeadline.getText().toString()).append(item.getDeadline()).toString().replace("T", " "));
-
-            return view;
         }
         else {// (item.type_.equals("v")) {
 
@@ -305,11 +298,15 @@ public class AdapterNews extends BaseAdapter {
 
 
         //Общие для всех элементы
-        ImageButton ibComments = view.findViewById(R.id.ibComments);
         Button btnMarkModerated = view.findViewById(R.id.btnMarkModerated);
         ImageButton ibDelete = view.findViewById(R.id.imageView);
 
         if (!item.type_.equals("v")) {
+            ImageButton ibComments = view.findViewById(R.id.ibComments);
+            ibComments.setOnClickListener(l -> {
+                ActComments.ID_InfoBase = item.getID_InfoBase();
+                ctx.startActivity(new Intent(ctx, ActComments.class));
+            });
             Button btnRates[] = {
                     view.findViewById(R.id.btn1),
                     view.findViewById(R.id.btn2),
@@ -375,10 +372,7 @@ public class AdapterNews extends BaseAdapter {
                 });
             });
         }
-        ibComments.setOnClickListener(l -> {
-            Comments.ID_InfoBase = item.getID_InfoBase();
-            ctx.startActivity(new Intent(ctx, Comments.class));
-        });
+
         ibDelete.setOnClickListener(l -> {
 
             RequestU req = new RequestU();

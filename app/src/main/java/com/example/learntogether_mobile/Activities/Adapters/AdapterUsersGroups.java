@@ -16,15 +16,15 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.learntogether_mobile.API.Cache.GroupsAndUsers;
+import com.example.learntogether_mobile.API.Loaders.GroupsAndUsersLoader;
 import com.example.learntogether_mobile.API.ImageConverter;
 import com.example.learntogether_mobile.API.ListU;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
 import com.example.learntogether_mobile.API.Variables;
-import com.example.learntogether_mobile.Activities.AdminPanel;
-import com.example.learntogether_mobile.Activities.WatchProfile;
+import com.example.learntogether_mobile.Activities.AdminActivity.ActAdminPanel;
+import com.example.learntogether_mobile.Activities.WatchMoreActivity.ActWatchProfile;
 import com.example.learntogether_mobile.R;
 
 import java.util.List;
@@ -95,7 +95,7 @@ public class AdapterUsersGroups extends BaseAdapter {
             TextView tvName = view.findViewById(R.id.tvGroupName);
             EditText etDescr = view.findViewById(R.id.etGroupDescription);
 
-            for (ListU group: GroupsAndUsers.Groups) {
+            for (ListU group: GroupsAndUsersLoader.Groups) {
                 if (group.getID_Group() == Variables.current_id_group) {
                     if (group.getIcon() != null)
                         currentIcon = ImageConverter.decodeImage(group.getIcon());
@@ -168,7 +168,7 @@ public class AdapterUsersGroups extends BaseAdapter {
                 Button adp = view.findViewById(R.id.btnAdminPanel);
                 adp.setVisibility(View.VISIBLE);
                 adp.setOnClickListener(l -> {
-                    ctx.startActivity(new Intent(ctx, AdminPanel.class));
+                    ctx.startActivity(new Intent(ctx, ActAdminPanel.class));
                 });
             }
 
@@ -203,8 +203,8 @@ public class AdapterUsersGroups extends BaseAdapter {
             tvName.setText(item.getTitle());
             tvText.setText(item.getUsername());
             view.setOnClickListener(l -> {
-                WatchProfile.Profile = item;
-                ctx.startActivity(new Intent(ctx, WatchProfile.class));
+                ActWatchProfile.Profile = item;
+                ctx.startActivity(new Intent(ctx, ActWatchProfile.class));
             });
         }
         if (item.getIcon() != null) {

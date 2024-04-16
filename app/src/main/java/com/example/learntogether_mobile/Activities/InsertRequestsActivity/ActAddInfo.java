@@ -1,4 +1,4 @@
-package com.example.learntogether_mobile.Activities.InsertRequests;
+package com.example.learntogether_mobile.Activities.InsertRequestsActivity;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;

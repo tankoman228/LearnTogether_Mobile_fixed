@@ -1,7 +1,6 @@
 package com.example.learntogether_mobile.Activities.Adapters;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,19 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.PopupMenu;
 
 import com.example.learntogether_mobile.API.ListU;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
 import com.example.learntogether_mobile.API.Variables;
-import com.example.learntogether_mobile.Activities.Comments;
+import com.example.learntogether_mobile.Activities.WatchMoreActivity.ActComments;
 import com.example.learntogether_mobile.R;
 
 import retrofit2.Call;
@@ -136,8 +133,8 @@ public class AdapterForum extends BaseAdapter {
         //Переход в комментарии
         view.findViewById(R.id.ivComments).setOnClickListener(l -> {
             ((AppCompatActivity)ctx).runOnUiThread(() -> {
-                Comments.ID_InfoBase = thisForumAsk.getID_InfoBase();
-                ctx.startActivity(new Intent(ctx, Comments.class));
+                ActComments.ID_InfoBase = thisForumAsk.getID_InfoBase();
+                ctx.startActivity(new Intent(ctx, ActComments.class));
             });
         });
 

@@ -19,8 +19,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * Кодировка файлов в строки для json и наоборот, преобразование по строке из json
+ * в файлы в папке загрузок
+ */
 public class FileEncoderDecoder {
 
+    /**
+     * Files to string
+     */
     public static String encodeFilesToBase64(Uri[] uris, Context context) {
         JSONArray jsonArray = new JSONArray();
         for (Uri uri : uris) {
@@ -50,6 +57,9 @@ public class FileEncoderDecoder {
         return jsonArray.toString();
     }
 
+    /**
+     * String to file
+     */
     public static void decodeBase64ToFile(String base64String, Context context, String id) {
         try {
             JSONArray jsonArray = new JSONArray(base64String);
@@ -71,6 +81,9 @@ public class FileEncoderDecoder {
         }
     }
 
+    /**
+     * Проверка, скачан ли файл заранее
+     */
     public static boolean checkFilesDownloaded(String id) {
         File downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 

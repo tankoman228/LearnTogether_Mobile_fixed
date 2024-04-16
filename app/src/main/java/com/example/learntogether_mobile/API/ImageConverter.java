@@ -8,26 +8,34 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Для конвертации изображений в строки для json и наоборот
+ */
 public class ImageConverter {
 
-
-    // Метод для кодирования изображения в строку Base64
+    /**
+     * Метод для кодирования изображения в строку Base64
+     */
     public static String encodeImage(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.WEBP, 70, byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.WEBP, 50, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream.toByteArray();
         return Base64.encodeToString(byteArray, Base64.URL_SAFE);
     }
 
 
-    // Метод для декодирования строки Base64 обратно в изображение
+    /**
+     * Метод для декодирования строки Base64 обратно в изображение
+     */
     public static Bitmap decodeImage(String encodedString) {
         byte[] decodedBytes = Base64.decode(encodedString, Base64.URL_SAFE);
         return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
     }
 
-    // Метод для кодирования массива изображений в строку Base64
+
+    /**
+     * Метод для кодирования массива изображений в строку Base64
+     */
     public static String encodeImages(List<Bitmap> imageList) {
         StringBuilder encodedString = new StringBuilder();
         for (Bitmap bitmap : imageList) {
@@ -40,7 +48,10 @@ public class ImageConverter {
         return encodedString.toString();
     }
 
-    // Метод для декодирования строки Base64 в список изображений Bitmap
+
+    /**
+     * Метод для декодирования строки Base64 в список изображений Bitmap
+     */
     public static List<Bitmap> decodeImages(String encodedImages) {
         List<Bitmap> imageList = new ArrayList<>();
         String[] encodedImagesArray = encodedImages.split(" ");

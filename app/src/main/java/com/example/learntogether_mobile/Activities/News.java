@@ -18,12 +18,12 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.learntogether_mobile.API.Cache.CallbackAfterLoaded;
-import com.example.learntogether_mobile.API.Cache.ForumLoader;
-import com.example.learntogether_mobile.API.Cache.GroupsAndUsers;
-import com.example.learntogether_mobile.API.Cache.InfosLoader;
-import com.example.learntogether_mobile.API.Cache.MeetingsLoader;
-import com.example.learntogether_mobile.API.Cache.NewsLoader;
+import com.example.learntogether_mobile.API.Loaders.CallbackAfterLoaded;
+import com.example.learntogether_mobile.API.Loaders.ForumLoader;
+import com.example.learntogether_mobile.API.Loaders.GroupsAndUsersLoader;
+import com.example.learntogether_mobile.API.Loaders.InfosLoader;
+import com.example.learntogether_mobile.API.Loaders.MeetingsLoader;
+import com.example.learntogether_mobile.API.Loaders.NewsLoader;
 import com.example.learntogether_mobile.API.ImageConverter;
 import com.example.learntogether_mobile.API.ListU;
 import com.example.learntogether_mobile.API.RequestU;
@@ -35,12 +35,12 @@ import com.example.learntogether_mobile.Activities.Adapters.AdapterInfo;
 import com.example.learntogether_mobile.Activities.Adapters.AdapterMeetings;
 import com.example.learntogether_mobile.Activities.Adapters.AdapterNews;
 import com.example.learntogether_mobile.Activities.Adapters.AdapterUsersGroups;
-import com.example.learntogether_mobile.Activities.InsertRequests.ActAddInfo;
-import com.example.learntogether_mobile.Activities.InsertRequests.ActAddMeeting;
-import com.example.learntogether_mobile.Activities.InsertRequests.ActAddNews;
-import com.example.learntogether_mobile.Activities.InsertRequests.ActForumAskAdd;
-import com.example.learntogether_mobile.Activities.InsertRequests.ActJoinGroup;
-import com.example.learntogether_mobile.Activities.InsertRequests.ActRegisterTokens;
+import com.example.learntogether_mobile.Activities.InsertRequestsActivity.ActAddInfo;
+import com.example.learntogether_mobile.Activities.InsertRequestsActivity.ActAddMeeting;
+import com.example.learntogether_mobile.Activities.InsertRequestsActivity.ActAddNews;
+import com.example.learntogether_mobile.Activities.InsertRequestsActivity.ActForumAskAdd;
+import com.example.learntogether_mobile.Activities.InsertRequestsActivity.ActJoinGroup;
+import com.example.learntogether_mobile.Activities.AdminActivity.ActRegisterTokens;
 import com.example.learntogether_mobile.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -163,7 +163,7 @@ public class News extends AppCompatActivity implements CallbackAfterLoaded {
 
             }
         });
-        GroupsAndUsers.UpdateCacheGroups(this);
+        GroupsAndUsersLoader.UpdateCacheGroups(this);
 
         Log.d("API", "1");
     }
@@ -206,9 +206,9 @@ public class News extends AppCompatActivity implements CallbackAfterLoaded {
                 btnPeople.setBackgroundTintList(ColorStateList.valueOf(getColor(R.color.black2)));
                 if (AdapterUsersGroups.GroupList) {
                     updateInterface();
-                    GroupsAndUsers.UpdateCacheGroups(this);
+                    GroupsAndUsersLoader.UpdateCacheGroups(this);
                 } else
-                    GroupsAndUsers.UpdateCacheUsersForCurrentGroup(this);
+                    GroupsAndUsersLoader.UpdateCacheUsersForCurrentGroup(this);
             }
             default -> {
             }
@@ -249,10 +249,10 @@ public class News extends AppCompatActivity implements CallbackAfterLoaded {
 
                 List<ListU> listUS;
                 if (AdapterUsersGroups.GroupList) {
-                    listUS = GroupsAndUsers.Groups;
+                    listUS = GroupsAndUsersLoader.Groups;
                 }
                 else {
-                    listUS = GroupsAndUsers.UsersListForCurrentGroup;
+                    listUS = GroupsAndUsersLoader.UsersListForCurrentGroup;
                 }
 
                 AdapterUsersGroups adapterUsersGroups = new AdapterUsersGroups(listUS, this, new AdapterUsersGroups.AdapterUsersGroupsChoiceCallback() {

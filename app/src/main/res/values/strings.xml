@@ -21,4 +21,15 @@
     <string name="no_enough_items">No enough items!</string>
     <string name="select_news_type">Select news type</string>
     <string name="no_files_selected">No files selected!</string>
+    <string name="successfully_changed">Successfully changed</string>
+    <string name="cannot_edit_yourself_changes_will_not_be_saved">Cannot edit yourself! Changes will not be saved!</string>
+    <string name="too_short_message">Too short message!</string>
+    <string name="select_picture">Select Picture</string>
+    <string name="the_new_group_added_to_list">The new group added to list</string>
+    <string name="password_not_confirmed">Password not confirmed</string>
+    <string name="no_role_selected">No role selected!</string>
+    <string name="too_short_invite_code">Too short invite code</string>
+    <string name="cancel">Cancel</string>
+    <string name="send_complaint_to_admins">Send complaint to admins</string>
+    <string name="complaint_for_user">"Complaint for user: "</string>
 </resources>

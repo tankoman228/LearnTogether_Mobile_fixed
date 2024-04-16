@@ -1,4 +1,4 @@
-package com.example.learntogether_mobile.API.Cache;
+package com.example.learntogether_mobile.API.Loaders;
 
 import android.util.Log;
 
@@ -14,6 +14,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Загрузка данных в оперативную память из базы, обратная связь через интерфейсы
+ */
 public class RolesLoader {
 
     public static List<ListU> Roles;

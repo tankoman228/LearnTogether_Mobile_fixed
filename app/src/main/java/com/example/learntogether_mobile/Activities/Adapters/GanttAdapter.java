@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.learntogether_mobile.API.ListU;
-import com.example.learntogether_mobile.Activities.MeetingInfo;
+import com.example.learntogether_mobile.Activities.WatchMoreActivity.MeetingInfo;
 import com.example.learntogether_mobile.R;
 
 import java.util.List;

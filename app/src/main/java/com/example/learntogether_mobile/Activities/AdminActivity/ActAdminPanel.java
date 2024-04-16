@@ -1,4 +1,4 @@
-package com.example.learntogether_mobile.Activities;
+package com.example.learntogether_mobile.Activities.AdminActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,7 +21,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AdminPanel extends AppCompatActivity {
+/**
+ * Панель со списком жалоб и переходом к редактированию ролей
+ */
+public class ActAdminPanel extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +37,7 @@ public class AdminPanel extends AppCompatActivity {
             finish();
         });
         findViewById(R.id.btnManageRoles).setOnClickListener(l -> {
-            startActivity(new Intent(this, RolesEdit.class));
+            startActivity(new Intent(this, ActRolesEdit.class));
         });
 
         RequestU requestU = new RequestU();

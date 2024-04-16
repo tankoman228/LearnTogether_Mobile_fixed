@@ -1,4 +1,4 @@
-package com.example.learntogether_mobile.API.Cache;
+package com.example.learntogether_mobile.API.Loaders;
 
 import android.util.Log;
 
@@ -15,8 +15,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class InfosLoader {
-    public static List<ListU> Infos = new ArrayList<>();
+/**
+ * Загрузка данных в оперативную память из базы, обратная связь через интерфейсы
+ */
+public class MeetingsLoader {
+    public static List<ListU> Meetings = new ArrayList<>();
 
     public static void Reload(CallbackAfterLoaded activityCentral, String searchString) {
 
@@ -26,7 +29,7 @@ public class InfosLoader {
         request.setNumber(20);
         request.setSession_token(Variables.SessionToken);
         RetrofitRequest r = new RetrofitRequest();
-        r.apiService.get_infos(request).enqueue(new Callback<ResponseU>() {
+        r.apiService.get_meetings(request).enqueue(new Callback<ResponseU>() {
             @Override
             public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
                 if (response.body() != null) {
@@ -34,7 +37,7 @@ public class InfosLoader {
                         Log.d("API", response.body().Error);
                         return;
                     }
-                    Infos = response.body().getInfos();
+                    Meetings = response.body().getMeetings();
                     activityCentral.updateInterface();
                 }
                 else
@@ -57,7 +60,7 @@ public class InfosLoader {
         request.setId_max(findMinId() - 1);
         request.setSession_token(Variables.SessionToken);
         RetrofitRequest r = new RetrofitRequest();
-        r.apiService.get_infos(request).enqueue(new Callback<ResponseU>() {
+        r.apiService.get_meetings(request).enqueue(new Callback<ResponseU>() {
             @Override
             public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
                 if (response.body() != null) {
@@ -65,7 +68,7 @@ public class InfosLoader {
                         Log.d("API", response.body().Error);
                         return;
                     }
-                    Infos = response.body().getInfos();
+                    Meetings = response.body().getMeetings();
                     activityCentral.updateInterface();
                 }
                 else
@@ -81,7 +84,7 @@ public class InfosLoader {
 
     private static int findMinId() {
         int minId = Integer.MAX_VALUE;
-        for (ListU ask : Infos) {
+        for (ListU ask : Meetings) {
             if (ask.getID_InfoBase() < minId) {
                 minId = ask.getID_InfoBase();
             }

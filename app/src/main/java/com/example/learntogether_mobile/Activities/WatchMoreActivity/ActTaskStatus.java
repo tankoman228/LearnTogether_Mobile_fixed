@@ -1,4 +1,4 @@
-package com.example.learntogether_mobile.Activities;
+package com.example.learntogether_mobile.Activities.WatchMoreActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -27,7 +26,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TaskStatus extends AppCompatActivity implements AdapterTaskStatuses.Callback {
+/**
+ * Отслеживание задач, отображения своего и чужих статусов выполнения
+ * Таск-менеджер
+ */
+public class ActTaskStatus extends AppCompatActivity implements AdapterTaskStatuses.Callback {
 
     public static ListU Task = null;
     public static boolean ShowMy = true;
@@ -58,7 +61,7 @@ public class TaskStatus extends AppCompatActivity implements AdapterTaskStatuses
         seekBar = findViewById(R.id.sbPriority);
 
         callback_task_clicked(Task);
-        adapterTaskStatuses = new AdapterTaskStatuses(TaskStatus.this, tasks, ShowMy, TaskStatus.this);
+        adapterTaskStatuses = new AdapterTaskStatuses(ActTaskStatus.this, tasks, ShowMy, ActTaskStatus.this);
         listView.setAdapter(adapterTaskStatuses);
         tvTitle.setText(Task.getTitle());
 
@@ -110,7 +113,7 @@ public class TaskStatus extends AppCompatActivity implements AdapterTaskStatuses
             @Override
             public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
                 try {
-                    TaskStatus.this.runOnUiThread(() -> {
+                    ActTaskStatus.this.runOnUiThread(() -> {
                         tasks.clear();
                         for (ListU task: response.body().getTasks()) {
                             tasks.add(task);

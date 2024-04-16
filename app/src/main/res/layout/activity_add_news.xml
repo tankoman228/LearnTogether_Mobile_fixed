@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/black2"
     android:backgroundTintMode="add"
-    tools:context=".Activities.InsertRequests.ActAddNews">
+    tools:context=".Activities.InsertRequestsActivity.ActAddNews">
 
 
     <ScrollView

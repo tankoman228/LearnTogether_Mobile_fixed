@@ -9,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,8 +19,8 @@ import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
 import com.example.learntogether_mobile.API.Variables;
-import com.example.learntogether_mobile.Activities.Comments;
-import com.example.learntogether_mobile.Activities.MeetingInfo;
+import com.example.learntogether_mobile.Activities.WatchMoreActivity.ActComments;
+import com.example.learntogether_mobile.Activities.WatchMoreActivity.MeetingInfo;
 import com.example.learntogether_mobile.R;
 
 import retrofit2.Call;
@@ -86,8 +84,8 @@ public class AdapterMeetings extends BaseAdapter {
         });
         ((TextView)view.findViewById(R.id.tvCommentsNum)).setText(thisMeeting.getCommentsFound());
         view.findViewById(R.id.ibComments).setOnClickListener(l -> {
-            Comments.ID_InfoBase = thisMeeting.getID_InfoBase();
-            ctx.startActivity(new Intent(ctx, Comments.class));
+            ActComments.ID_InfoBase = thisMeeting.getID_InfoBase();
+            ctx.startActivity(new Intent(ctx, ActComments.class));
         });
         view.findViewById(R.id.ibDelete).setOnClickListener(l -> {
             RequestU req = new RequestU();

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/black2"
     android:padding="10sp"
-    tools:context=".Activities.MeetingInfo">
+    tools:context=".Activities.WatchMoreActivity.MeetingInfo">
 
     <ScrollView
         android:layout_width="match_parent"

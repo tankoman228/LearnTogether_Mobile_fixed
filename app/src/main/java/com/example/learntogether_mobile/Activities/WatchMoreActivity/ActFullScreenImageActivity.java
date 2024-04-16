@@ -1,4 +1,4 @@
-package com.example.learntogether_mobile.Activities;
+package com.example.learntogether_mobile.Activities.WatchMoreActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,7 +8,10 @@ import android.os.Bundle;
 import com.example.learntogether_mobile.R;
 import com.github.chrisbanes.photoview.PhotoView;
 
-public class FullScreenImageActivity extends AppCompatActivity {
+/**
+ * Просмотр заданного bitmap в огромном PhotoView на весь экран
+ */
+public class ActFullScreenImageActivity extends AppCompatActivity {
 
     public static Bitmap bitmap;
 

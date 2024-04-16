@@ -26,6 +26,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Редактирование своего профиля пользователем
+ */
 public class EditMyProfile extends AppCompatActivity {
 
     ImageButton ibAvatar;
@@ -50,7 +53,7 @@ public class EditMyProfile extends AppCompatActivity {
         ibAvatar.setOnClickListener(l -> {
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.setType("image/*");
-            startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
+            startActivityForResult(Intent.createChooser(intent, getString(R.string.select_picture)), 1);
         });
         findViewById(R.id.btnSaveChanges).setOnClickListener(l -> {
             RequestU requestU = new RequestU();
@@ -61,7 +64,7 @@ public class EditMyProfile extends AppCompatActivity {
             new RetrofitRequest().apiService.edit_profile(requestU).enqueue(new Callback<ResponseU>() {
                 @Override
                 public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
-                    Toast.makeText(EditMyProfile.this, Objects.requireNonNullElse(response.body().Error, "Success"), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditMyProfile.this, Objects.requireNonNullElse(response.body().Error, getString(R.string.success)), Toast.LENGTH_SHORT).show();
                 }
 
                 @Override

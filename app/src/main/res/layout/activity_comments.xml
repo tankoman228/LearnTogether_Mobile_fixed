@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.Comments"
+    tools:context=".Activities.WatchMoreActivity.ActComments"
     android:background="@color/black2">
 
     <TextView
@@ -14,7 +14,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Header text ... IY"
+        android:text="Comments"
         android:textColor="@color/gray"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"

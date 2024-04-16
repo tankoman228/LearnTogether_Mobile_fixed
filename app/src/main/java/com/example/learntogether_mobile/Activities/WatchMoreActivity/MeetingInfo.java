@@ -1,12 +1,10 @@
-package com.example.learntogether_mobile.Activities;
+package com.example.learntogether_mobile.Activities.WatchMoreActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.view.DragEvent;
-import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -27,6 +25,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Отображение, кто пришёл на встречу, присоединение, диаграмма Ганта
+ */
 public class MeetingInfo extends AppCompatActivity {
 
     public static ListU meeting;

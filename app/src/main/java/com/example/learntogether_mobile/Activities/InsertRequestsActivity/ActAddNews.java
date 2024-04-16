@@ -1,4 +1,4 @@
-package com.example.learntogether_mobile.Activities.InsertRequests;
+package com.example.learntogether_mobile.Activities.InsertRequestsActivity;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;

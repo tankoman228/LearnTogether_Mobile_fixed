@@ -8,7 +8,6 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.learntogether_mobile.API.ListU;
 import com.example.learntogether_mobile.API.NotificationService;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
@@ -20,7 +19,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Login extends AppCompatActivity {
+/**
+ * Активность для авторизации
+ */
+public class ActLogin extends AppCompatActivity {
 
     EditText etLogin, etPassword, etServer;
 
@@ -46,18 +48,18 @@ public class Login extends AppCompatActivity {
             call.enqueue(new Callback<ResponseU>() {
                 @Override
                 public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
-                    Login.this.runOnUiThread(() -> {
+                    ActLogin.this.runOnUiThread(() -> {
                         if (response.body().Token != null) {
                             Variables.SessionToken = response.body().Token;
                             Variables.username = request.username;
                             Variables.password = request.password;
-                            Variables.saveValues(Login.this);
-                            Variables.requireMyAccountInfo(Login.this);
+                            Variables.saveValues(ActLogin.this);
+                            Variables.requireMyAccountInfo(ActLogin.this);
 
-                            startActivity(new Intent(Login.this, News.class));
-                            startForegroundService(new Intent(Login.this, NotificationService.class));
+                            startActivity(new Intent(ActLogin.this, News.class));
+                            startForegroundService(new Intent(ActLogin.this, NotificationService.class));
                         }
-                        Toast.makeText(Login.this, response.body().Result, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActLogin.this, response.body().Result, Toast.LENGTH_SHORT).show();
                     });
                 }
 

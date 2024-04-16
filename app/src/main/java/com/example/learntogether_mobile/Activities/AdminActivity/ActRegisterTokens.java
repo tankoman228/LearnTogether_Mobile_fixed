@@ -1,4 +1,4 @@
-package com.example.learntogether_mobile.Activities.InsertRequests;
+package com.example.learntogether_mobile.Activities.AdminActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,7 +12,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.learntogether_mobile.API.Cache.RolesLoader;
+import com.example.learntogether_mobile.API.Loaders.RolesLoader;
 import com.example.learntogether_mobile.API.ListU;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
@@ -26,6 +26,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Создание приглашений для других пользователей, в текущую группу и в систему вообще
+ */
 public class ActRegisterTokens extends AppCompatActivity {
 
     private int selectedRoleId = -1;
@@ -77,9 +80,9 @@ public class ActRegisterTokens extends AppCompatActivity {
 
         findViewById(R.id.btnInsertToken).setOnClickListener(l -> {
             if (selectedRoleId == -1) {
-                Toast.makeText(this, "No role selected!", Toast.LENGTH_SHORT).show(); return;
+                Toast.makeText(this, R.string.no_role_selected, Toast.LENGTH_SHORT).show(); return;
             } else if (editText.getText().toString().length() < 5) {
-                Toast.makeText(this, "Too short invite code", Toast.LENGTH_SHORT).show(); return;
+                Toast.makeText(this, R.string.too_short_invite_code, Toast.LENGTH_SHORT).show(); return;
             }
 
             RequestU requestU = new RequestU();

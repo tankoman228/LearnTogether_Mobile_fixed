@@ -1,9 +1,8 @@
-package com.example.learntogether_mobile.Activities;
+package com.example.learntogether_mobile.Activities.WatchMoreActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,13 +17,17 @@ import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
 import com.example.learntogether_mobile.API.Variables;
+import com.example.learntogether_mobile.Activities.AdminActivity.ActEditUser;
 import com.example.learntogether_mobile.R;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class WatchProfile extends AppCompatActivity {
+/**
+ * Просмотр профиля другого пользователя
+ */
+public class ActWatchProfile extends AppCompatActivity {
 
     public static ListU Profile;
     ImageView ivAvatar;
@@ -49,14 +52,14 @@ public class WatchProfile extends AppCompatActivity {
 
         findViewById(R.id.btnClause).setOnClickListener(l -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Complaint for user: " + Profile.getUsername());
+            builder.setTitle(getString(R.string.complaint_for_user) + Profile.getUsername());
             LayoutInflater inflater = getLayoutInflater();
             View dialogView = inflater.inflate(R.layout.dialog_complaint, null);
             builder.setView(dialogView);
 
             EditText editTextComplaintReason = dialogView.findViewById(R.id.editTextComplaintReason);
 
-            builder.setPositiveButton("Send complaint to admins", (dialog, which) -> {
+            builder.setPositiveButton(R.string.send_complaint_to_admins, (dialog, which) -> {
                 String complaintReason = editTextComplaintReason.getText().toString();
                 RequestU requestU = new RequestU();
                 requestU.setSession_token(Variables.SessionToken);
@@ -77,7 +80,7 @@ public class WatchProfile extends AppCompatActivity {
                 dialog.dismiss();
             });
 
-            builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+            builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss());
 
             AlertDialog dialog = builder.create();
             dialog.show();
@@ -85,8 +88,8 @@ public class WatchProfile extends AppCompatActivity {
 
         if (Variables.IsAllowed("ban_accounts") || Variables.IsAllowed("edit_roles")) {
             findViewById(R.id.btnEditUserRole).setOnClickListener(l -> {
-                EditUser.User = Profile;
-                startActivity(new Intent(this, EditUser.class));
+                ActEditUser.User = Profile;
+                startActivity(new Intent(this, ActEditUser.class));
             });
         }
         else {

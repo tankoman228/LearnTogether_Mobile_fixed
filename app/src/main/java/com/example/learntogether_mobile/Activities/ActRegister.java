@@ -19,7 +19,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Register extends AppCompatActivity {
+public class ActRegister extends AppCompatActivity {
 
     EditText[] editText = new EditText[6];
 
@@ -38,7 +38,7 @@ public class Register extends AppCompatActivity {
         findViewById(R.id.btnRegisterProfile).setOnClickListener(l -> {
 
             if (!editText[3].getText().toString().equals(editText[4].getText().toString())) {
-                Toast.makeText(Register.this, "Password not confirmed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActRegister.this, R.string.password_not_confirmed, Toast.LENGTH_SHORT).show();
             }
 
             RequestU request = new RequestU() {{
@@ -54,10 +54,10 @@ public class Register extends AppCompatActivity {
             call.enqueue(new Callback<ResponseU>() {
                 @Override
                 public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
-                    Register.this.runOnUiThread(() -> {
+                    ActRegister.this.runOnUiThread(() -> {
 
                         if (response.body().Error != null) {
-                            Toast.makeText(Register.this, "Error: " + response.body().Error, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ActRegister.this, response.body().Error, Toast.LENGTH_SHORT).show();
                             return;
                         }
 
@@ -65,14 +65,14 @@ public class Register extends AppCompatActivity {
                             Variables.SessionToken = response.body().Token;
                             Variables.username = request.username;
                             Variables.password = request.password;
-                            Variables.saveValues(Register.this);
-                            Variables.requireMyAccountInfo(Register.this);
+                            Variables.saveValues(ActRegister.this);
+                            Variables.requireMyAccountInfo(ActRegister.this);
 
-                            startActivity(new Intent(Register.this, News.class));
-                            startForegroundService(new Intent(Register.this, NotificationService.class));
+                            startActivity(new Intent(ActRegister.this, News.class));
+                            startForegroundService(new Intent(ActRegister.this, NotificationService.class));
                         }
 
-                        Toast.makeText(Register.this, response.body().Result, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActRegister.this, response.body().Result, Toast.LENGTH_SHORT).show();
                     });
                 }
 

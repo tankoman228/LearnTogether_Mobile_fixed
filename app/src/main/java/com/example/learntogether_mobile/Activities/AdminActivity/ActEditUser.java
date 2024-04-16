@@ -1,11 +1,10 @@
-package com.example.learntogether_mobile.Activities;
+package com.example.learntogether_mobile.Activities.AdminActivity;
 
 import static android.widget.AdapterView.*;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,7 +12,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.learntogether_mobile.API.Cache.RolesLoader;
+import com.example.learntogether_mobile.API.Loaders.RolesLoader;
 import com.example.learntogether_mobile.API.ListU;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
@@ -28,7 +27,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class EditUser extends AppCompatActivity {
+/**
+ * Активность редактирования роли пользователя и возможность его забанить
+ */
+public class ActEditUser extends AppCompatActivity {
 
     public static ListU User;
     TextView tvUsername;
@@ -50,14 +52,14 @@ public class EditUser extends AppCompatActivity {
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-            int selectedRoleIndex = -1; // Инициализируем индекс выбранной роли
+            int selectedRoleIndex = -1;
 
             for (int i = 0; i < roles.size(); i++) {
                 ListU role = roles.get(i);
                 adapter.add(role.getName());
 
                 if (Objects.equals(role.getName(), User.getRole())) {
-                    selectedRoleIndex = i; // Сохраняем индекс выбранной роли
+                    selectedRoleIndex = i;
                 }
             }
 
@@ -74,7 +76,7 @@ public class EditUser extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 
                 if (User.getUsername().equals(Variables.username)) {
-                    Toast.makeText(EditUser.this, "Cannot edit yourself! Changes will not be saved!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActEditUser.this, R.string.cannot_edit_yourself_changes_will_not_be_saved, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -120,7 +122,7 @@ public class EditUser extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
                 if (response.body().Error != null) {
-                    Toast.makeText(EditUser.this, response.body().Error, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActEditUser.this, response.body().Error, Toast.LENGTH_SHORT).show();
                     runOnUiThread(() -> {
                         flagRequireQuery = false;
                         spRole.setSelection(oldSelection);
@@ -129,7 +131,7 @@ public class EditUser extends AppCompatActivity {
                     return;
                 }
                 User.setRole(newRoleName);
-                Toast.makeText(EditUser.this, "Successfully changed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActEditUser.this, R.string.successfully_changed, Toast.LENGTH_SHORT).show();
             }
 
             @Override

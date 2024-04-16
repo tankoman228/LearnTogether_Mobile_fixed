@@ -1,6 +1,5 @@
-package com.example.learntogether_mobile.API.Cache;
+package com.example.learntogether_mobile.API.Loaders;
 
-import android.content.Context;
 import android.util.Log;
 
 import com.example.learntogether_mobile.API.ListU;
@@ -16,7 +15,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class GroupsAndUsers {
+/**
+ * Загрузка данных в оперативную память из базы, обратная связь через интерфейсы
+ */
+public class GroupsAndUsersLoader {
 
     public static List<ListU> UsersListForCurrentGroup = new ArrayList<>();
     public static List<ListU> Groups = new ArrayList<>();

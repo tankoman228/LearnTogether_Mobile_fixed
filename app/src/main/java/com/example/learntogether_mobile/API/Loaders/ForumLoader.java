@@ -1,4 +1,4 @@
-package com.example.learntogether_mobile.API.Cache;
+package com.example.learntogether_mobile.API.Loaders;
 
 import android.util.Log;
 
@@ -15,8 +15,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MeetingsLoader {
-    public static List<ListU> Meetings = new ArrayList<>();
+/**
+ * Загрузка данных с форума в оперативную память
+ */
+public class ForumLoader {
+    public static List<ListU> Asks = new ArrayList<>();
+    public static volatile CallbackAfterLoaded activityCentral;
 
     public static void Reload(CallbackAfterLoaded activityCentral, String searchString) {
 
@@ -26,7 +30,7 @@ public class MeetingsLoader {
         request.setNumber(20);
         request.setSession_token(Variables.SessionToken);
         RetrofitRequest r = new RetrofitRequest();
-        r.apiService.get_meetings(request).enqueue(new Callback<ResponseU>() {
+        r.apiService.get_asks(request).enqueue(new Callback<ResponseU>() {
             @Override
             public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
                 if (response.body() != null) {
@@ -34,7 +38,7 @@ public class MeetingsLoader {
                         Log.d("API", response.body().Error);
                         return;
                     }
-                    Meetings = response.body().getMeetings();
+                    Asks = response.body().getAsks();
                     activityCentral.updateInterface();
                 }
                 else
@@ -48,16 +52,17 @@ public class MeetingsLoader {
         });
     }
 
-    public static void Load(CallbackAfterLoaded activityCentral, String searchString) {
+    public static void loadLater(CallbackAfterLoaded activityCentral, String searchString) {
 
         RequestU request = new RequestU();
         request.setGroup(Variables.current_id_group);
         request.setSearch_string(searchString);
         request.setNumber(20);
+
         request.setId_max(findMinId() - 1);
         request.setSession_token(Variables.SessionToken);
         RetrofitRequest r = new RetrofitRequest();
-        r.apiService.get_meetings(request).enqueue(new Callback<ResponseU>() {
+        r.apiService.get_asks(request).enqueue(new Callback<ResponseU>() {
             @Override
             public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
                 if (response.body() != null) {
@@ -65,7 +70,11 @@ public class MeetingsLoader {
                         Log.d("API", response.body().Error);
                         return;
                     }
-                    Meetings = response.body().getMeetings();
+
+                    if (response.body().getAsks() == null || response.body().getAsks().size() == 0)
+                        return;
+
+                    Asks.addAll(response.body().getAsks());
                     activityCentral.updateInterface();
                 }
                 else
@@ -81,7 +90,7 @@ public class MeetingsLoader {
 
     private static int findMinId() {
         int minId = Integer.MAX_VALUE;
-        for (ListU ask : Meetings) {
+        for (ListU ask : Asks) {
             if (ask.getID_InfoBase() < minId) {
                 minId = ask.getID_InfoBase();
             }

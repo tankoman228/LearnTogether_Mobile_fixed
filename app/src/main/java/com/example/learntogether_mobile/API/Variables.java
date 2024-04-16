@@ -4,8 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 
-import com.example.learntogether_mobile.API.Cache.CallbackAfterLoaded;
-import com.example.learntogether_mobile.API.Cache.GroupsAndUsers;
+import com.example.learntogether_mobile.API.Loaders.GroupsAndUsersLoader;
 
 import java.util.List;
 
@@ -44,8 +43,8 @@ public class Variables {
         RequestU requestU = new RequestU();
         requestU.setSession_token(Variables.SessionToken);
         if (current_id_group == -1) {
-            GroupsAndUsers.UpdateCacheGroups(() -> {
-                current_id_group = GroupsAndUsers.Groups.get(0).getID_Group();
+            GroupsAndUsersLoader.UpdateCacheGroups(() -> {
+                current_id_group = GroupsAndUsersLoader.Groups.get(0).getID_Group();
                 saveValues(context);
 
                 requestU.setId_group(current_id_group);

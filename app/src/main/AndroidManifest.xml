@@ -26,10 +26,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".Activities.InsertRequests.ActJoinGroup"
+            android:name=".Activities.InsertRequestsActivity.ActJoinGroup"
             android:exported="false" />
         <activity
-            android:name=".Activities.AdminPanel"
+            android:name=".Activities.AdminActivity.ActAdminPanel"
             android:exported="false" />
 
         <provider
@@ -43,52 +43,52 @@
         </provider>
 
         <activity
-            android:name=".Activities.EditUser"
+            android:name=".Activities.AdminActivity.ActEditUser"
             android:exported="false" />
         <activity
-            android:name=".Activities.WatchProfile"
+            android:name=".Activities.WatchMoreActivity.ActWatchProfile"
             android:exported="false" />
         <activity
-            android:name=".Activities.RolesEdit"
+            android:name=".Activities.AdminActivity.ActRolesEdit"
             android:exported="false" />
         <activity
-            android:name=".Activities.InsertRequests.ActRegisterTokens"
+            android:name=".Activities.AdminActivity.ActRegisterTokens"
             android:exported="false" />
         <activity
-            android:name=".Activities.InsertRequests.ActAddMeeting"
+            android:name=".Activities.InsertRequestsActivity.ActAddMeeting"
             android:exported="false" />
         <activity
-            android:name=".Activities.MeetingInfo"
+            android:name=".Activities.WatchMoreActivity.MeetingInfo"
             android:exported="false" />
         <activity
-            android:name=".Activities.FullScreenImageActivity"
+            android:name=".Activities.WatchMoreActivity.ActFullScreenImageActivity"
             android:exported="false" />
         <activity
             android:name=".Activities.EditMyProfile"
             android:exported="false" />
         <activity
-            android:name=".Activities.TaskStatus"
+            android:name=".Activities.WatchMoreActivity.ActTaskStatus"
             android:exported="false" />
         <activity
-            android:name=".Activities.InsertRequests.ActForumAskAdd"
+            android:name=".Activities.InsertRequestsActivity.ActForumAskAdd"
             android:exported="false" />
         <activity
-            android:name=".Activities.InsertRequests.ActAddInfo"
+            android:name=".Activities.InsertRequestsActivity.ActAddInfo"
             android:exported="false" />
         <activity
-            android:name=".Activities.Comments"
+            android:name=".Activities.WatchMoreActivity.ActComments"
             android:exported="false" />
         <activity
-            android:name=".Activities.InsertRequests.ActAddNews"
+            android:name=".Activities.InsertRequestsActivity.ActAddNews"
             android:exported="false" />
         <activity
             android:name=".Activities.News"
             android:exported="false" />
         <activity
-            android:name=".Activities.Register"
+            android:name=".Activities.ActRegister"
             android:exported="false" />
         <activity
-            android:name=".Activities.Login"
+            android:name=".Activities.ActLogin"
             android:exported="false" />
         <activity
             android:name=".Activities.MainActivity"
