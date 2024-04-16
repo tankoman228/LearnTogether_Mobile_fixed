@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black2"
-    tools:context=".Activities.JoinGroup">
+    tools:context=".Activities.InsertRequests.ActJoinGroup">
 
     <Button
         android:id="@+id/btnEnter"

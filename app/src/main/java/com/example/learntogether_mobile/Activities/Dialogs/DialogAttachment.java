@@ -37,7 +37,10 @@ import com.google.gson.JsonObject;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-//Класс диалогового окна
+/**
+ * Диалоговое окно для просмотра и задания вложений,
+ * класс вынесен, так как много логики
+ */
 public class DialogAttachment extends DialogFragment {
 
     private AppCompatActivity activity;
@@ -70,6 +73,7 @@ public class DialogAttachment extends DialogFragment {
         PhotoView iv = view.findViewById(R.id.imageView);
 
         if (!WatchOnly) {
+            //Редактирование вложения
             view.findViewById(R.id.btnClear).setOnClickListener(l -> {
                 tvLink.setText("");
                 AttachmentJson = "";
@@ -99,6 +103,7 @@ public class DialogAttachment extends DialogFragment {
             image = null;
         }
         else {
+            //Не редактируем: только просмотр
             view.findViewById(R.id.btnClear).setVisibility(View.GONE);
             view.findViewById(R.id.btnAddImage).setVisibility(View.GONE);
             view.findViewById(R.id.btnAddLink).setVisibility(View.GONE);
@@ -119,15 +124,15 @@ public class DialogAttachment extends DialogFragment {
             }
         }
 
+        // Для запрашивания изображения
         requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
             if (isGranted) {
                 Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 pickImageLauncher.launch(galleryIntent);
             } else {
-                Toast.makeText(activity, "Access to your gallery denied", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, R.string.access_to_your_gallery_denied, Toast.LENGTH_SHORT).show();
             }
         });
-
         pickImageLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                 Intent data = result.getData();
@@ -145,6 +150,7 @@ public class DialogAttachment extends DialogFragment {
             }
         });
 
+        //Оформления снаружи
         return builder
                 .setTitle("Attachment")
                 .setIcon(R.drawable.folder)

@@ -26,7 +26,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".Activities.JoinGroup"
+            android:name=".Activities.InsertRequests.ActJoinGroup"
             android:exported="false" />
         <activity
             android:name=".Activities.AdminPanel"
@@ -52,10 +52,10 @@
             android:name=".Activities.RolesEdit"
             android:exported="false" />
         <activity
-            android:name=".Activities.RegisterTokens"
+            android:name=".Activities.InsertRequests.ActRegisterTokens"
             android:exported="false" />
         <activity
-            android:name=".Activities.AddMeeting"
+            android:name=".Activities.InsertRequests.ActAddMeeting"
             android:exported="false" />
         <activity
             android:name=".Activities.MeetingInfo"
@@ -70,16 +70,16 @@
             android:name=".Activities.TaskStatus"
             android:exported="false" />
         <activity
-            android:name=".Activities.ForumAskAdd"
+            android:name=".Activities.InsertRequests.ActForumAskAdd"
             android:exported="false" />
         <activity
-            android:name=".Activities.AddInfo"
+            android:name=".Activities.InsertRequests.ActAddInfo"
             android:exported="false" />
         <activity
             android:name=".Activities.Comments"
             android:exported="false" />
         <activity
-            android:name=".Activities.AddNews"
+            android:name=".Activities.InsertRequests.ActAddNews"
             android:exported="false" />
         <activity
             android:name=".Activities.News"

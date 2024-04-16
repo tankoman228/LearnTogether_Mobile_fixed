@@ -1,4 +1,4 @@
-package com.example.learntogether_mobile.Activities;
+package com.example.learntogether_mobile.Activities.InsertRequests;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -50,7 +50,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddNews extends AppCompatActivity {
+/**
+ * Добавление публицакии в ленту новостей (один из 3 типов)
+ */
+public class ActAddNews extends AppCompatActivity {
 
     private ImageButton ibNext, ibPrevious;
     private TextView tvNum;
@@ -177,7 +180,7 @@ public class AddNews extends AppCompatActivity {
                 Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 pickImageLauncher.launch(galleryIntent);
             } else {
-                Toast.makeText(this, "Access to your gallery denied", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.access_to_your_gallery_denied, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -280,10 +283,10 @@ public class AddNews extends AppCompatActivity {
     private void  updateDeadlineText() {
         if (deadlineDate == null || deadlineTime == null) {
             if (deadlineDate == null) {
-                tv_Deadline.setText("Select deadline date");
+                tv_Deadline.setText(R.string.select_deadline_date);
             }
             else {
-                tv_Deadline.setText("Select deadline time");
+                tv_Deadline.setText(R.string.select_deadline_time);
             }
         }
         else {
@@ -324,7 +327,7 @@ public class AddNews extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 items = s.toString().split(";");
-                StringBuilder text = new StringBuilder("Divide with \",\"\n");
+                StringBuilder text = new StringBuilder(getString(R.string.divide_with));
                 for (String item: items) {
                     text.append(item).append("\n");
                 }
@@ -341,7 +344,7 @@ public class AddNews extends AppCompatActivity {
             etDescription.getText().toString().length() < 2 ||
             etTaglist.getText().toString().length() < 2
         ) {
-            Toast.makeText(this, "Unfilled values!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.empty_fields, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -357,7 +360,7 @@ public class AddNews extends AppCompatActivity {
                 saveVote();
             }
             default ->
-                    Toast.makeText(this, "Select news type", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.select_news_type, Toast.LENGTH_SHORT).show();
         }
     }
     private void saveNews() {
@@ -369,20 +372,23 @@ public class AddNews extends AppCompatActivity {
         request.setTags(etTaglist.getText().toString());
         request.setImages(ImageConverter.encodeImages(selectedImages));
 
+        btnSave.setEnabled(false);
+
         RetrofitRequest r = new RetrofitRequest();
         r.apiService.add_news(request).enqueue(new Callback<ResponseU>() {
             @Override
             public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
                 if (response.body().Error != null) {
-                    Toast.makeText(AddNews.this, response.body().Error, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActAddNews.this, response.body().Error, Toast.LENGTH_SHORT).show();
+                    runOnUiThread(() -> btnSave.setEnabled(true));
                     return;
                 }
-                AddNews.this.finish();
+                ActAddNews.this.finish();
             }
 
             @Override
             public void onFailure(Call<ResponseU> call, Throwable t) {
-                Toast.makeText(AddNews.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActAddNews.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -395,20 +401,23 @@ public class AddNews extends AppCompatActivity {
         request.setTags(etTaglist.getText().toString());
         request.setDeadline(tv_Deadline.getText().toString());
 
+        btnSave.setEnabled(false);
+
         RetrofitRequest r = new RetrofitRequest();
         r.apiService.add_task(request).enqueue(new Callback<ResponseU>() {
             @Override
             public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
                 if (response.body().Error != null) {
-                    Toast.makeText(AddNews.this, response.body().Error, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActAddNews.this, response.body().Error, Toast.LENGTH_SHORT).show();
+                    runOnUiThread(() -> btnSave.setEnabled(true));
                     return;
                 }
-                AddNews.this.finish();
+                ActAddNews.this.finish();
             }
 
             @Override
             public void onFailure(Call<ResponseU> call, Throwable t) {
-                Toast.makeText(AddNews.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActAddNews.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -423,8 +432,10 @@ public class AddNews extends AppCompatActivity {
         request.Anonymous = cbAnon.isChecked();
         request.items = Arrays.asList(items);
 
+        btnSave.setEnabled(false);
+
         if (items.length < 2) {
-            Toast.makeText(this, "No enough items!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.no_enough_items, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -433,15 +444,16 @@ public class AddNews extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
                 if (response.body().Error != null) {
-                    Toast.makeText(AddNews.this, response.body().Error, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActAddNews.this, response.body().Error, Toast.LENGTH_SHORT).show();
+                    runOnUiThread(() -> btnSave.setEnabled(true));
                     return;
                 }
-                AddNews.this.finish();
+                ActAddNews.this.finish();
             }
 
             @Override
             public void onFailure(Call<ResponseU> call, Throwable t) {
-                Toast.makeText(AddNews.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActAddNews.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

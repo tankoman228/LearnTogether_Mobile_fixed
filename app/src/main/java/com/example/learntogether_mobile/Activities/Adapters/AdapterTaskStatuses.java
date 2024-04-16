@@ -13,6 +13,9 @@ import com.example.learntogether_mobile.R;
 
 import java.util.List;
 
+/**
+ * Адаптер для отображения отслеживаемых задач
+ */
 public class AdapterTaskStatuses extends BaseAdapter {
 
     List<ListU> items;
@@ -89,7 +92,7 @@ public class AdapterTaskStatuses extends BaseAdapter {
         else
             progressBar.setProgress((int)status.getPriority());
 
-        ((TextView)view.findViewById(R.id.tvDeadline)).setText("Deadline: " + status.getDeadline());
+        ((TextView)view.findViewById(R.id.tvDeadline)).setText(context.getString(R.string.deadline_) + status.getDeadline());
 
         view.setClickable(true);
         view.setOnClickListener(l -> {

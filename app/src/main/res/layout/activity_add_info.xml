@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.AddNews"
+    tools:context=".Activities.InsertRequests.ActAddNews"
     android:background="@color/black2">
 
 
@@ -23,12 +23,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:layout_marginBottom="32dp"
                 android:background="@drawable/outlined_blue_button"
                 android:text="Save and exit"
                 android:textColor="@color/blue"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.51"
                 app:layout_constraintStart_toStartOf="parent"
@@ -114,6 +112,16 @@
                 app:layout_constraintEnd_toEndOf="@+id/etHeader"
                 app:layout_constraintStart_toStartOf="@+id/etHeader"
                 app:layout_constraintTop_toBottomOf="@+id/etHeader" />
+
+            <ProgressBar
+                android:id="@+id/progressBar2"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="@+id/btnSave"
+                app:layout_constraintStart_toStartOf="@+id/btnSave"
+                app:layout_constraintTop_toBottomOf="@+id/btnSave" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

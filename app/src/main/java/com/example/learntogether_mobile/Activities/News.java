@@ -1,15 +1,12 @@
 package com.example.learntogether_mobile.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Debug;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -38,10 +35,15 @@ import com.example.learntogether_mobile.Activities.Adapters.AdapterInfo;
 import com.example.learntogether_mobile.Activities.Adapters.AdapterMeetings;
 import com.example.learntogether_mobile.Activities.Adapters.AdapterNews;
 import com.example.learntogether_mobile.Activities.Adapters.AdapterUsersGroups;
+import com.example.learntogether_mobile.Activities.InsertRequests.ActAddInfo;
+import com.example.learntogether_mobile.Activities.InsertRequests.ActAddMeeting;
+import com.example.learntogether_mobile.Activities.InsertRequests.ActAddNews;
+import com.example.learntogether_mobile.Activities.InsertRequests.ActForumAskAdd;
+import com.example.learntogether_mobile.Activities.InsertRequests.ActJoinGroup;
+import com.example.learntogether_mobile.Activities.InsertRequests.ActRegisterTokens;
 import com.example.learntogether_mobile.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -90,26 +92,26 @@ public class News extends AppCompatActivity implements CallbackAfterLoaded {
         fb.setOnClickListener(l -> {
             switch (currentTab) {
                 case tabNews:
-                    startActivity(new Intent(this, AddNews.class));
+                    startActivity(new Intent(this, ActAddNews.class));
                     break;
                 case tabInfo:
-                    startActivity(new Intent(this, AddInfo.class));
+                    startActivity(new Intent(this, ActAddInfo.class));
                     break;
                 case tabMeetings:
-                    startActivity(new Intent(this, AddMeeting.class));
+                    startActivity(new Intent(this, ActAddMeeting.class));
                     break;
                 case tabForum:
-                    startActivity(new Intent(this, ForumAskAdd.class));
+                    startActivity(new Intent(this, ActForumAskAdd.class));
                     break;
                 case tabPeople:
                     if (AdapterUsersGroups.GroupList) {
-                        startActivity(new Intent(News.this, JoinGroup.class));
+                        startActivity(new Intent(News.this, ActJoinGroup.class));
                     } else {
                         if (!Variables.IsAllowed("create_tokens")) {
                             Toast.makeText(News.this, "not allowed", Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        startActivity(new Intent(News.this, RegisterTokens.class));
+                        startActivity(new Intent(News.this, ActRegisterTokens.class));
                     }
                     break;
                 default:

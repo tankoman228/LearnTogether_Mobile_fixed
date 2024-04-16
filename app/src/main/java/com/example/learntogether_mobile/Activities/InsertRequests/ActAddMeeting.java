@@ -1,7 +1,6 @@
-package com.example.learntogether_mobile.Activities;
+package com.example.learntogether_mobile.Activities.InsertRequests;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.DatePickerDialog;
 import android.icu.text.SimpleDateFormat;
@@ -9,7 +8,6 @@ import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +24,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddMeeting extends AppCompatActivity {
+public class ActAddMeeting extends AppCompatActivity {
 
     Date deadlineDate;
 
@@ -72,11 +70,11 @@ public class AddMeeting extends AppCompatActivity {
                     etDescription.getText().toString().length() == 0 ||
                     etTaglist.getText().toString().length() == 0 ||
                     etPlace.getText().toString().length() == 0) {
-                Toast.makeText(this, "Unfilled fields!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.empty_fields, Toast.LENGTH_SHORT).show();
                 return;
             }
             if (deadlineDate == null) {
-                Toast.makeText(this, "Select date of meeting", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.select_date_of_meeting, Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -89,15 +87,17 @@ public class AddMeeting extends AppCompatActivity {
             requestU.setPlace(etPlace.getText().toString());
             requestU.setSession_token(Variables.SessionToken);
 
+            btnSave.setEnabled(false);
             RetrofitRequest r = new RetrofitRequest();
             r.apiService.add_meeting(requestU).enqueue(new Callback<ResponseU>() {
                 @Override
                 public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
                     if (response.body().Error != null) {
-                        Toast.makeText(AddMeeting.this, response.body().Error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActAddMeeting.this, response.body().Error, Toast.LENGTH_SHORT).show();
+                        runOnUiThread(() -> btnSave.setEnabled(true));
                     }
                     else {
-                        AddMeeting.this.finish();
+                        ActAddMeeting.this.finish();
                     }
                 }
 
@@ -114,7 +114,7 @@ public class AddMeeting extends AppCompatActivity {
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
     private void  updateDeadlineText() {
         if (deadlineDate == null) {
-            tv_Deadline.setText("Select meeting date");
+            tv_Deadline.setText(R.string.select_meeting_date);
         }
         else {
             tv_Deadline.setText(dateFormat.format(deadlineDate));

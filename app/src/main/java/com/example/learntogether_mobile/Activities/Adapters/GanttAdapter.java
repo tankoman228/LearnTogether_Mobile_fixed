@@ -15,6 +15,9 @@ import com.example.learntogether_mobile.R;
 
 import java.util.List;
 
+/**
+ * Адаптер для построения диаграммы Ганта при отображении назначенного времени (встречи)
+ */
 public class GanttAdapter extends RecyclerView.Adapter<GanttAdapter.GanttViewHolder> {
 
     private List<ListU> responsesList;

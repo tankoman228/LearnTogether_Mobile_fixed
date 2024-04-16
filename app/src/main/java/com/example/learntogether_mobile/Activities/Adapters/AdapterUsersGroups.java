@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.ImageDecoder;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -35,8 +33,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Адаптер для отображения списка групп или пользователей (зависит от выбранного GroupList)
+ */
 public class AdapterUsersGroups extends BaseAdapter {
 
+    /**
+     * Вызов при изменении иконки группы и при выборе другого списка (переключение между 2-мя списками)
+     */
     public interface AdapterUsersGroupsChoiceCallback {
         void callback(boolean GroupList);
         void selectGroupIconRequired();
@@ -82,6 +86,7 @@ public class AdapterUsersGroups extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (position == 0) {
+            // Верхний элемент с опцией переключения и информацией о текущей группе
             View view = lInflater.inflate(R.layout.item_additional_to_main_layout, parent, false);
 
             Button btnGroups = view.findViewById(R.id.btnAllGroups);
@@ -170,7 +175,7 @@ public class AdapterUsersGroups extends BaseAdapter {
             return view;
         }
 
-
+        //Группа, либо человек
         View view;
         if (convertView == null) {
             view = lInflater.inflate(R.layout.item_group, parent, false);

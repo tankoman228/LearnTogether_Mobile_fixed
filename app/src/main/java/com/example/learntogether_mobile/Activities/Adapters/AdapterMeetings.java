@@ -29,6 +29,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Адаптер для ленты встреч
+ */
 public class AdapterMeetings extends BaseAdapter {
     Context ctx;
     LayoutInflater lInflater;
@@ -64,8 +67,9 @@ public class AdapterMeetings extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         View view = lInflater.inflate(R.layout.item_meetings, parent, false);
-        ListU thisMeeting = getMeeting(position);
 
+        ListU thisMeeting = getMeeting(position);
+        //Заполнение интерфейса текстом и не только
         TextView tvTitle = view.findViewById(R.id.tvTitle);
         TextView tvDescription = view.findViewById(R.id.tvDescription);
         TextView tvUsername = view.findViewById(R.id.tvUsername);
@@ -74,7 +78,7 @@ public class AdapterMeetings extends BaseAdapter {
         tvTitle.setText(thisMeeting.getTitle());
         tvDescription.setText(thisMeeting.getText());
         tvUsername.setText(tvUsername.getText().toString().replace("[NAME]", thisMeeting.getAuthorTitle()));
-        tvWhenAndWhere.setText("At " + thisMeeting.getStartsAt() + " in " + thisMeeting.getPlace());
+        tvWhenAndWhere.setText(ctx.getString(R.string.at_) + thisMeeting.getStartsAt() + ctx.getString(R.string._in_) + thisMeeting.getPlace());
 
         view.findViewById(R.id.btnGo).setOnClickListener(l -> {
             MeetingInfo.meeting = thisMeeting;
@@ -96,15 +100,14 @@ public class AdapterMeetings extends BaseAdapter {
                 public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
 
                     if (response.body().Error != null) {
-                        Toast.makeText(ctx, "Error: " + response.body().Error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ctx, ctx.getString(R.string.error) + response.body().Error, Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    Toast.makeText(ctx, "Deleted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ctx, ctx.getString(R.string.deleted), Toast.LENGTH_SHORT).show();
                     ((AppCompatActivity)ctx).runOnUiThread(() -> view.setVisibility(View.GONE));
                 }
                 @Override
                 public void onFailure(Call<ResponseU> call, Throwable t) {
-                    Toast.makeText(ctx, "Error", Toast.LENGTH_SHORT).show();
                 }
             });
         });

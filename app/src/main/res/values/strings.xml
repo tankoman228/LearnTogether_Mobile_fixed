@@ -5,4 +5,20 @@
     <string name="deleted">Deleted</string>
     <string name="marked_as_solved">Marked as solved</string>
     <string name="open_file">Open file</string>
+    <string name="at_">"At "</string>
+    <string name="_in_">" in "</string>
+    <string name="voted">"Voted: "</string>
+    <string name="success">Success!</string>
+    <string name="published">Published</string>
+    <string name="deadline_">"Deadline: "</string>
+    <string name="access_to_your_gallery_denied">Access to your gallery denied</string>
+    <string name="empty_fields">Empty fields!</string>
+    <string name="select_date_of_meeting">Select date of meeting</string>
+    <string name="select_meeting_date">Select meeting date</string>
+    <string name="select_deadline_date">Select deadline date</string>
+    <string name="select_deadline_time">Select deadline time</string>
+    <string name="divide_with">Divide with \";\"\n</string>
+    <string name="no_enough_items">No enough items!</string>
+    <string name="select_news_type">Select news type</string>
+    <string name="no_files_selected">No files selected!</string>
 </resources>

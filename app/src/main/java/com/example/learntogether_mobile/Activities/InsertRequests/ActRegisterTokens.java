@@ -1,4 +1,4 @@
-package com.example.learntogether_mobile.Activities;
+package com.example.learntogether_mobile.Activities.InsertRequests;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,7 +12,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.learntogether_mobile.API.Cache.CallbackAfterLoaded;
 import com.example.learntogether_mobile.API.Cache.RolesLoader;
 import com.example.learntogether_mobile.API.ListU;
 import com.example.learntogether_mobile.API.RequestU;
@@ -27,7 +26,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RegisterTokens extends AppCompatActivity {
+public class ActRegisterTokens extends AppCompatActivity {
 
     private int selectedRoleId = -1;
 
@@ -93,7 +92,7 @@ public class RegisterTokens extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
                     if (response.body().Error != null) {
-                        Toast.makeText(RegisterTokens.this, response.body().Error, Toast.LENGTH_SHORT).show(); return;
+                        Toast.makeText(ActRegisterTokens.this, response.body().Error, Toast.LENGTH_SHORT).show(); return;
                     }
 
                     runOnUiThread(() -> {

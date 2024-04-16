@@ -1,21 +1,18 @@
-package com.example.learntogether_mobile.Activities;
+package com.example.learntogether_mobile.Activities.InsertRequests;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
-import android.content.ClipData;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.DocumentsContract;
-import android.provider.MediaStore;
-import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,18 +23,17 @@ import com.example.learntogether_mobile.API.RetrofitRequest;
 import com.example.learntogether_mobile.API.Variables;
 import com.example.learntogether_mobile.R;
 
-import java.io.File;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddInfo extends AppCompatActivity {
+public class ActAddInfo extends AppCompatActivity {
 
     EditText etTitle, etText, etTags;
     TextView tvFilenames;
     Button btnAdd, btnDelete, btnSave;
     Uri[] uris = new Uri[0];
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +47,8 @@ public class AddInfo extends AppCompatActivity {
         btnAdd = findViewById(R.id.btnAddImage);
         btnDelete = findViewById(R.id.btnDeleteImage);
         btnSave = findViewById(R.id.btnSave);
+        progressBar = findViewById(R.id.progressBar2);
+        progressBar.setVisibility(View.GONE);
 
         btnAdd.setOnClickListener(l -> {
             Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
@@ -66,7 +64,7 @@ public class AddInfo extends AppCompatActivity {
         });
         btnDelete.setOnClickListener(l -> {
             uris = new Uri[0];
-            tvFilenames.setText("No files selected!");
+            tvFilenames.setText(R.string.no_files_selected);
         });
         btnSave.setOnClickListener(l -> {
 
@@ -74,9 +72,11 @@ public class AddInfo extends AppCompatActivity {
             String tags = etTags.getText().toString();
             String text = etText.getText().toString();
             if (uris.length == 0 || title.length() < 2 || tags.length() < 2 || text.length() < 2) {
-                Toast.makeText(this, "Empty fields!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.empty_fields, Toast.LENGTH_SHORT).show();
                 return;
             }
+            btnSave.setEnabled(false);
+            progressBar.setVisibility(View.VISIBLE);
 
             RequestU requestU = new RequestU();
             requestU.setSession_token(Variables.SessionToken);
@@ -91,15 +91,17 @@ public class AddInfo extends AppCompatActivity {
                 public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
 
                     if (response.body() == null) {
-                        Toast.makeText(AddInfo.this, "500", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActAddInfo.this, "500", Toast.LENGTH_SHORT).show();
+                        runOnUiThread(() -> { btnSave.setEnabled(true); progressBar.setVisibility(View.GONE);});
                         return;
                     }
                     else if (response.body().Error != null) {
-                        Toast.makeText(AddInfo.this, response.body().Error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActAddInfo.this, response.body().Error, Toast.LENGTH_SHORT).show();
+                        runOnUiThread(() -> { btnSave.setEnabled(true); progressBar.setVisibility(View.GONE);});
                         return;
                     }
-                    Toast.makeText(AddInfo.this, "Success", Toast.LENGTH_SHORT).show();
-                    AddInfo.this.runOnUiThread(AddInfo.this::finish);
+                    Toast.makeText(ActAddInfo.this, R.string.success, Toast.LENGTH_SHORT).show();
+                    ActAddInfo.this.runOnUiThread(ActAddInfo.this::finish);
                 }
 
                 @Override

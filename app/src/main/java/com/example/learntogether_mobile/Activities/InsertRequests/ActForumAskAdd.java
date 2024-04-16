@@ -1,8 +1,7 @@
-package com.example.learntogether_mobile.Activities;
+package com.example.learntogether_mobile.Activities.InsertRequests;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -17,7 +16,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ForumAskAdd extends AppCompatActivity {
+public class ActForumAskAdd extends AppCompatActivity {
 
     EditText etTitle, etText, etTags;
 
@@ -65,18 +64,18 @@ public class ForumAskAdd extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
                     if (response.body() == null) {
-                        Toast.makeText(ForumAskAdd.this, "Request error 500", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ActForumAskAdd.this, "Request error 500", Toast.LENGTH_LONG).show();
                         return;
                     } else if (response.body().Error != null) {
-                        Toast.makeText(ForumAskAdd.this, response.body().Error, Toast.LENGTH_LONG).show();
+                        Toast.makeText(ActForumAskAdd.this, response.body().Error, Toast.LENGTH_LONG).show();
                         return;
                     }
-                    ForumAskAdd.this.finish();
+                    ActForumAskAdd.this.finish();
                 }
 
                 @Override
                 public void onFailure(Call<ResponseU> call, Throwable t) {
-                    Toast.makeText(ForumAskAdd.this, "Request error", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ActForumAskAdd.this, "Request error", Toast.LENGTH_LONG).show();
                 }
             });
         });

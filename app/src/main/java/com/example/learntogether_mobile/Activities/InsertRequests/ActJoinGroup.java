@@ -1,13 +1,11 @@
-package com.example.learntogether_mobile.Activities;
+package com.example.learntogether_mobile.Activities.InsertRequests;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.learntogether_mobile.API.NotificationService;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
@@ -18,7 +16,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class JoinGroup extends AppCompatActivity {
+public class ActJoinGroup extends AppCompatActivity {
 
     EditText etToken;
 
@@ -39,12 +37,12 @@ public class JoinGroup extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
                     if (response.body().Error != null) {
-                        Toast.makeText(JoinGroup.this, response.body().Error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActJoinGroup.this, response.body().Error, Toast.LENGTH_SHORT).show();
                         return;
                     }
 
 
-                    Toast.makeText(JoinGroup.this, "The new group added to list", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActJoinGroup.this, "The new group added to list", Toast.LENGTH_SHORT).show();
                     finish();
                 }
 
