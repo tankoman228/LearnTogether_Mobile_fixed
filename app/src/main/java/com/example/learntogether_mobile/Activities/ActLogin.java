@@ -56,7 +56,7 @@ public class ActLogin extends AppCompatActivity {
                             Variables.saveValues(ActLogin.this);
                             Variables.requireMyAccountInfo(ActLogin.this);
 
-                            startActivity(new Intent(ActLogin.this, News.class));
+                            startActivity(new Intent(ActLogin.this, ActNews.class));
                             startForegroundService(new Intent(ActLogin.this, NotificationService.class));
                         }
                         Toast.makeText(ActLogin.this, response.body().Result, Toast.LENGTH_SHORT).show();

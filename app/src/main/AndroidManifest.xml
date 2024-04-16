@@ -64,7 +64,7 @@
             android:name=".Activities.WatchMoreActivity.ActFullScreenImageActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.EditMyProfile"
+            android:name=".Activities.ActEditMyProfile"
             android:exported="false" />
         <activity
             android:name=".Activities.WatchMoreActivity.ActTaskStatus"
@@ -82,7 +82,7 @@
             android:name=".Activities.InsertRequestsActivity.ActAddNews"
             android:exported="false" />
         <activity
-            android:name=".Activities.News"
+            android:name=".Activities.ActNews"
             android:exported="false" />
         <activity
             android:name=".Activities.ActRegister"
@@ -91,7 +91,7 @@
             android:name=".Activities.ActLogin"
             android:exported="false" />
         <activity
-            android:name=".Activities.MainActivity"
+            android:name=".Activities.ActMain"
             android:exported="true"
             android:theme="@style/splash_theme">
             <intent-filter>

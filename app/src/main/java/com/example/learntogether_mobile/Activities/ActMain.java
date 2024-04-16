@@ -26,7 +26,7 @@ import retrofit2.Response;
 /**
  * Переход на нужный экран, если удалась автоматическая авторизация, запуск службы для уведомлений
  */
-public class MainActivity extends AppCompatActivity {
+public class ActMain extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,19 +64,19 @@ public class MainActivity extends AppCompatActivity {
             call.enqueue(new Callback<ResponseU>() {
                 @Override
                 public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
-                    MainActivity.this.runOnUiThread(() -> {
+                    ActMain.this.runOnUiThread(() -> {
                         if (response.body() != null && response.body().Token != null) {
                             Variables.SessionToken = response.body().Token;
                             Variables.username = request.username;
                             Variables.password = request.password;
-                            Variables.saveValues(MainActivity.this);
-                            Variables.requireMyAccountInfo(MainActivity.this);
+                            Variables.saveValues(ActMain.this);
+                            Variables.requireMyAccountInfo(ActMain.this);
 
-                            startActivity(new Intent(MainActivity.this, News.class));
+                            startActivity(new Intent(ActMain.this, ActNews.class));
                             //startForegroundService(new Intent(MainActivity.this, NotificationService.class));
                         }
                         if (response.body() != null)
-                            Toast.makeText(MainActivity.this, response.body().Result, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ActMain.this, response.body().Result, Toast.LENGTH_SHORT).show();
 
                         findViewById(R.id.btnRegister).setVisibility(View.VISIBLE);
                         findViewById(R.id.btnLogin).setVisibility(View.VISIBLE);

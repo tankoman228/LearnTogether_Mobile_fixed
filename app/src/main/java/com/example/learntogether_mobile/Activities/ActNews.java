@@ -52,7 +52,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class News extends AppCompatActivity implements CallbackAfterLoaded {
+public class ActNews extends AppCompatActivity implements CallbackAfterLoaded {
 
     protected final int tabNews = 1, tabInfo = 2, tabMeetings = 3, tabForum = 4, tabPeople = 5;
     protected int currentTab = tabNews;
@@ -87,7 +87,7 @@ public class News extends AppCompatActivity implements CallbackAfterLoaded {
         btnMeetings.setOnClickListener(l -> loadTab(tabMeetings));
         btnPeople.setOnClickListener(l -> loadTab(tabPeople));
         btnForum.setOnClickListener(l -> loadTab(tabForum));
-        btnMyProfile.setOnClickListener(l -> startActivity(new Intent(this, EditMyProfile.class)));
+        btnMyProfile.setOnClickListener(l -> startActivity(new Intent(this, ActEditMyProfile.class)));
 
         fb.setOnClickListener(l -> {
             switch (currentTab) {
@@ -105,13 +105,13 @@ public class News extends AppCompatActivity implements CallbackAfterLoaded {
                     break;
                 case tabPeople:
                     if (AdapterUsersGroups.GroupList) {
-                        startActivity(new Intent(News.this, ActJoinGroup.class));
+                        startActivity(new Intent(ActNews.this, ActJoinGroup.class));
                     } else {
                         if (!Variables.IsAllowed("create_tokens")) {
-                            Toast.makeText(News.this, "not allowed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ActNews.this, "not allowed", Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        startActivity(new Intent(News.this, ActRegisterTokens.class));
+                        startActivity(new Intent(ActNews.this, ActRegisterTokens.class));
                     }
                     break;
                 default:
@@ -145,12 +145,12 @@ public class News extends AppCompatActivity implements CallbackAfterLoaded {
                         listView.getFooterViewsCount()) >= (listView.getAdapter().getCount() - 1)) {
                     switch (currentTab) {
                         case tabNews ->
-                                NewsLoader.loadFromRetrofitMore(News.this, News.this, etSearch.getText().toString());
-                        case tabInfo -> InfosLoader.Load(News.this, etSearch.getText().toString());
+                                NewsLoader.loadFromRetrofitMore(ActNews.this, ActNews.this, etSearch.getText().toString());
+                        case tabInfo -> InfosLoader.Load(ActNews.this, etSearch.getText().toString());
                         case tabMeetings ->
-                                MeetingsLoader.Load(News.this, etSearch.getText().toString());
+                                MeetingsLoader.Load(ActNews.this, etSearch.getText().toString());
                         case tabForum ->
-                                ForumLoader.loadLater(News.this, etSearch.getText().toString());
+                                ForumLoader.loadLater(ActNews.this, etSearch.getText().toString());
                         default -> {
                         }
                     }
@@ -261,7 +261,7 @@ public class News extends AppCompatActivity implements CallbackAfterLoaded {
                         AdapterUsersGroups.GroupList = GroupList;
                         loadTab(currentTab);
                         if (GroupList) {
-                            Variables.requireMyAccountInfo(News.this);
+                            Variables.requireMyAccountInfo(ActNews.this);
                         }
                     }
 

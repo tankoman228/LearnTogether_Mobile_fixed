@@ -68,7 +68,7 @@ public class ActRegister extends AppCompatActivity {
                             Variables.saveValues(ActRegister.this);
                             Variables.requireMyAccountInfo(ActRegister.this);
 
-                            startActivity(new Intent(ActRegister.this, News.class));
+                            startActivity(new Intent(ActRegister.this, ActNews.class));
                             startForegroundService(new Intent(ActRegister.this, NotificationService.class));
                         }
 

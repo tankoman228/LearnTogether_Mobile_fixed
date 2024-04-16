@@ -14,7 +14,7 @@ import android.os.IBinder
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
-import com.example.learntogether_mobile.Activities.MainActivity
+import com.example.learntogether_mobile.Activities.ActMain
 import com.example.learntogether_mobile.R
 import retrofit2.Call
 import retrofit2.Callback
@@ -55,7 +55,7 @@ class NotificationService : Service() {
                     .bigText("If you see this text, notification channel is open and if something new appears you can see it")
             )
             .setPriority(NotificationCompat.PRIORITY_HIGH)
-        val notificationIntent = Intent(this, MainActivity::class.java)
+        val notificationIntent = Intent(this, ActMain::class.java)
         val pendingIntent = PendingIntent.getActivity(
             this,
             0, notificationIntent, PendingIntent.FLAG_IMMUTABLE

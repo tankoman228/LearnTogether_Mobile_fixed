@@ -18,7 +18,6 @@ import com.example.learntogether_mobile.API.RetrofitRequest;
 import com.example.learntogether_mobile.API.Variables;
 import com.example.learntogether_mobile.R;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
 
@@ -29,7 +28,7 @@ import retrofit2.Response;
 /**
  * Редактирование своего профиля пользователем
  */
-public class EditMyProfile extends AppCompatActivity {
+public class ActEditMyProfile extends AppCompatActivity {
 
     ImageButton ibAvatar;
     EditText etName, etDescr;
@@ -64,7 +63,7 @@ public class EditMyProfile extends AppCompatActivity {
             new RetrofitRequest().apiService.edit_profile(requestU).enqueue(new Callback<ResponseU>() {
                 @Override
                 public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
-                    Toast.makeText(EditMyProfile.this, Objects.requireNonNullElse(response.body().Error, getString(R.string.success)), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActEditMyProfile.this, Objects.requireNonNullElse(response.body().Error, getString(R.string.success)), Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
