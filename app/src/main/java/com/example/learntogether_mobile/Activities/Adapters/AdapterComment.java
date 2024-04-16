@@ -27,6 +27,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
+/**
+ * Адаптер для ленты с комментариями
+ */
 public class AdapterComment extends BaseAdapter {
     Context ctx;
     LayoutInflater lInflater;
@@ -60,8 +63,11 @@ public class AdapterComment extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        //Стандартная тема для адаптера
         View view = lInflater.inflate(R.layout.item_comment, parent, false);
 
+
+        //Задание значений комментариям, интерфейсу тобишь
         ListU thisComment = getComment(position);
         if (thisComment.getAvatar() != null) {
             ((ImageView) view.findViewById(R.id.ivAvatar)).setImageBitmap(ImageConverter.decodeImage(thisComment.getAvatar()));
@@ -76,6 +82,7 @@ public class AdapterComment extends BaseAdapter {
             btnAttachment.setVisibility(View.GONE);
         }
         else {
+            //Просмотр вложений
             btnAttachment.setOnClickListener(l -> {
                 DialogAttachment.AttachmentJson = thisComment.getAttachment();
                 DialogAttachment.WatchOnly = true;
@@ -84,6 +91,7 @@ public class AdapterComment extends BaseAdapter {
             });
         }
 
+        //Удаление из базы
         view.findViewById(R.id.ibDelete).setOnClickListener(l -> {
 
             RequestU req = new RequestU();
@@ -95,16 +103,20 @@ public class AdapterComment extends BaseAdapter {
                 @Override
                 public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
 
-                    if (response.body().Error != null) {
-                        Toast.makeText(ctx, "Error: " + response.body().Error, Toast.LENGTH_SHORT).show();
+                    if (response.body() == null) {
+                        Toast.makeText(ctx, R.string.request_error, Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    Toast.makeText(ctx, "Deleted", Toast.LENGTH_SHORT).show();
+
+                    if (response.body().Error != null) {
+                        Toast.makeText(ctx, ctx.getString(R.string.error) + response.body().Error, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    Toast.makeText(ctx, R.string.deleted, Toast.LENGTH_SHORT).show();
                     ((AppCompatActivity)ctx).runOnUiThread(() -> view.setVisibility(View.GONE));
                 }
                 @Override
                 public void onFailure(Call<ResponseU> call, Throwable t) {
-                    Toast.makeText(ctx, "Error", Toast.LENGTH_SHORT).show();
                 }
             });
         });

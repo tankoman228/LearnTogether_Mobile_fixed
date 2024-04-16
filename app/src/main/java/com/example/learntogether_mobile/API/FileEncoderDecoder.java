@@ -39,7 +39,7 @@ public class FileEncoderDecoder {
                     String mimeType = context.getContentResolver().getType(uri);
                     extension = MimeTypeMap.getSingleton().getExtensionFromMimeType(mimeType);
                 }
-                jsonObject.put("filename", filename + "." + extension);
+                jsonObject.put("filename",  filename.replace(":", "") + "." + extension);
                 jsonObject.put("data", base64String);
                 jsonArray.put(jsonObject);
             } catch (Exception e) {
@@ -50,14 +50,15 @@ public class FileEncoderDecoder {
         return jsonArray.toString();
     }
 
-    public static void decodeBase64ToFile(String base64String, Context context, int id) {
+    public static void decodeBase64ToFile(String base64String, Context context, String id) {
         try {
             JSONArray jsonArray = new JSONArray(base64String);
             File downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                String filename = "lt" + id + "_" + jsonObject.getString("filename").replace(":", "_");
+                String filename = "lt" + id + "_" + jsonObject.getString("filename");
+                Log.d("API", filename);
                 String data = jsonObject.getString("data");
                 byte[] fileBytes = Base64.decode(data, Base64.URL_SAFE);
                 File file = new File(downloadsDir, filename);
@@ -70,11 +71,11 @@ public class FileEncoderDecoder {
         }
     }
 
-    public static boolean checkFilesDownloaded(int id) {
+    public static boolean checkFilesDownloaded(String id) {
         File downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 
         for (File file : downloadsDir.listFiles()) {
-            if (file.getName().startsWith("lt" + id + "_")) {
+            if (file.getName().contains(id)) {
                 return true;
             }
         }
