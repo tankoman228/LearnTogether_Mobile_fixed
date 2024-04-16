@@ -104,28 +104,24 @@ public class NewsLoader {
                     Toast.makeText(context, response.body().Error, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                news_list = new ArrayList<>();
-                //tasks_list = new ArrayList<>();
-                //votes_list = new ArrayList<>();
 
+                int previous_n_list_size = news_list.size();
                 for (ListU news : response.body().getNews()) {
                     news_list.add(news.initByType("n"));
                 }
-                //news_list.sort(Comparator.comparingInt(ListU::getID_InfoBase));
-
                 for (ListU task : response.body().getTasks()) {
-                    //tasks_list.add(task);
                     news_list.add(task.initByType("t"));
                 }
-                //tasks_list.sort(Comparator.comparingInt(ListU::getID_InfoBase));
 
                 for (ListU vote : response.body().getVotes()) {
-                    // votes_list.add(vote);
                     news_list.add(vote.initByType("v"));
                 }
-                //votes_list.sort(Comparator.comparingInt(ListU::getID_InfoBase));
 
                 news_list.sort(Comparator.comparingInt(ListU::getID_InfoBase).reversed());
+
+                if (news_list.size() == previous_n_list_size) {
+                    return;
+                }
                 callback.updateInterface();
 
                 Log.d("API", "news loaded: " + news_list.size());

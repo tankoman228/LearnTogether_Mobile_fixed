@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -160,6 +161,7 @@ public class News extends AppCompatActivity implements CallbackAfterLoaded {
 
             }
         });
+        GroupsAndUsers.UpdateCacheGroups(this);
 
         Log.d("API", "1");
     }
@@ -171,21 +173,40 @@ public class News extends AppCompatActivity implements CallbackAfterLoaded {
     }
 
     protected void loadTab(int tabId) {
+
+        btnNews.setBackgroundTintList(ColorStateList.valueOf(getColor(R.color.black)));
+        btnInfo.setBackgroundTintList(ColorStateList.valueOf(getColor(R.color.black)));
+        btnMeetings.setBackgroundTintList(ColorStateList.valueOf(getColor(R.color.black)));
+        btnForum.setBackgroundTintList(ColorStateList.valueOf(getColor(R.color.black)));
+        btnPeople.setBackgroundTintList(ColorStateList.valueOf(getColor(R.color.black)));
+
         currentTab = tabId;
         Log.d("API", "2");
         switch (currentTab) {
             case tabNews -> {
                 Log.d("API", "3");
                 NewsLoader.loadFromRetrofit(this, this, etSearch.getText().toString());
+                btnNews.setBackgroundTintList(ColorStateList.valueOf(getColor(R.color.black2)));
             }
             case tabInfo -> {
                 InfosLoader.Reload(this, etSearch.getText().toString());
+                btnInfo.setBackgroundTintList(ColorStateList.valueOf(getColor(R.color.black2)));
             }
-            case tabMeetings -> MeetingsLoader.Reload(this, etSearch.getText().toString());
-            case tabForum -> ForumLoader.Reload(this, etSearch.getText().toString());
+            case tabMeetings -> {
+                MeetingsLoader.Reload(this, etSearch.getText().toString());
+                btnMeetings.setBackgroundTintList(ColorStateList.valueOf(getColor(R.color.black2)));
+            }
+            case tabForum -> {
+                ForumLoader.Reload(this, etSearch.getText().toString());
+                btnForum.setBackgroundTintList(ColorStateList.valueOf(getColor(R.color.black2)));
+            }
             case tabPeople -> {
-                GroupsAndUsers.UpdateCacheGroups(this);
-                GroupsAndUsers.UpdateCacheUsersForCurrentGroup(this);
+                btnPeople.setBackgroundTintList(ColorStateList.valueOf(getColor(R.color.black2)));
+                if (AdapterUsersGroups.GroupList) {
+                    updateInterface();
+                    GroupsAndUsers.UpdateCacheGroups(this);
+                } else
+                    GroupsAndUsers.UpdateCacheUsersForCurrentGroup(this);
             }
             default -> {
             }
@@ -204,21 +225,25 @@ public class News extends AppCompatActivity implements CallbackAfterLoaded {
                 listView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
                 Log.d("API", "news loaded to adapter");
-            } else if (currentTab == tabInfo) {
+            }
+            else if (currentTab == tabInfo) {
                 AdapterInfo adapter = new AdapterInfo(this, new ArrayList<>(InfosLoader.Infos));
                 listView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
-            } else if (currentTab == tabMeetings) {
+            }
+            else if (currentTab == tabMeetings) {
                 AdapterMeetings adapter = new AdapterMeetings(this, new ArrayList<>(MeetingsLoader.Meetings));
                 listView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
                 Log.d("API", "MEETINGS loaded to adapter");
-            } else if (currentTab == tabForum) {
+            }
+            else if (currentTab == tabForum) {
                 AdapterForum adapter = new AdapterForum(this, new ArrayList<>(ForumLoader.Asks));
                 listView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
                 Log.d("API", "forum loaded to adapter");
-            } else if (currentTab == tabPeople) {
+            }
+            else if (currentTab == tabPeople) {
 
                 List<ListU> listUS;
                 if (AdapterUsersGroups.GroupList) {
@@ -232,7 +257,7 @@ public class News extends AppCompatActivity implements CallbackAfterLoaded {
                     @Override
                     public void callback(boolean GroupList) {
                         AdapterUsersGroups.GroupList = GroupList;
-                        updateInterface();
+                        loadTab(currentTab);
                         if (GroupList) {
                             Variables.requireMyAccountInfo(News.this);
                         }
