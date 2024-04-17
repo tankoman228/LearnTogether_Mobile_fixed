@@ -36,6 +36,7 @@ public class ActLogin extends AppCompatActivity {
         etServer = findViewById(R.id.etServerAddress);
         etServer.setText(GlobalVariables.server);
 
+        findViewById(R.id.ibBack).setOnClickListener(l -> finish());
         findViewById(R.id.btnEnter).setOnClickListener(l -> {
             RequestU request = new RequestU() {{
                 username = etLogin.getText().toString();
