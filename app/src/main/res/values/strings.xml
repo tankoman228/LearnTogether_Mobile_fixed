@@ -86,7 +86,7 @@
     <string name="anonymous_voting">Anonymous voting</string>
     <string name="multi_answer">Multi-Answer</string>
     <string name="tags_divide_with_comma">Tags (divide with comma)</string>
-    <string name="return">Return</string>
+    <string name="return_">Return</string>
     <string name="manage_roles">Manage roles</string>
     <string name="complaints_list_sender_suspected">Complaints list (sender)-(suspected):</string>
     <string name="comments">Comments</string>
@@ -169,4 +169,23 @@
     <string name="need_help_exclamation">Need help!</string>
     <string name="show_results">Show results</string>
     <string name="vote_revote">Vote / revote</string>
+    <string name="permission_is_unavailable">Permission is unavailable</string>
+    <string name="delete_chosen_role">Delete chosen role</string>
+    <string name="save_as_new_role">Save as new role</string>
+    <string name="admin_level_in_hieararchy_0_127">Admin level in hieararchy (0-127)</string>
+    <string name="moderate_publications">Moderate publications</string>
+    <string name="offer_publications">Offer publications</string>
+    <string name="edit_roles">Edit roles</string>
+    <string name="forum_allowed">Forum allowed</string>
+    <string name="edit_group">Edit group</string>
+    <string name="comments_allowed">Comments allowed</string>
+    <string name="moderate_comments">Moderate comments</string>
+    <string name="invite_into_group">Invite into group</string>
+    <string name="ban_accounts">Ban accounts</string>
+    <string name="is_admin">Is Admin</string>
+    <string name="role_name">Role name</string>
+    <string name="a_you_sure_you_want_to_remove_this_role_from_system">A you sure you want to remove this role from system?</string>
+    <string name="a_you_sure_you_want_to_remove_this_user_from_current_group">A you sure you want to remove this user from current group?</string>
+    <string name="a_you_sure_you_want_to_ban_this_user_it_s_account_will_become_unavailable_forever">A you sure you want to BAN this user? It\'s account will become unavailable forever</string>
+    <string name="no_role_with_such_name_select_from_list_at_first">No role with such name, select from list at first</string>
 </resources>

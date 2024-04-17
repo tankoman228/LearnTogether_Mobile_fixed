@@ -105,7 +105,7 @@ public class ActEditUser extends AppCompatActivity {
         findViewById(R.id.btnCancel).setOnClickListener(l -> finish());
         findViewById(R.id.btnDeleteFromGroup).setOnClickListener(l -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(ActEditUser.this);
-            builder.setMessage("A you sure you want to remove this user from current group?")
+            builder.setMessage(R.string.a_you_sure_you_want_to_remove_this_user_from_current_group)
                     .setPositiveButton(R.string.yes, (dialog, id) -> {
 
                         RequestU requestU = new RequestU();
@@ -134,7 +134,7 @@ public class ActEditUser extends AppCompatActivity {
         });
         findViewById(R.id.btnBanInSystem).setOnClickListener(l -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(ActEditUser.this);
-            builder.setMessage("A you sure you want to BAN this user? It's account will become unavailable forever")
+            builder.setMessage(R.string.a_you_sure_you_want_to_ban_this_user_it_s_account_will_become_unavailable_forever)
                     .setPositiveButton(R.string.yes, (dialog, id) -> {
 
                         RequestU requestU = new RequestU();
