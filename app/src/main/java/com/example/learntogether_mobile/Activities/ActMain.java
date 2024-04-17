@@ -5,6 +5,7 @@ import androidx.core.app.ActivityCompat;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.Manifest;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.learntogether_mobile.API.ImageConverter;
 import com.example.learntogether_mobile.API.NotificationService;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
@@ -32,6 +34,9 @@ public class ActMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ImageConverter.DefaultIcon = BitmapFactory.decodeResource(getResources(),
+                R.drawable.logo);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {

@@ -71,6 +71,7 @@
         android:layout_height="80sp"
         android:layout_marginStart="4dp"
         android:backgroundTint="@color/black2"
+        android:clickable="true"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="@+id/tvWhen"
         app:layout_constraintStart_toStartOf="parent"

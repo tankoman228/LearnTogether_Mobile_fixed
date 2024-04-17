@@ -2,6 +2,8 @@ package com.example.learntogether_mobile.Activities.Adapters;
 
 import java.util.ArrayList;
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +17,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.learntogether_mobile.API.ImageConverter;
 import com.example.learntogether_mobile.API.ListU;
+import com.example.learntogether_mobile.API.Loaders.GroupsAndUsersLoader;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
 import com.example.learntogether_mobile.API.Variables;
 import com.example.learntogether_mobile.Activities.Dialogs.DialogAttachment;
+import com.example.learntogether_mobile.Activities.WatchMoreActivity.ActWatchProfile;
 import com.example.learntogether_mobile.R;
 
 import retrofit2.Call;
@@ -69,9 +73,37 @@ public class AdapterComment extends BaseAdapter {
 
         //Задание значений комментариям, интерфейсу тобишь
         ListU thisComment = getComment(position);
-        if (thisComment.getAvatar() != null) {
-            ((ImageView) view.findViewById(R.id.ivAvatar)).setImageBitmap(ImageConverter.decodeImage(thisComment.getAvatar()));
-        }
+
+
+            ImageView iv = view.findViewById(R.id.ivAvatar);
+            iv.setClickable(true);
+            iv.setImageBitmap(ImageConverter.decodeImage(thisComment.getAvatar()));
+            iv.setOnClickListener(l -> {
+                Log.d("API", "avatar clicked");
+                if (GroupsAndUsersLoader.UsersListForCurrentGroup == null || GroupsAndUsersLoader.UsersListForCurrentGroup.size() == 0) {
+                    Log.d("API", "avatar clicked, reloading users");
+                    GroupsAndUsersLoader.UpdateCacheUsersForCurrentGroup(() -> {
+                        for (var a : GroupsAndUsersLoader.UsersListForCurrentGroup) {
+                            if (a.getID_Account() == thisComment.getID_Account()) {
+                                ActWatchProfile.Profile = a;
+                                ctx.startActivity(new Intent(ctx, ActWatchProfile.class));
+                                break;
+                            }
+                        }
+                    });
+                } else {
+                    Log.d("API", "avatar clicked, loading from cache");
+                    for (var a : GroupsAndUsersLoader.UsersListForCurrentGroup) {
+                        if (a.getID_Account() == thisComment.getID_Account()) {
+                            ActWatchProfile.Profile = a;
+                            ctx.startActivity(new Intent(ctx, ActWatchProfile.class));
+                            break;
+                        }
+                    }
+                }
+            });
+
+
 
         ((TextView) view.findViewById(R.id.tvAuthor)).setText(thisComment.getAuthor());
         ((TextView) view.findViewById(R.id.tvText)).setText(thisComment.getText());

@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,12 +21,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
 import com.example.learntogether_mobile.API.FileEncoderDecoder;
+import com.example.learntogether_mobile.API.ImageConverter;
 import com.example.learntogether_mobile.API.ListU;
+import com.example.learntogether_mobile.API.Loaders.CallbackAfterLoaded;
+import com.example.learntogether_mobile.API.Loaders.GroupsAndUsersLoader;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
 import com.example.learntogether_mobile.API.Variables;
 import com.example.learntogether_mobile.Activities.WatchMoreActivity.ActComments;
+import com.example.learntogether_mobile.Activities.WatchMoreActivity.ActWatchProfile;
 import com.example.learntogether_mobile.R;
 
 import java.io.File;
@@ -80,6 +86,34 @@ public class AdapterInfo  extends BaseAdapter {
         ((TextView) view.findViewById(R.id.tvWhen)).setText(thisInfo.getWhenAdd());
         ((TextView) view.findViewById(R.id.tvCommentsNum)).setText(String.valueOf(thisInfo.getCommentsFound()));
 
+        ImageButton ibAvatar = view.findViewById(R.id.ibAvatar);
+        ibAvatar.setImageBitmap(ImageConverter.decodeImage(thisInfo.getIcon()));
+        ibAvatar.setOnClickListener(l -> {
+            Log.d("API", "avatar clicked");
+            if (GroupsAndUsersLoader.UsersListForCurrentGroup == null || GroupsAndUsersLoader.UsersListForCurrentGroup.size() == 0) {
+                Log.d("API", "avatar clicked, reloading users");
+                GroupsAndUsersLoader.UpdateCacheUsersForCurrentGroup(() -> {
+                    for (var a : GroupsAndUsersLoader.UsersListForCurrentGroup) {
+                        if (a.getID_Account() == thisInfo.getID_Account()) {
+                            ActWatchProfile.Profile = a;
+                            ctx.startActivity(new Intent(ctx, ActWatchProfile.class));
+                            break;
+                        }
+                    }
+                });
+            } else {
+                Log.d("API", "avatar clicked, loading from cache");
+                for (var a : GroupsAndUsersLoader.UsersListForCurrentGroup) {
+                    if (a.getID_Account() == thisInfo.getID_Account()) {
+                        ActWatchProfile.Profile = a;
+                        ctx.startActivity(new Intent(ctx, ActWatchProfile.class));
+                        break;
+                    }
+                }
+            }
+        });
+
+
         //Удаление из базы
         view.findViewById(R.id.ibDelete).setOnClickListener(l -> {
             RequestU req = new RequestU();
@@ -96,8 +130,9 @@ public class AdapterInfo  extends BaseAdapter {
                         return;
                     }
                     Toast.makeText(ctx, ctx.getString(R.string.deleted), Toast.LENGTH_SHORT).show();
-                    ((AppCompatActivity)ctx).runOnUiThread(() -> view.setVisibility(View.GONE));
+                    ((AppCompatActivity) ctx).runOnUiThread(() -> view.setVisibility(View.GONE));
                 }
+
                 @Override
                 public void onFailure(Call<ResponseU> call, Throwable t) {
                 }
@@ -106,7 +141,7 @@ public class AdapterInfo  extends BaseAdapter {
 
         //Переход в комментарии
         view.findViewById(R.id.ibComments).setOnClickListener(l -> {
-            ((AppCompatActivity)ctx).runOnUiThread(() -> {
+            ((AppCompatActivity) ctx).runOnUiThread(() -> {
                 ActComments.ID_InfoBase = thisInfo.getID_InfoBase();
                 ctx.startActivity(new Intent(ctx, ActComments.class));
             });
@@ -121,8 +156,7 @@ public class AdapterInfo  extends BaseAdapter {
             openFileButton.setOnClickListener(v -> {
                 openFile(thisInfo);
             });
-        }
-        else {
+        } else {
             view.findViewById(R.id.btnDownload).setOnClickListener(l -> {
                 thisInfo.getID_InfoBase();
 
@@ -161,7 +195,7 @@ public class AdapterInfo  extends BaseAdapter {
         };
         for (int i = 1; i < 6; i++) {
             int finalI = i;
-            btnRates[i-1].setOnClickListener(l -> {
+            btnRates[i - 1].setOnClickListener(l -> {
                 RequestU req = new RequestU();
                 req.setID_InfoBase(thisInfo.getID_InfoBase());
                 req.setSession_token(Variables.SessionToken);
@@ -172,6 +206,7 @@ public class AdapterInfo  extends BaseAdapter {
                     public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
                         Toast.makeText(ctx, "Thanks for your rate", Toast.LENGTH_SHORT).show();
                     }
+
                     @Override
                     public void onFailure(Call<ResponseU> call, Throwable t) {
                         Toast.makeText(ctx, "Error", Toast.LENGTH_SHORT).show();
@@ -179,7 +214,7 @@ public class AdapterInfo  extends BaseAdapter {
                 });
             });
         }
-        progressBar.setProgress((int)(thisInfo.Rate * 20f));
+        progressBar.setProgress((int) (thisInfo.Rate * 20f));
 
 
         return view;

@@ -68,6 +68,11 @@ public class InfosLoader {
                         Log.d("API", response.body().Error);
                         return;
                     }
+                    if (response.body().getInfos().size() == 0) {
+                        return;
+                    }
+                    Infos.addAll(response.body().getInfos());
+
                     Infos = response.body().getInfos();
                     activityCentral.updateInterface();
                 }

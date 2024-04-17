@@ -68,7 +68,10 @@ public class MeetingsLoader {
                         Log.d("API", response.body().Error);
                         return;
                     }
-                    Meetings = response.body().getMeetings();
+                    if (response.body().getMeetings().size() == 0) {
+                        return;
+                    }
+                    Meetings.addAll(response.body().getMeetings());
                     activityCentral.updateInterface();
                 }
                 else

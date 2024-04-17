@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.learntogether_mobile.API.ImageConverter;
 import com.example.learntogether_mobile.API.ListU;
+import com.example.learntogether_mobile.API.Loaders.GroupsAndUsersLoader;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
@@ -30,6 +31,7 @@ import com.example.learntogether_mobile.API.Variables;
 import com.example.learntogether_mobile.Activities.WatchMoreActivity.ActComments;
 import com.example.learntogether_mobile.Activities.WatchMoreActivity.ActFullScreenImageActivity;
 import com.example.learntogether_mobile.Activities.WatchMoreActivity.ActTaskStatus;
+import com.example.learntogether_mobile.Activities.WatchMoreActivity.ActWatchProfile;
 import com.example.learntogether_mobile.R;
 
 import java.util.ArrayList;
@@ -94,7 +96,6 @@ public class AdapterNews extends BaseAdapter {
             TextView tvTitle = view.findViewById(R.id.tvTitle);
             TextView tvDescr = view.findViewById(R.id.tvTextDescription);
             TextView tvCommentsNum = view.findViewById(R.id.tvCommentsNum);
-            ImageButton ibAvatar = view.findViewById(R.id.ibAvatar);
             ProgressBar progressBar = view.findViewById(R.id.progressBar);
             ImageButton ibNext = view.findViewById(R.id.ibNext);
             ImageButton ibPrevious = view.findViewById(R.id.ibPrevious);
@@ -105,10 +106,8 @@ public class AdapterNews extends BaseAdapter {
             tvWhen.setText(item.getWhenAdd());
             tvTitle.setText(item.getTitle());
             tvDescr.setText(item.getText());
-            if (item.getAvatar() != null)
-                ibAvatar.setImageBitmap(ImageConverter.decodeImage(item.getAvatar()));
             tvCommentsNum.setText(String.valueOf(item.getCommentsFound()));
-            progressBar.setProgress((int)(item.Rate * 20f));
+            progressBar.setProgress((int) (item.Rate * 20f));
 
             final List<Bitmap>[] bitmaps = new List[]{null};
 
@@ -142,7 +141,7 @@ public class AdapterNews extends BaseAdapter {
             executor.execute(() -> {
                 try {
                     bitmaps[0] = ImageConverter.decodeImages(item.getImages());
-                    ((AppCompatActivity)ctx).runOnUiThread(() -> {
+                    ((AppCompatActivity) ctx).runOnUiThread(() -> {
                         if (bitmaps[0].size() != 0) {
                             ivImage.setVisibility(View.VISIBLE);
                             ibNext.setVisibility(View.VISIBLE);
@@ -169,7 +168,6 @@ public class AdapterNews extends BaseAdapter {
             TextView tvCommentsNum = view.findViewById(R.id.tvCommentsNum);
             TextView tvDeadline = view.findViewById(R.id.tvDeadline);
 
-            ImageButton ibAvatar = view.findViewById(R.id.ibAvatar);
             ProgressBar progressBar = view.findViewById(R.id.progressBar);
 
             view.findViewById(R.id.btnMyStatus).setOnClickListener(l -> {
@@ -182,10 +180,8 @@ public class AdapterNews extends BaseAdapter {
             tvWhen.setText(item.getWhenAdd());
             tvTitle.setText(item.getTitle());
             tvTextDescription.setText(item.getText());
-            if (item.getAvatar() != null)
-                ibAvatar.setImageBitmap(ImageConverter.decodeImage(item.getAvatar()));
             tvCommentsNum.setText(String.valueOf(item.getCommentsFound()));
-            progressBar.setProgress((int)(item.Rate * 20f));
+            progressBar.setProgress((int) (item.Rate * 20f));
             tvDeadline.setText(new StringBuilder().append(tvDeadline.getText().toString()).append(item.getDeadline()).toString().replace("T", " "));
         }
         else {// (item.type_.equals("v")) {
@@ -197,7 +193,6 @@ public class AdapterNews extends BaseAdapter {
             TextView tvTitle = view.findViewById(R.id.tvTitle);
             TextView tvTextDescription = view.findViewById(R.id.tvTextDescription);
             TextView tvCommentsNum = view.findViewById(R.id.tvCommentsNum);
-            ImageButton ibAvatar = view.findViewById(R.id.ibAvatar);
 
             Button btnSave = view.findViewById(R.id.btnSave);
             Button btnShowResults = view.findViewById(R.id.btnShowResults);
@@ -207,12 +202,10 @@ public class AdapterNews extends BaseAdapter {
             tvWhen.setText(item.getWhenAdd());
             tvTitle.setText(item.getTitle());
             tvTextDescription.setText(item.getText());
-            if (item.getAvatar() != null)
-                ibAvatar.setImageBitmap(ImageConverter.decodeImage(item.getAvatar()));
             tvCommentsNum.setText(String.valueOf(item.getCommentsFound()));
 
             List<VoteOption> options = new ArrayList<>();
-            for (String option: item.getItems()) {
+            for (String option : item.getItems()) {
                 options.add(new VoteOption(option, ""));
             }
             recyclerView.setLayoutManager(new LinearLayoutManager(ctx));
@@ -226,7 +219,7 @@ public class AdapterNews extends BaseAdapter {
                 requestU.items = new ArrayList<>();
                 requestU.setId_object(item.getID_Vote());
 
-                for (var voteOption: adapterVoteItem[0].dataList) {
+                for (var voteOption : adapterVoteItem[0].dataList) {
                     if (voteOption.selected)
                         requestU.items.add(voteOption.text);
                 }
@@ -264,25 +257,24 @@ public class AdapterNews extends BaseAdapter {
                         var voteOptions = adapterVoteItem[0].dataList;
 
                         if (item.getAnonymous()) {
-                            for (var have: voteOptions) {
-                                for (var got: response.body().Results) {
+                            for (var have : voteOptions) {
+                                for (var got : response.body().Results) {
                                     if (Objects.equals(got.getItem(), have.text)) {
                                         have.result = ctx.getString(R.string.voted) + got.getCount();
                                     }
                                 }
                             }
-                        }
-                        else {
-                            for (var have: voteOptions) {
+                        } else {
+                            for (var have : voteOptions) {
                                 have.result = "";
-                                for (var got: response.body().Results) {
+                                for (var got : response.body().Results) {
                                     if (Objects.equals(got.getItem(), have.text)) {
                                         have.result += got.getName() + "\n";
                                     }
                                 }
                             }
                         }
-                        ((AppCompatActivity)ctx).runOnUiThread(() -> {
+                        ((AppCompatActivity) ctx).runOnUiThread(() -> {
                             adapterVoteItem[0] = new AdapterVoteItem(voteOptions);
                             recyclerView.setAdapter(adapterVoteItem[0]);
                         });
@@ -316,7 +308,7 @@ public class AdapterNews extends BaseAdapter {
             };
             for (int i = 1; i < 6; i++) {
                 int finalI = i;
-                btnRates[i-1].setOnClickListener(l -> {
+                btnRates[i - 1].setOnClickListener(l -> {
                     RequestU req = new RequestU();
                     req.setID_InfoBase(item.getID_InfoBase());
                     req.setSession_token(Variables.SessionToken);
@@ -327,6 +319,7 @@ public class AdapterNews extends BaseAdapter {
                         public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
                             Toast.makeText(ctx, "Thanks for your rate", Toast.LENGTH_SHORT).show();
                         }
+
                         @Override
                         public void onFailure(Call<ResponseU> call, Throwable t) {
                             Toast.makeText(ctx, "Error", Toast.LENGTH_SHORT).show();
@@ -337,8 +330,7 @@ public class AdapterNews extends BaseAdapter {
         }
         if (item.getModerated()) {
             btnMarkModerated.setVisibility(View.GONE);
-        }
-        else {
+        } else {
             btnMarkModerated.setOnClickListener(l -> {
 
                 RequestU req = new RequestU();
@@ -362,10 +354,11 @@ public class AdapterNews extends BaseAdapter {
                             return;
                         }
                         Toast.makeText(ctx, R.string.published, Toast.LENGTH_SHORT).show();
-                        ((AppCompatActivity)ctx).runOnUiThread(()-> {
+                        ((AppCompatActivity) ctx).runOnUiThread(() -> {
                             btnMarkModerated.setVisibility(View.GONE);
                         });
                     }
+
                     @Override
                     public void onFailure(Call<ResponseU> call, Throwable t) {
                     }
@@ -390,12 +383,38 @@ public class AdapterNews extends BaseAdapter {
                     }
                     Toast.makeText(ctx, "Deleted", Toast.LENGTH_SHORT).show();
                 }
+
                 @Override
                 public void onFailure(Call<ResponseU> call, Throwable t) {
                     Toast.makeText(ctx, "Error", Toast.LENGTH_SHORT).show();
                 }
             });
         });
+
+        ImageButton ibAvatar = view.findViewById(R.id.ibAvatar);
+        ibAvatar.setImageBitmap(ImageConverter.decodeImage(item.getAvatar()));
+        ibAvatar.setOnClickListener(l -> {
+            if (GroupsAndUsersLoader.UsersListForCurrentGroup == null || GroupsAndUsersLoader.UsersListForCurrentGroup.size() == 0) {
+                GroupsAndUsersLoader.UpdateCacheUsersForCurrentGroup(() -> {
+                    for (var a : GroupsAndUsersLoader.UsersListForCurrentGroup) {
+                        if (a.getID_Account() == item.getID_Account()) {
+                            ActWatchProfile.Profile = a;
+                            ctx.startActivity(new Intent(ctx, ActWatchProfile.class));
+                            break;
+                        }
+                    }
+                });
+            } else {
+                for (var a : GroupsAndUsersLoader.UsersListForCurrentGroup) {
+                    if (a.getID_Account() == item.getID_Account()) {
+                        ActWatchProfile.Profile = a;
+                        ctx.startActivity(new Intent(ctx, ActWatchProfile.class));
+                        break;
+                    }
+                }
+            }
+        });
+
 
         return view;
     }

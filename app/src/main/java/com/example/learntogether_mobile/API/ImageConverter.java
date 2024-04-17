@@ -1,8 +1,15 @@
 package com.example.learntogether_mobile.API;
 
+import android.app.Application;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.Base64;
+
+import com.example.learntogether_mobile.R;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -12,6 +19,11 @@ import java.util.List;
  * Для конвертации изображений в строки для json и наоборот
  */
 public class ImageConverter {
+
+    /**
+     * Обязательно инициализировать в первой активности!
+     */
+    public static Bitmap DefaultIcon;
 
     /**
      * Метод для кодирования изображения в строку Base64
@@ -28,6 +40,10 @@ public class ImageConverter {
      * Метод для декодирования строки Base64 обратно в изображение
      */
     public static Bitmap decodeImage(String encodedString) {
+        if (encodedString == null || encodedString.length() == 0) {
+            return DefaultIcon;
+        }
+
         byte[] decodedBytes = Base64.decode(encodedString, Base64.URL_SAFE);
         return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
     }
