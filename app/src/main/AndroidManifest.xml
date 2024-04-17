@@ -26,6 +26,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".Activities.ActHelp"
+            android:exported="false"
+            android:theme="@style/Theme.LearnTogether_Mobile.NoActionBar" />
+        <activity
             android:name=".Activities.InsertRequestsActivity.ActJoinGroup"
             android:exported="false" />
         <activity

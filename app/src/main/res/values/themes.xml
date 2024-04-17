@@ -6,4 +6,11 @@
     </style>
 
     <style name="Theme.LearnTogether_Mobile" parent="Base.Theme.LearnTogether_Mobile" />
+    <style name="Theme.LearnTogether_Mobile.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.LearnTogether_Mobile.AppBarOverlay"
+        parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.LearnTogether_Mobile.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

@@ -43,6 +43,7 @@ public class ActMain extends AppCompatActivity {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 10);
             }
         }
+        findViewById(R.id.imageButton).setOnClickListener(l -> startActivity(new Intent(this, ActHelp.class)));
 
         Variables.loadValues(this);
         if (Variables.password != null) {

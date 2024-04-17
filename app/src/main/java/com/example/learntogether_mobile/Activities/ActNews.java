@@ -90,6 +90,7 @@ public class ActNews extends AppCompatActivity implements CallbackAfterLoaded {
         btnForum.setOnClickListener(l -> loadTab(tabForum));
         btnMyProfile.setOnClickListener(l -> startActivity(new Intent(this, ActEditMyProfile.class)));
 
+        findViewById(R.id.ibHelp).setOnClickListener(l -> startActivity(new Intent(this, ActHelp.class)));
         fb.setOnClickListener(l -> {
             switch (currentTab) {
                 case tabNews:
