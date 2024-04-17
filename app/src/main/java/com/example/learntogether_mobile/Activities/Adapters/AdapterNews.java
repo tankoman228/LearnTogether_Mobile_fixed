@@ -317,7 +317,7 @@ public class AdapterNews extends BaseAdapter {
                     r.apiService.rate(req).enqueue(new Callback<ResponseU>() {
                         @Override
                         public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
-                            Toast.makeText(ctx, "Thanks for your rate", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ctx, R.string.thanks_for_your_rate, Toast.LENGTH_SHORT).show();
                         }
 
                         @Override

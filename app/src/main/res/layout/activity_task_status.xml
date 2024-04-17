@@ -78,67 +78,80 @@
         android:progressBackgroundTint="@color/white"
         android:thumb="@android:drawable/ic_dialog_alert" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10sp"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btnUpdateTaskStatus"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/blue"
-            android:text="@string/update_status"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            app:icon="@drawable/profile_2user" />
+            android:layout_marginTop="15sp"
+            android:orientation="horizontal">
 
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            <Button
+                android:id="@+id/btnUpdateTaskStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/blue"
+                android:text="@string/update_status"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:icon="@drawable/profile_2user" />
 
-        <Button
-            android:id="@+id/btnDeleteTaskStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/blue"
-            android:text="@string/delete_status"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="    " />
 
-    <LinearLayout
+            <Button
+                android:id="@+id/btnDeleteTaskStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/blue"
+                android:text="@string/delete_status"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10sp"
+        android:layout_marginTop="5sp"
+        android:layout_marginBottom="10sp"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btnShowForThis"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/blue"
-            android:text="@string/others_statuses"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:orientation="horizontal">
 
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            <Button
+                android:id="@+id/btnShowForThis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/blue"
+                android:text="@string/others_statuses"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
 
-        <Button
-            android:id="@+id/btnAllYourTasks"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/blue"
-            android:text="@string/all_your_tasks"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="    " />
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/btnAllYourTasks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/blue"
+                android:text="@string/all_your_tasks"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+    </ScrollView>
 
     <ListView
         android:id="@+id/lv"

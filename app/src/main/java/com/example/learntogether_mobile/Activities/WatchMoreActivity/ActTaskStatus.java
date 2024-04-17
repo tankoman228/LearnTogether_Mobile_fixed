@@ -88,16 +88,26 @@ public class ActTaskStatus extends AppCompatActivity implements AdapterTaskStatu
             ShowMy = false;
 
             if (Task == null) {
-                Toast.makeText(this, "No task chosen", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.no_task_chosen, Toast.LENGTH_SHORT).show();
                 return;
             }
 
             loadTaskStatuses();
         });
         btnUpdTaskStatus.setOnClickListener(l -> {
+            if (Task == null) {
+                Toast.makeText(this, R.string.no_task_chosen, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             updTaskStatus("update_or_create");
         });
         findViewById(R.id.btnDeleteTaskStatus).setOnClickListener(l -> {
+            if (Task == null) {
+                Toast.makeText(this, R.string.no_task_chosen, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             updTaskStatus("delete");
         });
     }

@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">LearnTogether_Mobile</string>
+    <string name="app_name" translatable="false">LearnTogether_Mobile</string>
     <string name="request_error">Request error</string>
     <string name="error">"Error: "</string>
     <string name="deleted">Deleted</string>
@@ -33,30 +33,7 @@
     <string name="send_complaint_to_admins">Send complaint to admins</string>
     <string name="complaint_for_user">"Complaint for user: "</string>
     <string name="title_activity_act_help">ActHelp</string>
-    <string name="large_text_help">
-        "Material is the metaphor.\n\n"
-
-        "A material metaphor is the unifying theory of a rationalized space and a system of motion."
-        "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
-        "technologically advanced and open to imagination and magic.\n"
-        "Surfaces and edges of the material provide visual cues that are grounded in reality. The "
-        "use of familiar tactile attributes helps users quickly understand affordances. Yet the "
-        "flexibility of the material creates new affordances that supercede those in the physical "
-        "world, without breaking the rules of physics.\n"
-        "The fundamentals of light, surface, and movement are key to conveying how objects move, "
-        "interact, and exist in space and in relation to each other. Realistic lighting shows "
-        "seams, divides space, and indicates moving parts.\n\n"
-        "A material metaphor is the unifying theory of a rationalized space and a system of motion."
-        "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
-        "technologically advanced and open to imagination and magic.\n"
-        "Surfaces and edges of the material provide visual cues that are grounded in reality. The "
-        "use of familiar tactile attributes helps users quickly understand affordances. Yet the "
-        "flexibility of the material creates new affordances that supercede those in the physical "
-        "world, without breaking the rules of physics.\n"
-        "The fundamentals of light, surface, and movement are key to conveying how objects move, "
-        "interact, and exist in space and in relation to each other. Realistic lighting shows "
-        "seams, divides space, and indicates moving parts.\n\n"
-    </string>
+    <string name="large_text_help">"Chapters:\n1.  About\n2.  Login and register\n3.  Users and groups\n4.  News\n5.  Files (information)\n6.  Meetings\n7.  Forum (discuss)\n8.  Comments\n9.  Profiles\n10. Admin panel\n\n1. About:\n\nLearn Together is something like private forum for students. Here information cannot become lost in informational noise.\n\nYou can make your own server and use tha same client as for the other servers.\n\n2. Login and register\n\nTo register you need to have a special token and to know IP of server. Then you can use this data to make account. Token can be made up by admin or owner of server.\n\nIf you already have an account use your login and password for target server.\n\n3. Users and groups\n\nTo create new group you need to use server console. If your role is allowed to do it, you can make your own register tokens (invite-codes) for group.\n\nTo join group by invite-code click plus-button in list of your groups, to invite somebody use the same button in users list.\n\nYou see publications from one group only. To switch groups just click at them. \n\n4. News\n\nThere are three types of news:\n- Usual news have some images in it. You can click on image to watch the image closer.\n- Tasks are connected to task manager. They have deadline.\n- Votes have some options (and a little bit buggy), this is a good way to make collective desicions.\n\nYou can rate publications and see average value in a blue bar below. \n\n5. Files (information)\n\nYou can share with different files (but not too big). Download file, give your mark and enjoy new material. The file is saved to uploads.\n\nLoading files to server is available for moderators only.\n\n6. Meetings\n\nHere you can see who can join meeting and when. Gant diagram is very useful. If you have problems with making mass meetings (online or not), use this option.\n\nCreating meetings is available for moderators only.\n\n7. Forum (discuss)\n\nHere you can ask your questions and mark solved if the question is solved. These items have comments option only, use it instead of chats.\n\n8. Comments\n\nYou can write comments by pressing comments icon (right-down corner of publication). Also you can make attachment with one image and list of links.\n\n9.  Profiles\n\nMake your own profile! This is not difficult, but will make you look better in this application. Also some users (default is for Owner role) can edit profile of group. To watch profile of other user just click at user's icon\n\n10. Admin panel\n\nYou can see complaints there and edit roles (if you are allowed to do this). \nTo make user to have more or lesser permissions just click on profile icon and go to editing screen.\nSometimes ban is a good solution.\n\nEnjoy using this app!\n\n    "</string>
     <string name="action_settings">Settings</string>
     <string name="yes">Yes</string>
     <string name="notification_service">Notification Service</string>
@@ -112,7 +89,7 @@
     <string name="join_new_group">Join new group</string>
     <string name="invite_token">Invite token</string>
     <string name="address_of_server">Address of server</string>
-    <string name="default_ip">192.168.3.73:8000</string>
+    <string name="default_ip" translatable="false">192.168.3.73:8000</string>
     <string name="enter_to_system">Enter to system</string>
     <string name="password">Password</string>
     <string name="forgot_password_or_login">Forgot password or login?</string>
@@ -163,7 +140,7 @@
     <string name="solved">Solved</string>
     <string name="download">Download</string>
     <string name="meeting_in_place_at_time">Meeting in [PLACE] at [TIME]</string>
-    <string name="org_by_name">Org. by [NAME]</string>
+    <string name="org_by_name" translatable="false">Org. by [NAME]</string>
     <string name="mark_as_moderated">Mark as moderated</string>
     <string name="open_in_task_manager">Open in task manager</string>
     <string name="need_help_exclamation">Need help!</string>
@@ -188,4 +165,7 @@
     <string name="a_you_sure_you_want_to_remove_this_user_from_current_group">A you sure you want to remove this user from current group?</string>
     <string name="a_you_sure_you_want_to_ban_this_user_it_s_account_will_become_unavailable_forever">A you sure you want to BAN this user? It\'s account will become unavailable forever</string>
     <string name="no_role_with_such_name_select_from_list_at_first">No role with such name, select from list at first</string>
+    <string name="thanks_for_your_rate">Thanks for your rate</string>
+    <string name="watch_more">Watch more</string>
+    <string name="no_task_chosen">No task chosen</string>
 </resources>
