@@ -87,17 +87,18 @@ public class ActEditMyProfile extends AppCompatActivity {
                 int width = selectedImage.getWidth();
                 int height = selectedImage.getHeight();
 
-                if (width > 512 || height > 512) {
-                    float scale = Math.min(512f / width, 512f / height);
-                    Matrix matrix = new Matrix();
-                    matrix.postScale(scale, scale);
-                    selectedImage = Bitmap.createBitmap(selectedImage, 0, 0, width, height, matrix, false);
-                }
+                int size = Math.min(width, height);
+                int x = (width - size) / 2;
+                int y = (height - size) / 2;
+
+                selectedImage = Bitmap.createBitmap(selectedImage, x, y, size, size);
+
+                selectedImage = Bitmap.createScaledBitmap(selectedImage, 512, 512, true);
                 ibAvatar.setImageBitmap(selectedImage);
             } catch (Exception e) {
                 e.printStackTrace();
-
             }
         }
     }
+
 }

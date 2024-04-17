@@ -30,7 +30,7 @@ public class ImageConverter {
      */
     public static String encodeImage(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.WEBP, 50, byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.WEBP, 40, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream.toByteArray();
         return Base64.encodeToString(byteArray, Base64.URL_SAFE);
     }

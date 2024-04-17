@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
@@ -287,8 +288,23 @@ public class ActNews extends AppCompatActivity implements CallbackAfterLoaded {
             Uri selectedImage = data.getData();
             try {
                 InputStream inputStream = getContentResolver().openInputStream(selectedImage);
+                Bitmap selectedImage_ = BitmapFactory.decodeStream(inputStream);
+                inputStream.close();
 
-                AdapterUsersGroups.currentIcon = BitmapFactory.decodeStream(inputStream);
+                int width = selectedImage_.getWidth();
+                int height = selectedImage_.getHeight();
+
+                int size = Math.min(width, height);
+                int x = (width - size) / 2;
+                int y = (height - size) / 2;
+
+                selectedImage_ = Bitmap.createBitmap(selectedImage_, x, y, size, size);
+
+                Bitmap resizedImage = Bitmap.createScaledBitmap(selectedImage_, 512, 512, true);
+                AdapterUsersGroups.currentIcon = resizedImage;
+
+
+                // Код для отправки отредактированного изображения
                 RequestU requestU = new RequestU();
                 requestU.setSession_token(Variables.SessionToken);
                 requestU.setGroup(Variables.current_id_group);
@@ -314,4 +330,5 @@ public class ActNews extends AppCompatActivity implements CallbackAfterLoaded {
             }
         }
     }
+
 }
