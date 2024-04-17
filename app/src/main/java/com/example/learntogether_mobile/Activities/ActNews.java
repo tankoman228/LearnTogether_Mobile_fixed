@@ -30,7 +30,7 @@ import com.example.learntogether_mobile.API.ListU;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
-import com.example.learntogether_mobile.API.Variables;
+import com.example.learntogether_mobile.API.GlobalVariables;
 import com.example.learntogether_mobile.Activities.Adapters.AdapterForum;
 import com.example.learntogether_mobile.Activities.Adapters.AdapterInfo;
 import com.example.learntogether_mobile.Activities.Adapters.AdapterMeetings;
@@ -42,6 +42,7 @@ import com.example.learntogether_mobile.Activities.InsertRequestsActivity.ActAdd
 import com.example.learntogether_mobile.Activities.InsertRequestsActivity.ActForumAskAdd;
 import com.example.learntogether_mobile.Activities.InsertRequestsActivity.ActJoinGroup;
 import com.example.learntogether_mobile.Activities.AdminActivity.ActRegisterTokens;
+import com.example.learntogether_mobile.Activities.WatchMoreActivity.ActTaskStatus;
 import com.example.learntogether_mobile.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -91,6 +92,8 @@ public class ActNews extends AppCompatActivity implements CallbackAfterLoaded {
         btnMyProfile.setOnClickListener(l -> startActivity(new Intent(this, ActEditMyProfile.class)));
 
         findViewById(R.id.ibHelp).setOnClickListener(l -> startActivity(new Intent(this, ActHelp.class)));
+        findViewById(R.id.btnTasks).setOnClickListener(l -> startActivity(new Intent(this, ActTaskStatus.class)));
+
         fb.setOnClickListener(l -> {
             switch (currentTab) {
                 case tabNews:
@@ -109,7 +112,7 @@ public class ActNews extends AppCompatActivity implements CallbackAfterLoaded {
                     if (AdapterUsersGroups.GroupList) {
                         startActivity(new Intent(ActNews.this, ActJoinGroup.class));
                     } else {
-                        if (!Variables.IsAllowed("create_tokens")) {
+                        if (!GlobalVariables.IsAllowed("create_tokens")) {
                             Toast.makeText(ActNews.this, "not allowed", Toast.LENGTH_SHORT).show();
                             return;
                         }
@@ -263,7 +266,7 @@ public class ActNews extends AppCompatActivity implements CallbackAfterLoaded {
                         AdapterUsersGroups.GroupList = GroupList;
                         loadTab(currentTab);
                         if (GroupList) {
-                            Variables.requireMyAccountInfo(ActNews.this);
+                            GlobalVariables.requireMyAccountInfo(ActNews.this);
                         }
                     }
 
@@ -307,8 +310,8 @@ public class ActNews extends AppCompatActivity implements CallbackAfterLoaded {
 
                 // Код для отправки отредактированного изображения
                 RequestU requestU = new RequestU();
-                requestU.setSession_token(Variables.SessionToken);
-                requestU.setGroup(Variables.current_id_group);
+                requestU.setSession_token(GlobalVariables.SessionToken);
+                requestU.setGroup(GlobalVariables.current_id_group);
                 requestU.setNewIcon(ImageConverter.encodeImage(AdapterUsersGroups.currentIcon));
                 new RetrofitRequest().apiService.edit_group(requestU).enqueue(new Callback<ResponseU>() {
                     @Override

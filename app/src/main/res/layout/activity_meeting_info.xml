@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5sp"
                 android:layout_weight="1"
-                android:text="I can join from:"
+                android:text="@string/i_can_join_from"
                 android:textColor="@color/gray"
                 android:textSize="20sp" />
 
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5sp"
                 android:layout_weight="1"
-                android:text="I can join until:"
+                android:text="@string/i_can_join_until"
                 android:textColor="@color/gray"
                 android:textSize="20sp" />
 
@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5sp"
                 android:layout_weight="1"
-                android:text="I'm sure in %"
+                android:text="@string/i_m_sure_in"
                 android:textColor="@color/gray"
                 android:textSize="20sp" />
 
@@ -130,7 +130,7 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/blue"
                 android:fontFamily="sans-serif-medium"
-                android:text="Update join status"
+                android:text="@string/update_join_status"
                 android:textColor="@color/white" />
 
             <ToggleButton
@@ -142,17 +142,16 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/gray"
                 android:checked="false"
-                android:text="ToggleButton"
                 android:textColor="@color/black"
-                android:textOff="Showing time and usernames"
-                android:textOn="Hiding time and usernames" />
+                android:textOff="@string/showing_time_and_usernames"
+                android:textOn="@string/hiding_time_and_usernames" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5sp"
                 android:layout_weight="1"
-                android:text="Joined people:"
+                android:text="@string/joined_people"
                 android:textColor="@color/gray"
                 android:textSize="20sp" />
 
@@ -203,7 +202,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5sp"
                 android:layout_weight="1"
-                android:text="Refused:"
+                android:text="@string/refused"
                 android:textColor="@color/gray"
                 android:textSize="20sp" />
 

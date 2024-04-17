@@ -12,7 +12,7 @@ import com.example.learntogether_mobile.API.NotificationService;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
-import com.example.learntogether_mobile.API.Variables;
+import com.example.learntogether_mobile.API.GlobalVariables;
 import com.example.learntogether_mobile.R;
 
 import retrofit2.Call;
@@ -62,11 +62,11 @@ public class ActRegister extends AppCompatActivity {
                         }
 
                         if (response.body().Token != null) {
-                            Variables.SessionToken = response.body().Token;
-                            Variables.username = request.username;
-                            Variables.password = request.password;
-                            Variables.saveValues(ActRegister.this);
-                            Variables.requireMyAccountInfo(ActRegister.this);
+                            GlobalVariables.SessionToken = response.body().Token;
+                            GlobalVariables.username = request.username;
+                            GlobalVariables.password = request.password;
+                            GlobalVariables.saveValuesToSharedPrefs(ActRegister.this);
+                            GlobalVariables.requireMyAccountInfo(ActRegister.this);
 
                             startActivity(new Intent(ActRegister.this, ActNews.class));
                             startForegroundService(new Intent(ActRegister.this, NotificationService.class));

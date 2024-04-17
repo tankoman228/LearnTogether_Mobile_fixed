@@ -6,7 +6,7 @@ import com.example.learntogether_mobile.API.ListU;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
-import com.example.learntogether_mobile.API.Variables;
+import com.example.learntogether_mobile.API.GlobalVariables;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +26,8 @@ public class GroupsAndUsersLoader {
     public static void UpdateCacheUsersForCurrentGroup(CallbackAfterLoaded callback) {
 
         RequestU request = new RequestU();
-        request.setSession_token(Variables.SessionToken);
-        request.setGroup(Variables.current_id_group);
+        request.setSession_token(GlobalVariables.SessionToken);
+        request.setGroup(GlobalVariables.current_id_group);
 
         RetrofitRequest r = new RetrofitRequest();
         r.apiService.get_users(request).enqueue(new Callback<ResponseU>() {
@@ -49,7 +49,7 @@ public class GroupsAndUsersLoader {
     public static void UpdateCacheGroups(CallbackAfterLoaded callback) {
 
         RequestU request = new RequestU();
-        request.setSession_token(Variables.SessionToken);
+        request.setSession_token(GlobalVariables.SessionToken);
 
         RetrofitRequest r = new RetrofitRequest();
         r.apiService.get_groups(request).enqueue(new Callback<ResponseU>() {

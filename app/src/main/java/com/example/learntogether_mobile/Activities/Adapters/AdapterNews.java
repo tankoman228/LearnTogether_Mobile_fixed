@@ -27,7 +27,7 @@ import com.example.learntogether_mobile.API.Loaders.GroupsAndUsersLoader;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
-import com.example.learntogether_mobile.API.Variables;
+import com.example.learntogether_mobile.API.GlobalVariables;
 import com.example.learntogether_mobile.Activities.WatchMoreActivity.ActComments;
 import com.example.learntogether_mobile.Activities.WatchMoreActivity.ActFullScreenImageActivity;
 import com.example.learntogether_mobile.Activities.WatchMoreActivity.ActTaskStatus;
@@ -215,7 +215,7 @@ public class AdapterNews extends BaseAdapter {
             btnSave.setOnClickListener(l -> {
 
                 RequestU requestU = new RequestU();
-                requestU.setSession_token(Variables.SessionToken);
+                requestU.setSession_token(GlobalVariables.SessionToken);
                 requestU.items = new ArrayList<>();
                 requestU.setId_object(item.getID_Vote());
 
@@ -243,7 +243,7 @@ public class AdapterNews extends BaseAdapter {
             });
             btnShowResults.setOnClickListener(l -> {
                 RequestU requestU = new RequestU();
-                requestU.setSession_token(Variables.SessionToken);
+                requestU.setSession_token(GlobalVariables.SessionToken);
                 requestU.setId_object(item.getID_Vote());
 
                 new RetrofitRequest().apiService.get_vote_info(requestU).enqueue(new Callback<ResponseU>() {
@@ -311,7 +311,7 @@ public class AdapterNews extends BaseAdapter {
                 btnRates[i - 1].setOnClickListener(l -> {
                     RequestU req = new RequestU();
                     req.setID_InfoBase(item.getID_InfoBase());
-                    req.setSession_token(Variables.SessionToken);
+                    req.setSession_token(GlobalVariables.SessionToken);
                     req.Rank = finalI;
                     RetrofitRequest r = new RetrofitRequest();
                     r.apiService.rate(req).enqueue(new Callback<ResponseU>() {
@@ -334,9 +334,9 @@ public class AdapterNews extends BaseAdapter {
             btnMarkModerated.setOnClickListener(l -> {
 
                 RequestU req = new RequestU();
-                req.setSession_token(Variables.SessionToken);
+                req.setSession_token(GlobalVariables.SessionToken);
                 req.setType(item.type_);
-                req.setGroup(Variables.current_id_group);
+                req.setGroup(GlobalVariables.current_id_group);
                 switch (item.type_) {
                     case "n" -> req.id = item.getID_News();
                     case "t" -> req.id = item.getID_Task();
@@ -370,7 +370,7 @@ public class AdapterNews extends BaseAdapter {
 
             RequestU req = new RequestU();
             req.setID_InfoBase(item.getID_InfoBase());
-            req.setSession_token(Variables.SessionToken);
+            req.setSession_token(GlobalVariables.SessionToken);
 
             RetrofitRequest r = new RetrofitRequest();
             r.apiService.delete_ib(req).enqueue(new Callback<ResponseU>() {

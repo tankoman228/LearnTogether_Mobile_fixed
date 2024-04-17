@@ -9,7 +9,7 @@ import android.widget.Toast;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
-import com.example.learntogether_mobile.API.Variables;
+import com.example.learntogether_mobile.API.GlobalVariables;
 import com.example.learntogether_mobile.R;
 
 import retrofit2.Call;
@@ -53,9 +53,9 @@ public class ActForumAskAdd extends AppCompatActivity {
             Toast.makeText(this, "Query started. Sending response to server", Toast.LENGTH_LONG).show();
 
             RequestU request = new RequestU();
-            request.setId_group(Variables.current_id_group);
+            request.setId_group(GlobalVariables.current_id_group);
             request.setTags(tags);
-            request.setSession_token(Variables.SessionToken);
+            request.setSession_token(GlobalVariables.SessionToken);
             request.title = title;
             request.setText(text);
 

@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10sp"
                 android:backgroundTint="@color/blue"
-                android:text="Cancel"
+                android:text="@string/cancel"
                 android:textSize="14sp" />
 
             <EditText
@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10sp"
                 android:ems="10"
-                android:hint="Question title"
+                android:hint="@string/question_title"
                 android:inputType="text"
                 android:maxLength="150"
                 android:textColor="@color/gray"
@@ -44,7 +44,7 @@
                 android:layout_margin="10sp"
                 android:ems="10"
                 android:gravity="start|top"
-                android:hint="Text (please, be brief)"
+                android:hint="@string/text_please_be_brief"
                 android:inputType="textMultiLine"
                 android:textColor="@color/gray"
                 android:textColorHint="@color/blue" />
@@ -56,7 +56,7 @@
                 android:layout_margin="10sp"
                 android:ems="10"
                 android:gravity="start|top"
-                android:hint="Tags list (separate with  &quot; , &quot; )"
+                android:hint="@string/tags_list_separate_with_quot_quot_zapyataya"
                 android:inputType="textMultiLine"
                 android:textColor="@color/gray"
                 android:textColorHint="@color/blue" />
@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10sp"
                 android:backgroundTint="@color/blue"
-                android:text="Create ask" />
+                android:text="@string/create_ask" />
         </LinearLayout>
     </ScrollView>
 

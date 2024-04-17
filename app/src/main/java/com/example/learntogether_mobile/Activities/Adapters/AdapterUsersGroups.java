@@ -22,7 +22,7 @@ import com.example.learntogether_mobile.API.ListU;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
-import com.example.learntogether_mobile.API.Variables;
+import com.example.learntogether_mobile.API.GlobalVariables;
 import com.example.learntogether_mobile.Activities.AdminActivity.ActAdminPanel;
 import com.example.learntogether_mobile.Activities.WatchMoreActivity.ActWatchProfile;
 import com.example.learntogether_mobile.R;
@@ -96,7 +96,7 @@ public class AdapterUsersGroups extends BaseAdapter {
             EditText etDescr = view.findViewById(R.id.etGroupDescription);
 
             for (ListU group: GroupsAndUsersLoader.Groups) {
-                if (group.getID_Group() == Variables.current_id_group) {
+                if (group.getID_Group() == GlobalVariables.current_id_group) {
                     if (group.getIcon() != null)
                         currentIcon = ImageConverter.decodeImage(group.getIcon());
                     ibCurrentGroup.setImageBitmap(currentIcon);
@@ -127,7 +127,7 @@ public class AdapterUsersGroups extends BaseAdapter {
 
             }
 
-            if (Variables.IsAllowed("edit_group")) {
+            if (GlobalVariables.IsAllowed("edit_group")) {
                 ibCurrentGroup.setOnClickListener(l -> {
                     callback.selectGroupIconRequired();
                 });
@@ -146,9 +146,9 @@ public class AdapterUsersGroups extends BaseAdapter {
                 @Override
                 public void afterTextChanged(Editable s) {
                     RequestU requestU = new RequestU();
-                    requestU.setSession_token(Variables.SessionToken);
+                    requestU.setSession_token(GlobalVariables.SessionToken);
                     requestU.setNewDescription(etDescr.getText().toString());
-                    requestU.setGroup(Variables.current_id_group);
+                    requestU.setGroup(GlobalVariables.current_id_group);
                     new RetrofitRequest().apiService.edit_group(requestU).enqueue(new Callback<ResponseU>() {
                         @Override
                         public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
@@ -164,7 +164,7 @@ public class AdapterUsersGroups extends BaseAdapter {
             });
 
 
-            if (Variables.IsAllowed("edit_group") || Variables.IsAllowed("edit_roles")) {
+            if (GlobalVariables.IsAllowed("edit_group") || GlobalVariables.IsAllowed("edit_roles")) {
                 Button adp = view.findViewById(R.id.btnAdminPanel);
                 adp.setVisibility(View.VISIBLE);
                 adp.setOnClickListener(l -> {
@@ -192,10 +192,10 @@ public class AdapterUsersGroups extends BaseAdapter {
             tvName.setText(item.getName());
             tvText.setVisibility(View.GONE);
             view.setOnClickListener(l -> {
-                Variables.current_id_group = item.getID_Group();
+                GlobalVariables.current_id_group = item.getID_Group();
                 callback.callback(true);
             });
-            if (item.getID_Group() == Variables.current_id_group) {
+            if (item.getID_Group() == GlobalVariables.current_id_group) {
                 view.setBackgroundTintList(ColorStateList.valueOf(ctx.getResources().getColor(R.color.black)));
             }
         }

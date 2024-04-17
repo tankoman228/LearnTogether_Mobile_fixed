@@ -18,7 +18,7 @@ import com.example.learntogether_mobile.API.ListU;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
-import com.example.learntogether_mobile.API.Variables;
+import com.example.learntogether_mobile.API.GlobalVariables;
 import com.example.learntogether_mobile.Activities.WatchMoreActivity.ActComments;
 import com.example.learntogether_mobile.Activities.WatchMoreActivity.MeetingInfo;
 import com.example.learntogether_mobile.R;
@@ -90,7 +90,7 @@ public class AdapterMeetings extends BaseAdapter {
         view.findViewById(R.id.ibDelete).setOnClickListener(l -> {
             RequestU req = new RequestU();
             req.setID_InfoBase(thisMeeting.getID_InfoBase());
-            req.setSession_token(Variables.SessionToken);
+            req.setSession_token(GlobalVariables.SessionToken);
 
             RetrofitRequest r = new RetrofitRequest();
             r.apiService.delete_ib(req).enqueue(new Callback<>() {

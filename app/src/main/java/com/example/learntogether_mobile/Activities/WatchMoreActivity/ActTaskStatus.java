@@ -15,7 +15,7 @@ import com.example.learntogether_mobile.API.ListU;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
-import com.example.learntogether_mobile.API.Variables;
+import com.example.learntogether_mobile.API.GlobalVariables;
 import com.example.learntogether_mobile.Activities.Adapters.AdapterTaskStatuses;
 import com.example.learntogether_mobile.R;
 
@@ -63,7 +63,9 @@ public class ActTaskStatus extends AppCompatActivity implements AdapterTaskStatu
         callback_task_clicked(Task);
         adapterTaskStatuses = new AdapterTaskStatuses(ActTaskStatus.this, tasks, ShowMy, ActTaskStatus.this);
         listView.setAdapter(adapterTaskStatuses);
-        tvTitle.setText(Task.getTitle());
+
+        if (Task != null)
+            tvTitle.setText(Task.getTitle());
 
         cbFinished.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
@@ -103,10 +105,11 @@ public class ActTaskStatus extends AppCompatActivity implements AdapterTaskStatu
 
     private void loadTaskStatuses() {
         RequestU requestU = new RequestU();
-        requestU.setSession_token(Variables.SessionToken);
-        requestU.setId_group(Variables.current_id_group);
+        requestU.setSession_token(GlobalVariables.SessionToken);
+        requestU.setId_group(GlobalVariables.current_id_group);
         requestU.setOnly_mine(ShowMy);
-        requestU.setId_object(Task.getID_Task());
+        if (Task != null)
+            requestU.setId_object(Task.getID_Task());
 
         RetrofitRequest r = new RetrofitRequest();
         r.apiService.get_tasks_statuses(requestU).enqueue(new Callback<ResponseU>() {
@@ -136,8 +139,8 @@ public class ActTaskStatus extends AppCompatActivity implements AdapterTaskStatu
 
     private void updTaskStatus(String todo) {
         RequestU requestU = new RequestU();
-        requestU.setSession_token(Variables.SessionToken);
-        requestU.setId_group(Variables.current_id_group);
+        requestU.setSession_token(GlobalVariables.SessionToken);
+        requestU.setId_group(GlobalVariables.current_id_group);
         requestU.setTodo(todo);
         requestU.setFinished(cbFinished.isChecked());
         requestU.setNeedHelp(cbNeedHelp.isChecked());

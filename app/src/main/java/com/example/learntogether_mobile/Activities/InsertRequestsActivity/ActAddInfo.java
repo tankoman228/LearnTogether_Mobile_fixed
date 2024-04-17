@@ -20,7 +20,7 @@ import com.example.learntogether_mobile.API.FileEncoderDecoder;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
-import com.example.learntogether_mobile.API.Variables;
+import com.example.learntogether_mobile.API.GlobalVariables;
 import com.example.learntogether_mobile.R;
 
 import retrofit2.Call;
@@ -79,8 +79,8 @@ public class ActAddInfo extends AppCompatActivity {
             progressBar.setVisibility(View.VISIBLE);
 
             RequestU requestU = new RequestU();
-            requestU.setSession_token(Variables.SessionToken);
-            requestU.setId_group(Variables.current_id_group);
+            requestU.setSession_token(GlobalVariables.SessionToken);
+            requestU.setId_group(GlobalVariables.current_id_group);
             requestU.title = title;
             requestU.setText(text);
             requestU.setTags(tags);

@@ -12,7 +12,6 @@ import android.webkit.MimeTypeMap;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,12 +22,11 @@ import androidx.core.content.FileProvider;
 import com.example.learntogether_mobile.API.FileEncoderDecoder;
 import com.example.learntogether_mobile.API.ImageConverter;
 import com.example.learntogether_mobile.API.ListU;
-import com.example.learntogether_mobile.API.Loaders.CallbackAfterLoaded;
 import com.example.learntogether_mobile.API.Loaders.GroupsAndUsersLoader;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
-import com.example.learntogether_mobile.API.Variables;
+import com.example.learntogether_mobile.API.GlobalVariables;
 import com.example.learntogether_mobile.Activities.WatchMoreActivity.ActComments;
 import com.example.learntogether_mobile.Activities.WatchMoreActivity.ActWatchProfile;
 import com.example.learntogether_mobile.R;
@@ -118,7 +116,7 @@ public class AdapterInfo  extends BaseAdapter {
         view.findViewById(R.id.ibDelete).setOnClickListener(l -> {
             RequestU req = new RequestU();
             req.setID_InfoBase(thisInfo.getID_InfoBase());
-            req.setSession_token(Variables.SessionToken);
+            req.setSession_token(GlobalVariables.SessionToken);
 
             RetrofitRequest r = new RetrofitRequest();
             r.apiService.delete_ib(req).enqueue(new Callback<>() {
@@ -161,7 +159,7 @@ public class AdapterInfo  extends BaseAdapter {
                 thisInfo.getID_InfoBase();
 
                 RequestU requestU = new RequestU();
-                requestU.setSession_token(Variables.SessionToken);
+                requestU.setSession_token(GlobalVariables.SessionToken);
                 requestU.setId_object(thisInfo.getID_Information());
                 new RetrofitRequest().apiService.download(requestU).enqueue(new Callback<ResponseU>() {
                     @Override
@@ -198,7 +196,7 @@ public class AdapterInfo  extends BaseAdapter {
             btnRates[i - 1].setOnClickListener(l -> {
                 RequestU req = new RequestU();
                 req.setID_InfoBase(thisInfo.getID_InfoBase());
-                req.setSession_token(Variables.SessionToken);
+                req.setSession_token(GlobalVariables.SessionToken);
                 req.Rank = finalI;
                 RetrofitRequest r = new RetrofitRequest();
                 r.apiService.rate(req).enqueue(new Callback<ResponseU>() {

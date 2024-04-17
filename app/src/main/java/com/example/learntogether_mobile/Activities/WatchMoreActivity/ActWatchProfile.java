@@ -16,7 +16,7 @@ import com.example.learntogether_mobile.API.ListU;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
-import com.example.learntogether_mobile.API.Variables;
+import com.example.learntogether_mobile.API.GlobalVariables;
 import com.example.learntogether_mobile.Activities.AdminActivity.ActEditUser;
 import com.example.learntogether_mobile.R;
 
@@ -62,8 +62,8 @@ public class ActWatchProfile extends AppCompatActivity {
             builder.setPositiveButton(R.string.send_complaint_to_admins, (dialog, which) -> {
                 String complaintReason = editTextComplaintReason.getText().toString();
                 RequestU requestU = new RequestU();
-                requestU.setSession_token(Variables.SessionToken);
-                requestU.setID_Group(Variables.current_id_group);
+                requestU.setSession_token(GlobalVariables.SessionToken);
+                requestU.setID_Group(GlobalVariables.current_id_group);
                 requestU.setID_Account(Profile.getID_Account());
                 requestU.setReason(complaintReason);
                 new RetrofitRequest().apiService.complaint(requestU).enqueue(new Callback<ResponseU>() {
@@ -86,7 +86,7 @@ public class ActWatchProfile extends AppCompatActivity {
             dialog.show();
         });
 
-        if (Variables.IsAllowed("ban_accounts") || Variables.IsAllowed("edit_roles")) {
+        if (GlobalVariables.IsAllowed("ban_accounts") || GlobalVariables.IsAllowed("edit_roles")) {
             findViewById(R.id.btnEditUserRole).setOnClickListener(l -> {
                 ActEditUser.User = Profile;
                 startActivity(new Intent(this, ActEditUser.class));

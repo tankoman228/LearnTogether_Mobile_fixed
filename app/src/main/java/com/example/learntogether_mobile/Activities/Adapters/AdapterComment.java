@@ -21,7 +21,7 @@ import com.example.learntogether_mobile.API.Loaders.GroupsAndUsersLoader;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
-import com.example.learntogether_mobile.API.Variables;
+import com.example.learntogether_mobile.API.GlobalVariables;
 import com.example.learntogether_mobile.Activities.Dialogs.DialogAttachment;
 import com.example.learntogether_mobile.Activities.WatchMoreActivity.ActWatchProfile;
 import com.example.learntogether_mobile.R;
@@ -127,7 +127,7 @@ public class AdapterComment extends BaseAdapter {
         view.findViewById(R.id.ibDelete).setOnClickListener(l -> {
 
             RequestU req = new RequestU();
-            req.setSession_token(Variables.SessionToken);
+            req.setSession_token(GlobalVariables.SessionToken);
             req.setId_comment(thisComment.getID_Comment());
 
             RetrofitRequest r = new RetrofitRequest();

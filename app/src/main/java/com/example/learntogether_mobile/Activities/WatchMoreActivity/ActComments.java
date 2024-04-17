@@ -15,7 +15,7 @@ import com.example.learntogether_mobile.API.ListU;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
-import com.example.learntogether_mobile.API.Variables;
+import com.example.learntogether_mobile.API.GlobalVariables;
 import com.example.learntogether_mobile.Activities.Adapters.AdapterComment;
 import com.example.learntogether_mobile.Activities.Dialogs.DialogAttachment;
 import com.example.learntogether_mobile.R;
@@ -74,7 +74,7 @@ public class ActComments extends AppCompatActivity implements CallbackAfterLoade
 
             RequestU request = new RequestU();
             request.setId_object(ID_InfoBase);
-            request.setSession_token(Variables.SessionToken);
+            request.setSession_token(GlobalVariables.SessionToken);
             request.setText(text);
             if (!DialogAttachment.AttachmentJson.equals(""))
                 request.setAttachment(DialogAttachment.AttachmentJson);
@@ -116,7 +116,7 @@ public class ActComments extends AppCompatActivity implements CallbackAfterLoade
     private void reloadComments() {
         RequestU request = new RequestU();
         request.setId_object(ID_InfoBase);
-        request.setSession_token(Variables.SessionToken);
+        request.setSession_token(GlobalVariables.SessionToken);
         RetrofitRequest r = new RetrofitRequest();
         r.apiService.get_comments(request).enqueue(new Callback<ResponseU>() {
             @Override

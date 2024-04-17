@@ -9,7 +9,7 @@
         android:id="@+id/editTextComplaintReason"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Complaint reason"
+        android:hint="@string/complaint_reason"
         android:inputType="textMultiLine"
         android:textColor="@color/black"
         android:textColorHint="@color/black2"

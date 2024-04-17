@@ -10,7 +10,7 @@ import com.example.learntogether_mobile.API.ListU;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
-import com.example.learntogether_mobile.API.Variables;
+import com.example.learntogether_mobile.API.GlobalVariables;
 import com.example.learntogether_mobile.R;
 
 import java.util.ArrayList;
@@ -41,8 +41,8 @@ public class ActAdminPanel extends AppCompatActivity {
         });
 
         RequestU requestU = new RequestU();
-        requestU.setID_Group(Variables.current_id_group);
-        requestU.setSession_token(Variables.SessionToken);
+        requestU.setID_Group(GlobalVariables.current_id_group);
+        requestU.setSession_token(GlobalVariables.SessionToken);
         new RetrofitRequest().apiService.get_complaints(requestU).enqueue(new Callback<ResponseU>() {
             @Override
             public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {

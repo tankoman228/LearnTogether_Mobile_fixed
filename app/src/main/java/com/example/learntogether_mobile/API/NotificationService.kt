@@ -21,6 +21,9 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.Random
 
+/**
+ * Служба, проверяющая наличие уведомлений и выводящая их, даже если приложение закрыто
+ */
 class NotificationService : Service() {
 
     companion object {
@@ -40,7 +43,7 @@ class NotificationService : Service() {
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
 
         val channel = NotificationChannel(
-            FOREGROUND_CHANNEL_ID, "My Service Channel",
+            FOREGROUND_CHANNEL_ID, getString(R.string.notification_service_channel),
             NotificationManager.IMPORTANCE_HIGH
         )
         val manager = getSystemService(
@@ -49,10 +52,10 @@ class NotificationService : Service() {
         manager.createNotificationChannel(channel)
         val builder = NotificationCompat.Builder(this, FOREGROUND_CHANNEL_ID)
             .setSmallIcon(R.drawable.logo)
-            .setContentTitle("Notification Service")
+            .setContentTitle(getString(R.string.notification_service))
             .setStyle(
                 NotificationCompat.BigTextStyle()
-                    .bigText("If you see this text, notification channel is open and if something new appears you can see it")
+                    .bigText(getString(R.string.if_you_see_this_text_notification_channel_is_open_and_if_something_new_appears_you_can_see_it))
             )
             .setPriority(NotificationCompat.PRIORITY_HIGH)
         val notificationIntent = Intent(this, ActMain::class.java)
@@ -84,7 +87,7 @@ class NotificationService : Service() {
         val interval = 75000 //ms
         private val runnable: Runnable = object : Runnable {
             override fun run() {
-                if (Variables.password != null) {
+                if (GlobalVariables.password != null) {
                     sendRetrofit(this@NotificationService)
                     handler.postDelayed(this, interval.toLong())
                 }
@@ -95,7 +98,7 @@ class NotificationService : Service() {
             }
         }
         override fun doInBackground(vararg params: Void?): Void? {
-            if (Variables.password != null)
+            if (GlobalVariables.password != null)
                 handler.post(runnable)
             return null
         }
@@ -106,7 +109,7 @@ class NotificationService : Service() {
         Log.d("API", "Checking notifications")
 
         val request0 = RequestU();
-        request0.session_token = Variables.SessionToken
+        request0.session_token = GlobalVariables.SessionToken
 
         val r0 = RetrofitRequest()
         val call = r0.apiService.check_notifications(request0)
@@ -118,8 +121,8 @@ class NotificationService : Service() {
                     if (response.body()!!.Error == "Unknown session") {
                         Log.d("API", "Autologin")
                         val request1 = RequestU();
-                        request1.username = Variables.username
-                        request1.password = Variables.password
+                        request1.username = GlobalVariables.username
+                        request1.password = GlobalVariables.password
 
                         val r1 = RetrofitRequest()
                         val call2 = r1.apiService.login(request1)
@@ -129,9 +132,9 @@ class NotificationService : Service() {
                                 response: Response<ResponseU>
                             ) {
                                 if (response.body()!!.Token != null) {
-                                    Variables.SessionToken = response.body()!!.Token
+                                    GlobalVariables.SessionToken = response.body()!!.Token
                                     val request3 = RequestU();
-                                    request3.session_token = Variables.SessionToken
+                                    request3.session_token = GlobalVariables.SessionToken
 
                                     val r3 = RetrofitRequest()
                                     val call3 = r3.apiService.check_notifications(request3)
@@ -155,8 +158,8 @@ class NotificationService : Service() {
                             //Failure login
                             override fun onFailure(call: Call<ResponseU>, t: Throwable) {
                                 Log.d("API", "ERROR: " + t.message)
-                                Variables.password = null
-                                showNotification("Error: you are unregistered", this@NotificationService)
+                                GlobalVariables.password = null
+                                showNotification(getString(R.string.error_you_are_unregistered), this@NotificationService)
                             }
                         })
                     }

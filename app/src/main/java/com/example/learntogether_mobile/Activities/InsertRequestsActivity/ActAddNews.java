@@ -34,7 +34,7 @@ import com.example.learntogether_mobile.API.ImageConverter;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
-import com.example.learntogether_mobile.API.Variables;
+import com.example.learntogether_mobile.API.GlobalVariables;
 import com.example.learntogether_mobile.R;
 import com.github.chrisbanes.photoview.PhotoView;
 
@@ -365,8 +365,8 @@ public class ActAddNews extends AppCompatActivity {
     }
     private void saveNews() {
         RequestU request = new RequestU();
-        request.setSession_token(Variables.SessionToken);
-        request.setId_group(Variables.current_id_group);
+        request.setSession_token(GlobalVariables.SessionToken);
+        request.setId_group(GlobalVariables.current_id_group);
         request.title = etHeader.getText().toString();
         request.setText(etDescription.getText().toString());
         request.setTags(etTaglist.getText().toString());
@@ -394,8 +394,8 @@ public class ActAddNews extends AppCompatActivity {
     }
     private void saveTask() {
         RequestU request = new RequestU();
-        request.setSession_token(Variables.SessionToken);
-        request.setId_group(Variables.current_id_group);
+        request.setSession_token(GlobalVariables.SessionToken);
+        request.setId_group(GlobalVariables.current_id_group);
         request.title = etHeader.getText().toString();
         request.setText(etDescription.getText().toString());
         request.setTags(etTaglist.getText().toString());
@@ -423,8 +423,8 @@ public class ActAddNews extends AppCompatActivity {
     }
     private void saveVote(){
         RequestU request = new RequestU();
-        request.setSession_token(Variables.SessionToken);
-        request.setId_group(Variables.current_id_group);
+        request.setSession_token(GlobalVariables.SessionToken);
+        request.setId_group(GlobalVariables.current_id_group);
         request.title = etHeader.getText().toString();
         request.setText(etDescription.getText().toString());
         request.setTags(etTaglist.getText().toString());

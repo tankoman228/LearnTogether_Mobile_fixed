@@ -12,14 +12,19 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Variables {
+/**
+ * Глобальные переменные о данных сессии, пользователе и т.д., нужны для отправки запросов через Retrofit
+ * и отображения некоторых данных.
+ * Выполняет сохранение и загрузку из shared prefs
+ */
+public class GlobalVariables {
     public static String SessionToken, username, password, server = "http://80.89.196.150:8000/";
     public static int current_id_group = -1;
     public static String Title, AboutMe;
     public static Bitmap myIcon;
     public static List<String> myPermissions;
 
-    public static void saveValues(Context context) {
+    public static void saveValuesToSharedPrefs(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("SessionToken", SessionToken);
@@ -30,7 +35,7 @@ public class Variables {
         editor.apply();
     }
 
-    public static void loadValues(Context context) {
+    public static void loadValuesFromSharedPrefs(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         SessionToken = sharedPref.getString("SessionToken", null);
         username = sharedPref.getString("username", null);
@@ -39,13 +44,16 @@ public class Variables {
         current_id_group = sharedPref.getInt("current_id_group", -1);
     }
 
+    /**
+     * Спрашивает у сервера о том, какие разрешения есть у пользователя в текущей группе
+     */
     public static void requireMyAccountInfo(Context context) {
         RequestU requestU = new RequestU();
-        requestU.setSession_token(Variables.SessionToken);
+        requestU.setSession_token(GlobalVariables.SessionToken);
         if (current_id_group == -1) {
             GroupsAndUsersLoader.UpdateCacheGroups(() -> {
                 current_id_group = GroupsAndUsersLoader.Groups.get(0).getID_Group();
-                saveValues(context);
+                saveValuesToSharedPrefs(context);
 
                 requestU.setId_group(current_id_group);
                 new RetrofitRequest().apiService.my_account_info(requestU).enqueue(new Callback<ListU>() {

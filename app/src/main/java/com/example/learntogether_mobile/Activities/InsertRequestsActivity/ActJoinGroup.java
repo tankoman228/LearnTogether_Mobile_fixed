@@ -9,7 +9,7 @@ import android.widget.Toast;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
-import com.example.learntogether_mobile.API.Variables;
+import com.example.learntogether_mobile.API.GlobalVariables;
 import com.example.learntogether_mobile.R;
 
 import retrofit2.Call;
@@ -33,7 +33,7 @@ public class ActJoinGroup extends AppCompatActivity {
         findViewById(R.id.btnEnter).setOnClickListener(l -> {
 
             RequestU requestU = new RequestU();
-            requestU.setSession_token(Variables.SessionToken);
+            requestU.setSession_token(GlobalVariables.SessionToken);
             requestU.token = etToken.getText().toString();
 
             new RetrofitRequest().apiService.join_group(requestU).enqueue(new Callback<ResponseU>() {

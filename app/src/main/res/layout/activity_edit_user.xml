@@ -14,7 +14,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="User editing"
+        android:text="@string/user_editing"
         android:textColor="@color/red"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Username"
+        android:text="@string/username"
         android:textColor="@color/white"
         android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="User role:"
+        android:text="@string/user_role"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/tvUsername"
@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         android:backgroundTint="@color/red"
-        android:text="Remove user from current group"
+        android:text="@string/remove_user_from_current_group"
         app:layout_constraintStart_toStartOf="@+id/spinner3"
         app:layout_constraintTop_toBottomOf="@+id/spinner3" />
 
@@ -71,9 +71,9 @@
         android:id="@+id/btnBanInSystem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/red"
-        android:text="Ban [USERNAME] in system"
+        android:text="@string/ban_on_this_server"
         app:layout_constraintStart_toStartOf="@+id/btnDeleteFromGroup"
         app:layout_constraintTop_toBottomOf="@+id/btnDeleteFromGroup" />
 
@@ -82,7 +82,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/blue"
-        android:text="Cancel"
+        android:text="@string/cancel"
         app:layout_constraintBottom_toBottomOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="@+id/textView2"
         app:layout_constraintTop_toTopOf="@+id/textView2" />

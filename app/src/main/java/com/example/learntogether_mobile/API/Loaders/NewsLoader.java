@@ -8,7 +8,7 @@ import com.example.learntogether_mobile.API.ListU;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
-import com.example.learntogether_mobile.API.Variables;
+import com.example.learntogether_mobile.API.GlobalVariables;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -28,9 +28,9 @@ public class NewsLoader {
 
         RequestU req = new RequestU();
         req.setSearch_string(serachString);
-        req.setGroup(Variables.current_id_group);
+        req.setGroup(GlobalVariables.current_id_group);
         req.setNumber(20);
-        req.setSession_token(Variables.SessionToken);
+        req.setSession_token(GlobalVariables.SessionToken);
 
         RetrofitRequest r = new RetrofitRequest();
         Call<ResponseU> call = r.apiService.get_news(req);
@@ -86,9 +86,9 @@ public class NewsLoader {
 
         RequestU req = new RequestU();
         req.setSearch_string(serachString);
-        req.setGroup(Variables.current_id_group);
+        req.setGroup(GlobalVariables.current_id_group);
         req.setNumber(20);
-        req.setSession_token(Variables.SessionToken);
+        req.setSession_token(GlobalVariables.SessionToken);
         req.setId_max(findMinId() - 1);
 
         RetrofitRequest r = new RetrofitRequest();

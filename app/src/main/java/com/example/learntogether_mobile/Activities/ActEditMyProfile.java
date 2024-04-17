@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -15,7 +14,7 @@ import com.example.learntogether_mobile.API.ImageConverter;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
-import com.example.learntogether_mobile.API.Variables;
+import com.example.learntogether_mobile.API.GlobalVariables;
 import com.example.learntogether_mobile.R;
 
 import java.io.InputStream;
@@ -43,10 +42,10 @@ public class ActEditMyProfile extends AppCompatActivity {
         etName = findViewById(R.id.etNameDisplayed);
         etDescr = findViewById(R.id.etDescription);
 
-        etName.setText(Variables.Title);
-        etDescr.setText(Variables.AboutMe);
-        if (Variables.myIcon != null)
-            ibAvatar.setImageBitmap(Variables.myIcon);
+        etName.setText(GlobalVariables.Title);
+        etDescr.setText(GlobalVariables.AboutMe);
+        if (GlobalVariables.myIcon != null)
+            ibAvatar.setImageBitmap(GlobalVariables.myIcon);
 
         findViewById(R.id.btnReturnBack).setOnClickListener(l -> finish());
         ibAvatar.setOnClickListener(l -> {
@@ -59,7 +58,7 @@ public class ActEditMyProfile extends AppCompatActivity {
             requestU.setNewName(etName.getText().toString());
             requestU.setNewIcon(ImageConverter.encodeImage(selectedImage));
             requestU.setNewDescription(etDescr.getText().toString());
-            requestU.setSession_token(Variables.SessionToken);
+            requestU.setSession_token(GlobalVariables.SessionToken);
             new RetrofitRequest().apiService.edit_profile(requestU).enqueue(new Callback<ResponseU>() {
                 @Override
                 public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {

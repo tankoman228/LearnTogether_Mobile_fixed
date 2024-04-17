@@ -12,7 +12,7 @@ import com.example.learntogether_mobile.API.NotificationService;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
-import com.example.learntogether_mobile.API.Variables;
+import com.example.learntogether_mobile.API.GlobalVariables;
 import com.example.learntogether_mobile.R;
 
 import retrofit2.Call;
@@ -34,7 +34,7 @@ public class ActLogin extends AppCompatActivity {
         etLogin = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         etServer = findViewById(R.id.etServerAddress);
-        etServer.setText(Variables.server);
+        etServer.setText(GlobalVariables.server);
 
         findViewById(R.id.btnEnter).setOnClickListener(l -> {
             RequestU request = new RequestU() {{
@@ -42,19 +42,19 @@ public class ActLogin extends AppCompatActivity {
                 password = etPassword.getText().toString();
             }};
 
-            Variables.server = etServer.getText().toString();
+            GlobalVariables.server = etServer.getText().toString();
             RetrofitRequest r = new RetrofitRequest();
             Call<ResponseU> call = r.apiService.login(request);
-            call.enqueue(new Callback<ResponseU>() {
+            call.enqueue(new Callback<>() {
                 @Override
                 public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
                     ActLogin.this.runOnUiThread(() -> {
                         if (response.body().Token != null) {
-                            Variables.SessionToken = response.body().Token;
-                            Variables.username = request.username;
-                            Variables.password = request.password;
-                            Variables.saveValues(ActLogin.this);
-                            Variables.requireMyAccountInfo(ActLogin.this);
+                            GlobalVariables.SessionToken = response.body().Token;
+                            GlobalVariables.username = request.username;
+                            GlobalVariables.password = request.password;
+                            GlobalVariables.saveValuesToSharedPrefs(ActLogin.this);
+                            GlobalVariables.requireMyAccountInfo(ActLogin.this);
 
                             startActivity(new Intent(ActLogin.this, ActNews.class));
                             startForegroundService(new Intent(ActLogin.this, NotificationService.class));

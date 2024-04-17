@@ -14,6 +14,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:background="@drawable/spinner_bg_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -50,13 +51,12 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/btnSave"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnReadAboutPermissions">
+        app:layout_constraintTop_toBottomOf="@+id/tbSwitchMode">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -138,7 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Admin level"
+                android:hint="Admin level in hieararchy (0-127)"
                 android:inputType="number"
                 android:textColor="@color/white"
                 android:textColorHint="@color/red" />
@@ -162,18 +162,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:backgroundTint="@color/red"
-        android:text="Delete role"
+        android:text="Delete chosen role"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/btnReadAboutPermissions"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/blue"
-        android:text="Read about permissions"
-        app:layout_constraintEnd_toEndOf="@+id/tbSwitchMode"
-        app:layout_constraintStart_toStartOf="@+id/tbSwitchMode"
-        app:layout_constraintTop_toBottomOf="@+id/tbSwitchMode" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

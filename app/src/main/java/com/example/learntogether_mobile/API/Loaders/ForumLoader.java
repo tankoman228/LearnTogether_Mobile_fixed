@@ -6,7 +6,7 @@ import com.example.learntogether_mobile.API.ListU;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
-import com.example.learntogether_mobile.API.Variables;
+import com.example.learntogether_mobile.API.GlobalVariables;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +25,10 @@ public class ForumLoader {
     public static void Reload(CallbackAfterLoaded activityCentral, String searchString) {
 
         RequestU request = new RequestU();
-        request.setGroup(Variables.current_id_group);
+        request.setGroup(GlobalVariables.current_id_group);
         request.setSearch_string(searchString);
         request.setNumber(20);
-        request.setSession_token(Variables.SessionToken);
+        request.setSession_token(GlobalVariables.SessionToken);
         RetrofitRequest r = new RetrofitRequest();
         r.apiService.get_asks(request).enqueue(new Callback<ResponseU>() {
             @Override
@@ -55,12 +55,12 @@ public class ForumLoader {
     public static void loadLater(CallbackAfterLoaded activityCentral, String searchString) {
 
         RequestU request = new RequestU();
-        request.setGroup(Variables.current_id_group);
+        request.setGroup(GlobalVariables.current_id_group);
         request.setSearch_string(searchString);
         request.setNumber(20);
 
         request.setId_max(findMinId() - 1);
-        request.setSession_token(Variables.SessionToken);
+        request.setSession_token(GlobalVariables.SessionToken);
         RetrofitRequest r = new RetrofitRequest();
         r.apiService.get_asks(request).enqueue(new Callback<ResponseU>() {
             @Override

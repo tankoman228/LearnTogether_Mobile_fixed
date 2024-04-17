@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="55dp"
-        tools:layout_editor_absoluteY="104dp">
+        tools:layout_editor_absoluteY="116dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -22,15 +22,15 @@
                 android:id="@+id/btnSave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="32dp"
                 android:background="@drawable/outlined_blue_button"
-                android:text="Save and exit"
+                android:text="@string/save_and_exit"
                 android:textColor="@color/blue"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.51"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnAddImage" />
+                app:layout_constraintTop_toBottomOf="@+id/btnDeleteImage" />
 
             <EditText
                 android:id="@+id/etHeader"
@@ -40,7 +40,7 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
                 android:ems="10"
-                android:hint="Title (header)"
+                android:hint="@string/title_header"
                 android:inputType="text"
                 android:textColor="@color/white"
                 android:textColorHint="@color/red"
@@ -54,27 +54,25 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:ems="10"
-                android:hint="Description (main text)"
+                android:hint="@string/description_main_text"
                 android:inputType="text|textMultiLine"
                 android:textColor="@color/white"
                 android:textColorHint="@color/red"
                 app:layout_constraintEnd_toEndOf="@+id/etHeader"
                 app:layout_constraintStart_toStartOf="@+id/etHeader"
-                app:layout_constraintTop_toBottomOf="@+id/etTaglist" />
+                app:layout_constraintTop_toBottomOf="@+id/etHeader" />
 
             <Button
                 android:id="@+id/btnDeleteImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:backgroundTint="@color/blue"
-                android:text="Delete files"
+                android:text="@string/delete_files"
                 android:textSize="16sp"
                 app:icon="@android:drawable/ic_menu_delete"
-                app:layout_constraintBottom_toBottomOf="@+id/btnAddImage"
-                app:layout_constraintStart_toEndOf="@+id/btnAddImage"
-                app:layout_constraintTop_toTopOf="@+id/btnAddImage"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintStart_toStartOf="@+id/btnAddImage"
+                app:layout_constraintTop_toBottomOf="@+id/btnAddImage" />
 
             <Button
                 android:id="@+id/btnAddImage"
@@ -82,11 +80,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:backgroundTint="@color/blue"
-                android:text="Choose files"
+                android:text="@string/choose_files"
                 android:textSize="16sp"
                 app:icon="@drawable/folder"
                 app:layout_constraintStart_toStartOf="@+id/tvFilenames"
-                app:layout_constraintTop_toBottomOf="@+id/tvFilenames" />
+                app:layout_constraintTop_toBottomOf="@+id/etTaglist" />
 
             <TextView
                 android:id="@+id/tvFilenames"
@@ -105,13 +103,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:ems="10"
-                android:hint="Tags (divide with comma)"
+                android:hint="@string/tags_divide_with_comma"
                 android:inputType="text"
                 android:textColor="@color/white"
                 android:textColorHint="@color/red"
                 app:layout_constraintEnd_toEndOf="@+id/etHeader"
                 app:layout_constraintStart_toStartOf="@+id/etHeader"
-                app:layout_constraintTop_toBottomOf="@+id/etHeader" />
+                app:layout_constraintTop_toTopOf="@+id/tvFilenames" />
 
             <ProgressBar
                 android:id="@+id/progressBar2"

@@ -15,7 +15,7 @@ import com.example.learntogether_mobile.API.ListU;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
-import com.example.learntogether_mobile.API.Variables;
+import com.example.learntogether_mobile.API.GlobalVariables;
 import com.example.learntogether_mobile.Activities.Adapters.GanttAdapter;
 import com.example.learntogether_mobile.R;
 
@@ -158,7 +158,7 @@ public class MeetingInfo extends AppCompatActivity {
         GanttAdapter.ShowUsername = toggleButton.isChecked();
 
         RequestU requestU = new RequestU();
-        requestU.setSession_token(Variables.SessionToken);
+        requestU.setSession_token(GlobalVariables.SessionToken);
         requestU.setId_object(meeting.getID_Meeting());
         requestU.setStarts(String.valueOf(sbFrom.getProgress()));
         requestU.setEnd(String.valueOf(sbUntil.getProgress()));
@@ -181,7 +181,7 @@ public class MeetingInfo extends AppCompatActivity {
         GanttAdapter.ShowUsername = !toggleButton.isChecked();
 
         RequestU requestU = new RequestU();
-        requestU.setSession_token(Variables.SessionToken);
+        requestU.setSession_token(GlobalVariables.SessionToken);
         requestU.setId_object(meeting.getID_Meeting());
         new RetrofitRequest().apiService.get_meeting(requestU).enqueue(new Callback<ResponseU>() {
             @Override

@@ -12,7 +12,7 @@ class RetrofitRequest {
 
     init {
         val retrofit = Retrofit.Builder()
-            .baseUrl(Variables.server)
+            .baseUrl(GlobalVariables.server)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         apiService = retrofit.create(ApiServiceInterface::class.java)

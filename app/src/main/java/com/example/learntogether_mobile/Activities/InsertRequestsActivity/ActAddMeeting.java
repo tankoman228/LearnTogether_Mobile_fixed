@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.example.learntogether_mobile.API.RequestU;
 import com.example.learntogether_mobile.API.ResponseU;
 import com.example.learntogether_mobile.API.RetrofitRequest;
-import com.example.learntogether_mobile.API.Variables;
+import com.example.learntogether_mobile.API.GlobalVariables;
 import com.example.learntogether_mobile.R;
 
 import java.util.Date;
@@ -79,13 +79,13 @@ public class ActAddMeeting extends AppCompatActivity {
             }
 
             RequestU requestU = new RequestU();
-            requestU.setId_group(Variables.current_id_group);
+            requestU.setId_group(GlobalVariables.current_id_group);
             requestU.title = etHeader.getText().toString();
             requestU.setText(etDescription.getText().toString());
             requestU.setTags(etTaglist.getText().toString());
             requestU.setStarts(tv_Deadline.getText().toString());
             requestU.setPlace(etPlace.getText().toString());
-            requestU.setSession_token(Variables.SessionToken);
+            requestU.setSession_token(GlobalVariables.SessionToken);
 
             btnSave.setEnabled(false);
             RetrofitRequest r = new RetrofitRequest();

@@ -249,7 +249,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="32dp"
         android:backgroundTint="@color/red"
-        android:text="Mark as moderated"
+        android:text="@string/mark_as_moderated"
         app:layout_constraintEnd_toStartOf="@+id/tvCommentsNum"
         app:layout_constraintStart_toStartOf="@+id/progressBar"
         app:layout_constraintTop_toBottomOf="@+id/progressBar" />

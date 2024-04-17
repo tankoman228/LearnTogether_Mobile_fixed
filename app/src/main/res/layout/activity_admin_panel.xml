@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/blue"
-                android:text="Return"
+                android:text="@string/return"
                 android:textSize="18sp"
                 app:icon="@android:drawable/ic_menu_revert" />
 
@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/red"
-                android:text="Manage roles"
+                android:text="@string/manage_roles"
                 android:textSize="18sp"
                 app:icon="@drawable/profile_2user" />
 
@@ -46,7 +46,7 @@
                 android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Complaints list (sender)-(suspected):"
+                android:text="@string/complaints_list_sender_suspected"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
 
