@@ -5,8 +5,8 @@
     <string name="deleted">Удалено</string>
     <string name="marked_as_solved">Решено</string>
     <string name="open_file">Открыть файл</string>
-    <string name="at_">"В "</string>
-    <string name="_in_">" место: "</string>
+    <string name="at_">""</string>
+    <string name="_in_">" в "</string>
     <string name="voted">"Проголосовавшие: "</string>
     <string name="success">Успешно!</string>
     <string name="published">Опубликовано</string>
@@ -99,8 +99,8 @@
     <string name="i_m_sure_in">Я уверен на %</string>
     <string name="update_join_status">Обновить статус присоединения</string>
     <string name="showing_time_and_usernames">Показывать время и имена</string>
-    <string name="hiding_time_and_usernames">Прятать время и имена</string>
-    <string name="joined_people">"Присоединилось людей: "</string>
+    <string name="hiding_time_and_usernames">Скрывать время и имена</string>
+    <string name="joined_people">"Присоединившиеся: "</string>
     <string name="refused">"Отказалось: "</string>
     <string name="profile">Профиль</string>
     <string name="tasks">Задачи</string>
@@ -123,7 +123,7 @@
     <string name="others_statuses">Статусы других:</string>
     <string name="all_your_tasks">Все ваши задачи</string>
     <string name="complaint">Жалоба</string>
-    <string name="edit_user">Редактировать пользователя</string>
+    <string name="edit_user">Управление</string>
     <string name="clear_attachment">Очистить вложение</string>
     <string name="select_image">Выбрать изображение</string>
     <string name="enter_link_url">Введите ссылку (URL)</string>
@@ -145,8 +145,8 @@
     <string name="show_results">Результаты</string>
     <string name="vote_revote">Голосовать</string>
     <string name="permission_is_unavailable">Разрешение недоступно</string>
-    <string name="delete_chosen_role">Удалить выбранную роль</string>
-    <string name="save_as_new_role">Сохранить как новую роль</string>
+    <string name="delete_chosen_role">Удалить роль</string>
+    <string name="save_as_new_role">Сохранить новую роль</string>
     <string name="admin_level_in_hieararchy_0_127">Уровень админа в иерархии (от 0 до 127)</string>
     <string name="moderate_publications">Модерировать публикации</string>
     <string name="offer_publications">Предлагать публикации</string>
@@ -166,4 +166,6 @@
     <string name="thanks_for_your_rate">Спасибо за вашу оценку</string>
     <string name="watch_more">Подробнее</string>
     <string name="no_task_chosen">Задача не выбрана</string>
+    <string name="refuse_meeting">Отказаться от встречи</string>
+    <string name="sure_in">"\t Уверен(а) на "</string>
 </resources>

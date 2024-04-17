@@ -168,4 +168,6 @@
     <string name="thanks_for_your_rate">Thanks for your rate</string>
     <string name="watch_more">Watch more</string>
     <string name="no_task_chosen">No task chosen</string>
+    <string name="refuse_meeting">Refuse meeting</string>
+    <string name="sure_in">"\t Sure in "</string>
 </resources>

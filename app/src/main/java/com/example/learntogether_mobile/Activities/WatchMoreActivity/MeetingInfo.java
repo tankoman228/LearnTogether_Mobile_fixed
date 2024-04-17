@@ -130,14 +130,14 @@ public class MeetingInfo extends AppCompatActivity {
     private void updateSelectedTime() {
 
         if (sbSure.getProgress() == 0) {
-            btnJoin.setText("Refuse meeting");
+            btnJoin.setText(R.string.refuse_meeting);
             return;
         }
 
         String text = getTimeStringFromMinutes(sbFrom.getProgress());;
         text += " - ";
         text += getTimeStringFromMinutes(sbUntil.getProgress());
-        text += "\t Sure in ";
+        text += getString(R.string.sure_in);
         text += sbSure.getProgress();
         text += "%";
         btnJoin.setText(text);
@@ -167,7 +167,7 @@ public class MeetingInfo extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
                 LoadRetrofit();
-                Toast.makeText(MeetingInfo.this, "Success", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MeetingInfo.this, R.string.success, Toast.LENGTH_SHORT).show();
             }
 
             @Override
