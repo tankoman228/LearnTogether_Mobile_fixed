@@ -1,102 +1,107 @@
-package com.example.learntogether_mobile.API;
+package com.example.learntogether_mobile.API
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-
-import com.example.learntogether_mobile.API.Loaders.GroupsAndUsersLoader;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import android.content.Context
+import android.graphics.Bitmap
+import com.example.learntogether_mobile.API.Loaders.GroupsAndUsersLoader
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 /**
  * Глобальные переменные о данных сессии, пользователе и т.д., нужны для отправки запросов через Retrofit
  * и отображения некоторых данных.
  * Выполняет сохранение и загрузку из shared prefs
  */
-public class GlobalVariables {
-    public static String SessionToken, username, password, server = "http://80.89.196.150:8000/";
-    public static int current_id_group = -1;
-    public static String Title, AboutMe;
-    public static Bitmap myIcon;
-    public static List<String> myPermissions;
+object GlobalVariables {
 
-    public static void saveValuesToSharedPrefs(Context context) {
-        SharedPreferences sharedPref = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("SessionToken", SessionToken);
-        editor.putString("username", username);
-        editor.putString("password", password);
-        editor.putString("server", server);
-        editor.putInt("current_id_group", current_id_group);
-        editor.apply();
+    @JvmField
+    var SessionToken: String? = null
+    @JvmField
+    var username: String? = null
+    @JvmField
+    var password: String? = null
+    @JvmField
+    var server: String? = "http://80.89.196.150:8000/"
+    @JvmField
+    var current_id_group = -1
+    @JvmField
+    var Title: String? = null
+    @JvmField
+    var AboutMe: String? = null
+    @JvmField
+    var myIcon: Bitmap? = null
+    @JvmField
+    var myPermissions: List<String>? = null
+
+    @JvmStatic
+    fun saveValuesToSharedPrefs(context: Context) {
+        val sharedPref = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPref.edit()
+        editor.putString("SessionToken", SessionToken)
+        editor.putString("username", username)
+        editor.putString("password", password)
+        editor.putString("server", server)
+        editor.putInt("current_id_group", current_id_group)
+        editor.apply()
     }
 
-    public static void loadValuesFromSharedPrefs(Context context) {
-        SharedPreferences sharedPref = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        SessionToken = sharedPref.getString("SessionToken", null);
-        username = sharedPref.getString("username", null);
-        password = sharedPref.getString("password", null);
-        server = sharedPref.getString("server", "http://80.89.196.150:8000/");
-        current_id_group = sharedPref.getInt("current_id_group", -1);
+    @JvmStatic
+    fun loadValuesFromSharedPrefs(context: Context) {
+        val sharedPref = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        SessionToken = sharedPref.getString("SessionToken", null)
+        username = sharedPref.getString("username", null)
+        password = sharedPref.getString("password", null)
+        server = sharedPref.getString("server", "http://80.89.196.150:8000/")
+        current_id_group = sharedPref.getInt("current_id_group", -1)
     }
 
     /**
      * Спрашивает у сервера о том, какие разрешения есть у пользователя в текущей группе
      */
-    public static void requireMyAccountInfo(Context context) {
-        RequestU requestU = new RequestU();
-        requestU.setSession_token(GlobalVariables.SessionToken);
+    @JvmStatic
+    fun requireMyAccountInfo(context: Context) {
+        val requestU = RequestU()
+        requestU.session_token = SessionToken
         if (current_id_group == -1) {
-            GroupsAndUsersLoader.UpdateCacheGroups(() -> {
-                current_id_group = GroupsAndUsersLoader.Groups.get(0).getID_Group();
-                saveValuesToSharedPrefs(context);
+            GroupsAndUsersLoader.UpdateCacheGroups {
+                current_id_group = GroupsAndUsersLoader.Groups[0].ID_Group
+                saveValuesToSharedPrefs(context)
+                requestU.id_group = current_id_group
+                RetrofitRequest().apiService.my_account_info(requestU)
+                    .enqueue(object : Callback<ListU> {
+                        override fun onResponse(call: Call<ListU>, response: Response<ListU>) {
+                            Title = response.body()!!.Title
+                            AboutMe = response.body()!!.Text
+                            myIcon = ImageConverter.decodeImage(response.body()!!.Icon)
+                            myPermissions = response.body()!!.Items
+                        }
 
-                requestU.setId_group(current_id_group);
-                new RetrofitRequest().apiService.my_account_info(requestU).enqueue(new Callback<ListU>() {
-                    @Override
-                    public void onResponse(Call<ListU> call, Response<ListU> response) {
-                        Title = response.body().getTitle();
-                        AboutMe = response.body().getText();
-                        myIcon = ImageConverter.decodeImage(response.body().getIcon());
-                        myPermissions = response.body().getItems();
+                        override fun onFailure(call: Call<ListU>, t: Throwable) {}
+                    })
+            }
+        } else {
+            requestU.id_group = current_id_group
+            RetrofitRequest().apiService.my_account_info(requestU)
+                .enqueue(object : Callback<ListU> {
+                    override fun onResponse(call: Call<ListU>, response: Response<ListU>) {
+                        Title = response.body()!!.Title
+                        AboutMe = response.body()!!.Text
+                        myIcon = ImageConverter.decodeImage(response.body()!!.Icon)
+                        myPermissions = response.body()!!.Items
                     }
 
-                    @Override
-                    public void onFailure(Call<ListU> call, Throwable t) {
-
-                    }
-                });
-            });
-        }
-        else {
-            requestU.setId_group(current_id_group);
-            new RetrofitRequest().apiService.my_account_info(requestU).enqueue(new Callback<ListU>() {
-                @Override
-                public void onResponse(Call<ListU> call, Response<ListU> response) {
-                    Title = response.body().getTitle();
-                    AboutMe = response.body().getText();
-                    myIcon = ImageConverter.decodeImage(response.body().getIcon());
-                    myPermissions = response.body().getItems();
-                }
-
-                @Override
-                public void onFailure(Call<ListU> call, Throwable t) {
-
-                }
-            });
+                    override fun onFailure(call: Call<ListU>, t: Throwable) {}
+                })
         }
     }
 
-    public static boolean IsAllowed(String permission) {
-        for (String s: myPermissions) {
-            if (permission.equals(s)) {
-                return true;
+    @JvmStatic
+    fun IsAllowed(permission: String): Boolean {
+        for (s in myPermissions!!) {
+            if (permission == s) {
+                return true
             }
         }
-        return false;
+        return false
     }
 }

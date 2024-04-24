@@ -177,11 +177,8 @@ public class AdapterUsersGroups extends BaseAdapter {
 
         //Группа, либо человек
         View view;
-        if (convertView == null) {
-            view = lInflater.inflate(R.layout.item_group, parent, false);
-        } else {
-            view = convertView;
-        }
+        view = lInflater.inflate(R.layout.item_group, parent, false);
+
 
         ListU item = (ListU)getItem(position);
         ImageView ivIcon = view.findViewById(R.id.ivIcon);

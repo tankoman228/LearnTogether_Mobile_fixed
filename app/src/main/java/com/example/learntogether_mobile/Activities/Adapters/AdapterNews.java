@@ -232,6 +232,10 @@ public class AdapterNews extends BaseAdapter {
                             return;
                         }
 
+                        for (var voteOption : adapterVoteItem[0].dataList) {
+                            voteOption.selected = false;
+                        }
+
                         Toast.makeText(ctx, Objects.requireNonNullElse(response.body().Error, ctx.getString(R.string.success)), Toast.LENGTH_SHORT).show();
                     }
 

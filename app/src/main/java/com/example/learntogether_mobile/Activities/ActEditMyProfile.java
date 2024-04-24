@@ -56,13 +56,24 @@ public class ActEditMyProfile extends AppCompatActivity {
         findViewById(R.id.btnSaveChanges).setOnClickListener(l -> {
             RequestU requestU = new RequestU();
             requestU.setNewName(etName.getText().toString());
-            requestU.setNewIcon(ImageConverter.encodeImage(selectedImage));
+            if (selectedImage != null) {
+                requestU.setNewIcon(ImageConverter.encodeImage(selectedImage));
+                GlobalVariables.myIcon = selectedImage;
+                GlobalVariables.Title = requestU.getNewName();
+                GlobalVariables.AboutMe = requestU.getNewDescription();
+            }
+            else {
+                requestU.setNewIcon(ImageConverter.encodeImage(GlobalVariables.myIcon));
+                GlobalVariables.Title = requestU.getNewName();
+                GlobalVariables.AboutMe = requestU.getNewDescription();
+            }
             requestU.setNewDescription(etDescr.getText().toString());
             requestU.setSession_token(GlobalVariables.SessionToken);
             new RetrofitRequest().apiService.edit_profile(requestU).enqueue(new Callback<ResponseU>() {
                 @Override
                 public void onResponse(Call<ResponseU> call, Response<ResponseU> response) {
                     Toast.makeText(ActEditMyProfile.this, Objects.requireNonNullElse(response.body().Error, getString(R.string.success)), Toast.LENGTH_SHORT).show();
+                    GlobalVariables.requireMyAccountInfo(ActEditMyProfile.this);
                 }
 
                 @Override
